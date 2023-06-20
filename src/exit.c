@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 15:24:39 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/20 23:16:59 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/**
+ * Frees a null-terminated array of strings.
+ *
+ * This function iterates through each string in the array, freeing each 
+ * one, then frees the array itself. Assumes that the array and its elements
+ * were dynamically allocated and are safe to free. If the array is NULL or 
+ * contains non-dynamically-allocated elements, the behavior is undefined.
+ *
+ * param tab: Null-terminated array of strings to be freed.
+ */
 void	free_tab(char **tab)
 {
 	int	i;
@@ -25,6 +35,20 @@ void	free_tab(char **tab)
 	free (tab);
 }
 
+/**
+ * Clears the command data structure.
+ *
+ * This function cleans up memory allocated for tokens, command, input, 
+ * and output files in the given data structure. It also resets certain 
+ * data fields to their default values, such as file descriptors and 
+ * redirection flags. The data structure fields must be correctly 
+ * initialized before calling this function, else the behavior is undefined.
+ *
+ * Args:
+ *   data: Pointer to the data structure to be cleared. Expected to contain 
+ *         a token list, array of command structures (with fields for command, 
+ *         input file, and output file), and an integer for the number of pipes.
+ */
 void	clear_cmd(t_data *data)
 {
 	int		i;
@@ -53,6 +77,19 @@ void	clear_cmd(t_data *data)
 	}
 }
 
+/**
+ * Frees the environment data in the provided data structure.
+ *
+ * This function clears the environment list and the environment table 
+ * in the provided data structure, freeing any associated memory. It 
+ * assumes the environment data is correctly initialized and safe to free. 
+ * If not, the behavior is undefined.
+ *
+ * Args:
+ *   data: Pointer to the data structure containing the environment 
+ *         data to be freed. It is expected to contain a list of 
+ *         environment variables and a table of environment strings.
+ */
 void	free_env(t_data *data)
 {
 	if (data->env && data->env != NULL)
@@ -61,6 +98,26 @@ void	free_env(t_data *data)
 		free_tab(data->env_tab);
 }
 
+/**
+ * Exits the program and performs necessary cleanup.
+ *
+ * This function outputs an error message (if provided), frees all 
+ * environment data and path information in the given data structure, 
+ * then exits the program. Depending on the error code, it may also 
+ * clear command data and exit with a failure status. It's assumed 
+ * that the data structure and error message string (if not NULL) 
+ * are properly initialized and safe to free or print. If not, 
+ * the behavior is undefined.
+ *
+ * Args:
+ *   data: Pointer to the data structure containing the environment 
+ *         and path data to be freed, and potentially command data to 
+ *         be cleared.
+ *   err: Error code. If 1, command data is also cleared and the program 
+ *        exits with a failure status.
+ *   str: Error message string to be printed to stderr. If NULL, no 
+ *        message is printed.
+ */
 void	exit_all(t_data *data, int err, char *str)
 {
 	if (str != NULL)

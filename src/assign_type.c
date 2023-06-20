@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   assign_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/18 19:08:38 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/20 19:07:24 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+** Function: len_is_one
+** ---------------------
+** Assigns the corresponding type to a token based on its first character
+** if its length is one.
+**
+** Args:
+** - data: Pointer to the main data structure.
+** - tmp: Pointer to the token list.
+**
+** Side effects:
+** Assigns a type to the token based on its content.
+** For '&' content, exits with an error message.
+*/
 void	len_is_one(t_data *data, t_list *tmp)
 {
 	if (tmp->content[0] == '|' && tmp->type == 0)
@@ -33,6 +47,17 @@ void	len_is_one(t_data *data, t_list *tmp)
 		tmp->type = BLANCK;
 }
 
+/*
+** Function: len_is_two
+** ---------------------
+** If a token's length is two, assigns corresponding type based on its content.
+**
+** Args:
+** - tmp: Pointer to the token list.
+**
+** Side effects:
+** Assigns a type to the token based on its content.
+*/
 void	len_is_two(t_list *tmp)
 {
 	if (tmp->content[0] == '<' && tmp->content[1] == '<' && tmp->type == 0)
@@ -44,6 +69,17 @@ void	len_is_two(t_list *tmp)
 		tmp->type = DELIMITER_APPEND;
 }
 
+/*
+** Function: type_dollar
+** ----------------------
+** Assigns the corresponding type to a token starting with '$'.
+**
+** Args:
+** - tmp: Pointer to the token list.
+**
+** Side effects:
+** Assigns a type to the token based on its content.
+*/
 void	type_dollar(t_list *tmp)
 {
 	int	i;
@@ -59,6 +95,17 @@ void	type_dollar(t_list *tmp)
 	}
 }
 
+/*
+** Function: type_option
+** ----------------------
+** Determines if a token starting with '-' is a number or an option.
+**
+** Args:
+** - tmp: Pointer to the token list.
+**
+** Side effects:
+** Assigns a type to the token based on its content.
+*/
 void	type_option(t_list *tmp)
 {
 	size_t	i;
@@ -72,6 +119,18 @@ void	type_option(t_list *tmp)
 		tmp->type = OPTION;
 }
 
+/*
+** Function: redirection_file
+** ---------------------------
+** Determines if the next token in the list is an output or input file
+** following a redirection.
+**
+** Args:
+** - tmp: Pointer to the token list.
+**
+** Side effects:
+** Assigns a type to the next token in the list based on the current token's type.
+*/
 void	redirection_file(t_list *tmp)
 {
 	if (tmp->type == REDIRECT_OUTPUT && tmp->next->type == 0)
@@ -80,6 +139,17 @@ void	redirection_file(t_list *tmp)
 		tmp->next->type = INFILE;
 }
 
+/*
+** Function: check_quoted_phrase
+** -----------------------------
+** Checks if a quoted token contains space. If not, it is assigned type COMMANDE.
+**
+** Args:
+** - tmp: Pointer to the token list.
+**
+** Side effects:
+** Assigns a type to the token based on its content.
+*/
 void	check_quoted_phrase(t_list *tmp)
 {
 	int	i;
@@ -94,6 +164,18 @@ void	check_quoted_phrase(t_list *tmp)
 	tmp->type = COMMANDE; /* rechecker ce que ca peut etre */
 }
 
+/*
+** Function: type_arithmetic
+** --------------------------
+** If a token's length > 1 and it contains '+', the function checks for
+** '=' following '+' and assigns type ARITHMETIC_APPEND.
+**
+** Args:
+** - tmp: Pointer to the token list.
+**
+** Side effects:
+** Assigns a type to the token based on its content.
+*/
 void	type_arithmetic(t_list *tmp)
 {
 	int	i;
@@ -114,6 +196,17 @@ void	type_arithmetic(t_list *tmp)
 	}
 }
 
+/*
+** Function: assign_type
+** ----------------------
+** Assigns types to tokens in the list based on their content.
+**
+** Args:
+** - data: Pointer to the main data structure.
+**
+** Side effects:
+** Assigns types to the tokens in the list based on their content.
+*/
 void	assign_type(t_data *data)/* gerer rapidement les $variable <-- important */
 {
 	t_list	*tmp;

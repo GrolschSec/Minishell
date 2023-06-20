@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   split_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:53:43 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 16:44:14 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:58:55 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+** split_meta: Splits metacharacters from user input into individual nodes.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The user input string.
+**   i: Pointer to the current index in the string.
+**   j: Pointer to the start index of the substring.
+*/
 static void	split_meta(t_data *data, char *str, int *i, int *j)
 {
 	(*i)++;
@@ -48,6 +57,23 @@ static void	split_meta(t_data *data, char *str, int *i, int *j)
 	(*i)--;
 }
 
+
+/*
+** extract_variable: Extracts a variable name from the user input string
+** enclosed in double quotes.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The user input string.
+**   i: Pointer to the current index in the string.
+**   j: Pointer to the start index of the substring.
+**
+** Returns:
+**   Pointer to the extracted variable name.
+**
+** Side effects:
+**   If an error occurs, the program exits with an error message.
+*/
 char	*extract_variable(t_data *data, char *str, int *i, int *j)
 {
 	char	*variable;
@@ -67,6 +93,19 @@ char	*extract_variable(t_data *data, char *str, int *i, int *j)
 	return (variable);
 }
 
+/*
+** add_variable_quoted: Adds a new node to the token list containing 
+** a variable name extracted from a quoted string in the user input.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The user input string.
+**   i: Pointer to the current index in the string.
+**   j: Pointer to the start index of the substring.
+**
+** Side effects:
+**   If an error occurs, the program exits with an error message.
+*/
 static void	add_variable_quoted(t_data *data, char *str, int *i, int *j)
 {
 	t_list	*tmp;
@@ -89,11 +128,24 @@ static void	add_variable_quoted(t_data *data, char *str, int *i, int *j)
 	free(variable);
 }
 
+/*
+** split_double_quotes: Handles the parsing of a double quoted string
+** in the user input and adds a new node to the token list accordingly.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The user input string.
+**   i: Pointer to the current index in the string.
+**   j: Pointer to the start index of the substring.
+**
+** Side effects:
+**   If an error occurs, the program exits with an error message.
+*/
 static void	split_double_quotes(t_data *data, char *str, int *i, int *j)
 {
-	int	quote;
+	//int	quote;
 
-	quote = 0;
+	//quote = 0;
 	if (str[*i - 1] == '=')
 	{
 		add_variable_quoted(data, str, i, j);/* si variable_value entre doubel quotes - a faire aussi pour single quotes */
@@ -124,6 +176,19 @@ static void	split_double_quotes(t_data *data, char *str, int *i, int *j)
 		exit_all(data, 1, "There is a double quote missing");
 }
 
+/*
+** split_single_quotes: Handles the parsing of a single quoted string
+** in the user input and adds a new node to the token list accordingly.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The user input string.
+**   i: Pointer to the current index in the string.
+**   j: Pointer to the start index of the substring.
+**
+** Side effects:
+**   If an error occurs, the program exits with an error message.
+*/
 static void	split_single_quotes(t_data *data, char *str, int *i, int *j)
 {
 	(*i)++;
@@ -152,6 +217,14 @@ static void	split_single_quotes(t_data *data, char *str, int *i, int *j)
 }
 
 /* A NORMER -- fonction qui repartit l'input  en liste chainee */
+/*
+** split_in_list: Splits the user input into nodes based on space,
+** metacharacters, and quotes, and adds them to the token list.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The user input string.
+*/
 void	split_in_list(t_data *data, char *str)
 {
 	int		i;

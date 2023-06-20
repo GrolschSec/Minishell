@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 17:01:04 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:28:01 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ void	put_cmd_in_tab(t_data *data, int nb) /* malloc le nombre de t_exec en fonct
 void	parse_cmd(t_data *data)
 {
 	char	*str;
-	int		i;
+	//int		i;
 
-	i = 0;
+	//i = 0;
 	str = NULL;
 	str = ft_strtrim(data->input, " ");
 	split_in_list(data, str);

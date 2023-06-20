@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   split_list_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:08:29 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/18 19:46:02 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:56:01 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+** is_metacharacter: Checks if a character is a metacharacter.
+** Metacharacters include '|', '&', ';', '(', ')', '<', '>'.
+**
+** Args:
+**   c: Character to be checked.
+**
+** Returns:
+**   1 if the character is a metacharacter, 0 otherwise.
+*/
 int	is_metacharacter(char c)
 {
 	if (c == '|' || c == '&' || c == ';')
@@ -23,6 +33,16 @@ int	is_metacharacter(char c)
 	return (0);
 }
 
+/*
+** is_space: Checks if a character is a space character.
+** Space characters include ' ', '\t', '\n', '\v', '\f', '\r'.
+**
+** Args:
+**   c: Character to be checked.
+**
+** Returns:
+**   1 if the character is a space character, 0 otherwise.
+*/
 int	is_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n')
@@ -32,6 +52,18 @@ int	is_space(char c)
 	return (0);
 }
 
+/*
+** fill_tmp: Allocates memory and fills it with a substring from the 
+** provided string starting at the start index up to the length.
+**
+** Args:
+**   str: The original string.
+**   len: Length of the substring to be filled in the allocated memory.
+**
+** Returns:
+**   A pointer to the newly allocated memory containing the substring 
+**   or NULL in case of an error or if the length is non-positive.
+*/
 char	*fill_tmp(char *str, int len)
 {
 	char	*tmp;
@@ -55,6 +87,20 @@ char	*fill_tmp(char *str, int len)
 	return (tmp);
 }
 
+/*
+** add_node: Creates a new node with a copy of a substring from the 
+** provided string and appends it to the end of the linked list in 
+** the provided data structure.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The original string.
+**   i: The end index of the substring.
+**   j: The start index of the substring.
+**
+** Side effects:
+**   If an error occurs, the program exits with an error message.
+*/
 void	add_node(t_data *data, char *str, int i, int j)
 {
 	char	*tmp;
@@ -73,6 +119,21 @@ void	add_node(t_data *data, char *str, int i, int j)
 		exit_all(data, 1, "There is a problem with malloc when I try to add a node in the end of token list");
 }
 
+/*
+** add_node_double_quote: Similar to add_node but the new node is marked 
+** as containing a double quoted string. It also checks if the character 
+** before the start index of the substring is an '=' and adjusts the 
+** node type accordingly.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The original string.
+**   i: The end index of the substring.
+**   j: The start index of the substring.
+**
+** Side effects:
+**   If an error occurs, the program exits with an error message.
+*/
 void	add_node_double_quote(t_data *data, char *str, int i, int j)
 {
 	char	*tmp;
@@ -97,6 +158,21 @@ void	add_node_double_quote(t_data *data, char *str, int i, int j)
 		exit_all(data, 1, "There is a problem with malloc when I try to add a quoted node in the end of token list");
 }
 
+/*
+** add_node_single_quote: Similar to add_node but the new node is marked 
+** as containing a single quoted string. It also checks if the character 
+** before the start index of the substring is an '=' and adjusts the 
+** node type accordingly.
+**
+** Args:
+**   data: Pointer to the data structure where the token list is located.
+**   str: The original string.
+**   i: The end index of the substring.
+**   j: The start index of the substring.
+**
+** Side effects:
+**   If an error occurs, the program exits with an error message.
+*/
 void	add_node_single_quote(t_data *data, char *str, int i, int j)
 {
 	char	*tmp;

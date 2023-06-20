@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 15:19:11 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:04:41 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	fill_env_list(char **env, t_data *data)
 	i = 0;
 	res = 0;
 	new = NULL;
-	if (env)
+	if (env) // Avec env -i l'environnement n'est pas nul mais env[0] oui
 	{
 		while (env[i])
 		{
@@ -69,7 +69,7 @@ void	fill_env_list(char **env, t_data *data)
 			i++;
 		}
 	}
-	data->nb_env = count_env_list(data->env);
+	data->nb_env = count_env_list(data->env); // segfault ici car data->env 0x0
 	// printf("data->nb_env: %d\n", data->nb_env);
 	put_env_in_tab(data);
 }

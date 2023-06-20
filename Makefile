@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
+#    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 14:37:37 by nagvaill          #+#    #+#              #
-#    Updated: 2023/06/18 19:53:43 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/06/20 19:48:04 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ FILES = 	main					\
 			fill_redirections		\
 			env 					\
 			export					\
-			eccho					\
+			echo					\
 			exit
 			# unset					\
 
@@ -63,4 +63,10 @@ fclean    :    clean
 
 re        :    fclean all
 
-.PHONY    :    all clean fclean re
+valgrind  :	   
+	valgrind --track-fds=yes --log-file=leaks.txt --trace-children=yes --suppressions=rl_leaks.txt --leak-check=full -s ./minishell
+
+debug: CFLAGS += -g -O0
+debug: all
+
+.PHONY    :    all clean fclean re valgrind
