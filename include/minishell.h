@@ -6,13 +6,12 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 18:21:14 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:03:16 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -23,6 +22,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "../libft/libft.h"
+extern int	g_exit;
 
 typedef struct s_path
 {
@@ -83,6 +83,7 @@ typedef struct s_data
 
 /* MAIN */
 void	print_all(t_data *data);
+void	ft_handler(int sig);
 
 /* SPLIT LIST */
 int		is_metacharacter(char c);
@@ -133,4 +134,9 @@ void	builtin_unset(t_data *data, t_list *pos);
 void	clear_cmd(t_data *data);
 void	free_tab(char **tab);
 void	exit_all(t_data *data, int err, char *str);
+
+/* EXEC */
+void	execution(t_data *data);
+int		process_creation(t_data *data, t_exec exec);
+int		command_exec(t_data *data, t_exec exec);
 #endif

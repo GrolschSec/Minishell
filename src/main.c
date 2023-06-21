@@ -6,11 +6,13 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 20:05:20 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/21 02:00:08 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	g_exit = 0;
 
 /*
 ** Function: print_all
@@ -124,9 +126,10 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	(void)argv;
+	(void)argc;
 
-	char *empty_envp[] = { NULL };
-    env = empty_envp;
+	if (!isatty(STDIN_FILENO)) //|| !isatty(STDOUT_FILENO))
+		return (0);
 	ft_bzero(&data, sizeof(data));
 	fill_env_list(env, &data); // Segfault env -i
 	parse_path(&data);
@@ -135,16 +138,21 @@ int	main(int argc, char **argv, char **env)
 	{
 		signal(SIGINT, ft_handler);
 		signal(SIGQUIT, SIG_IGN);
-		data.input = readline("Minishell>");
-		if (!data.input)
+		data.input = readline("Minishell> ");
+		if (!data.input)	
 		{
+			printf("exit\n");
 			exit_all(&data, 0, NULL);
 		}
-		add_history(data.input);
-		parse_cmd(&data);
-		exec_cmd(&data); /* mini fonction exec pour tester certains builtins */
-		// execution(&data); --> a ajouter
-		clear_cmd(&data);
+		else if (data.input && data.input[0])
+		{
+			add_history(data.input);
+			parse_cmd(&data);
+			clear_cmd(&data);
+			execution(&data);
+			// LEAK: the return of readline should be free
+		}
+		//exec_cmd(&data); /* mini fonction exec pour tester certains builtins */
 	}
 	return (0);
 }
