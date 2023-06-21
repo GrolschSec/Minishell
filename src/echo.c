@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:05:41 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 17:05:45 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:48:33 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 void	print_lines(int i, char **str, int fd)
 {
 	while (str[i] && (str[i][0] != '>'
-		&& str[i][0] != '<' && str[i][0] != '|')) /* a retoucher a mon avis */
+		&& str[i][0] != '<' && str[i][0] != '|'
+		&& str[i][0] != '$')) /* a retoucher a mon avis */
 	{
 		ft_putstr_fd(str[i++], fd);
-		if (str[i])
-			ft_putchar_fd(' ', fd);
+		// if (str[i])
+		// 	ft_putchar_fd(' ', fd);
 	}
+	// if (str[i][0] == '$')
+	// {
+	// 	if (str[i][])
+	// }
 }
 
 void	builtin_echo_str(t_data *data, char **cmd)

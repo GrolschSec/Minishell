@@ -6,12 +6,25 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 15:38:43 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:53:09 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+int	g_exit = 0;
+
+/*
+** Function: print_all
+** -------------------
+** Prints all tokens in the list for debugging. (Function will be removed)
+**
+** Args:
+** - data: Pointer to the main data structure.
+**
+** Side effects:
+** - Prints the content and type of each token in the list.
+*/
 void	print_all(t_data *data)/* A supprimer aussi */
 {
 	t_list	*tmp;
@@ -29,6 +42,15 @@ void	print_all(t_data *data)/* A supprimer aussi */
 	printf("----END ALL-----\n");
 }
 
+/*
+** Function: builtin_pwd
+** ---------------------
+** Built-in function to print the current working directory.
+**
+** Side effects:
+** - Prints the current working directory to the standard output.
+** - Frees memory allocated for the directory path string.
+*/
 void	builtin_pwd(void)
 {
 	char	*pwd;
@@ -39,6 +61,17 @@ void	builtin_pwd(void)
 	free(pwd);
 }
 
+/*
+** Function: ft_handler
+** --------------------
+** Signal handler for interrupt signals (Ctrl+C).
+**
+** Args:
+** - sig: Signal number.
+**
+** Side effects:
+** - When an interrupt signal is received, a new line is printed and the input line is reset.
+*/
 void	ft_handler(int sig)
 {
 	if (sig == SIGINT)
@@ -50,6 +83,17 @@ void	ft_handler(int sig)
 	}
 }
 
+/*
+** Function: exec_cmd
+** ------------------
+** Executes the parsed commands.
+**
+** Args:
+** - data: Pointer to the main data structure.
+**
+** Side effects:
+** - Calls the appropriate built-in function for each command in the parsed list.
+*/
 void	exec_cmd(t_data *data)
 {
 	int	i;
@@ -82,27 +126,33 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	(void)argv;
+	(void)argc;
 
+	if (!isatty(STDIN_FILENO)) //|| !isatty(STDOUT_FILENO))
+		return (0);
 	ft_bzero(&data, sizeof(data));
-	if (!env || env == NULL || argc != 1)
-		exit_all(&data, 1, "There is a problem with the arguments or the environment");
-	fill_env_list(env, &data);
+	fill_env_list(env, &data); // Segfault env -i
 	parse_path(&data);
 	// print_env_tab(&data); -> pour tester si env ok
 	while (1)
 	{
 		signal(SIGINT, ft_handler);
 		signal(SIGQUIT, SIG_IGN);
-		data.input = readline("Minishell>");
-		if (!data.input)
+		data.input = readline(COLOR_RED "Minishell> " COLOR_RESET);
+		if (!data.input)	
 		{
+			printf("exit\n");
 			exit_all(&data, 0, NULL);
 		}
-		add_history(data.input);
-		parse_cmd(&data);
-		exec_cmd(&data); /* mini fonction exec pour tester certains builtins */
-		// execution(&data); --> a ajouter
-		clear_cmd(&data);
+		else if (data.input && data.input[0])
+		{
+			add_history(data.input);
+			parse_cmd(&data);
+			// exec_cmd(&data); /* mini fonction exec pour tester certains builtins */
+			// execution(&data);
+			// LEAK: the return of readline should be free
+			clear_cmd(&data);
+		}
 	}
 	return (0);
 }

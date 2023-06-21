@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 17:01:04 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:59:59 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	print_tab(t_data *data) /* print pour checker si c'est bon (a virer plus ta
 	int	nb_jobs;
 	int	infile;
 	int	outfile;
-
+	int nb_eof;
+	
+	nb_eof = 0;
 	outfile = 0;
 	infile = 0;
 	nb_jobs = 0;
@@ -35,6 +37,7 @@ void	print_tab(t_data *data) /* print pour checker si c'est bon (a virer plus ta
 		if (data->exec[nb_jobs].redirect_input > 0)
 		{
 			infile = 0;
+			printf("nb d'infiles: %d\n", data->exec[nb_jobs].redirect_input);
 			while (infile < data->exec[nb_jobs].redirect_input)
 			{
 				printf("infile[%d]: %s\n", infile, data->exec[nb_jobs].infile[infile]);
@@ -48,6 +51,15 @@ void	print_tab(t_data *data) /* print pour checker si c'est bon (a virer plus ta
 			{
 				printf("outfile[%d]: %s\n", outfile, data->exec[nb_jobs].outfile[outfile]);
 				outfile++;
+			}
+		}
+		if (data->exec[nb_jobs].heredoc > 0)
+		{
+			nb_eof = 0;
+			while (nb_eof < data->exec[nb_jobs].heredoc)
+			{
+				printf("eof[%d]: %s\n", nb_eof, data->exec[nb_jobs].eof[nb_eof]);
+				nb_eof++;
 			}
 		}
 		nb_jobs++;
@@ -67,10 +79,8 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x) /* remplit le
 {
 	int		y;
 	t_list	*count;
-	int		flag;
 
 	y = 0;
-	flag = 0;
 	count = *tmp;
 	current[x].nb_cmd = count_cmd(count);
 	init_exec(current, x);
@@ -80,21 +90,14 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x) /* remplit le
 	while (y < current[x].nb_cmd)
 	{
 		if ((*tmp)->next != NULL && is_redirection(*tmp) == 1)
-		{
 			count_redirections(*tmp, current, x);
-			*tmp = (*tmp)->next;
-			flag = 1;
-		}
 		else
 			current[x].cmd[y++] = ft_strdup((*tmp)->content);
-		if ((*tmp)->next != NULL && flag == 0)
-			*tmp = (*tmp)->next;
-		flag = 0;
+		*tmp = (*tmp)->next;
 	}
 	while ((*tmp) && ((*tmp)->type == PIPE || is_redirection(*tmp)))
 	{
 		count_redirections(*tmp, current, x);
-		// printf("dans fill exec, tmp->content: %s\n", (*tmp)->content);
 		*tmp = (*tmp)->next;
 	}
 	current[x].cmd[y] = NULL;
@@ -132,5 +135,6 @@ void	parse_cmd(t_data *data)
 	count_pipes(data);
 	put_cmd_in_tab(data, data->pipes);
 	fill_files(data);
+	fill_eof(data);
 	print_tab(data);
 }

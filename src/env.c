@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 15:19:11 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:48:47 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	fill_env_list(char **env, t_data *data)
 	i = 0;
 	res = 0;
 	new = NULL;
-	if (env)
+	if (env[0])
 	{
 		while (env[i])
 		{
@@ -69,6 +69,8 @@ void	fill_env_list(char **env, t_data *data)
 			i++;
 		}
 	}
+	else
+		exit_all(data, 1, "There is no env");
 	data->nb_env = count_env_list(data->env);
 	// printf("data->nb_env: %d\n", data->nb_env);
 	put_env_in_tab(data);

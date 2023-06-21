@@ -6,13 +6,12 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 14:56:28 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:58:35 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -24,40 +23,72 @@
 # include <signal.h>
 # include "../libft/libft.h"
 
+# define COLOR_RESET "\e[0;37m"
+# define COLOR_RED "\e[1;31m"
+
+extern int	g_exit;
+
 typedef struct s_path
 {
 	char	*line;
 	char	**tab;
 }				t_path;
 
-typedef struct	s_exec
+/*
+** Structure for command execution
+**
+** cmd: Tab of commands between each pipe
+** infile: Name of each infile between each pipe
+** outfile: Name of each outfile between each pipe
+** fdin: fdin, defaults to 0
+** fdout: fdout, defaults to 1
+** redirect_input: Number of '<' between each pipe
+** redirect_output: Number of '>'
+** heredoc: Number of '<<'
+** delimiter_append: Number of '>>'
+** nb_cmd: Number of commands in the cmd tab
+*/
+typedef struct s_exec
 {
-	char		**cmd; 		/* tab de commandes entre chaque pipe */
-	char		**infile;	/* nom de chaque infile entre chaque pipe */
-	char		**outfile;	/* nom de chaque outfile entre chaque pipe */
-	int			fdin;		/* fdin, par defaut 0 */
-	int			fdout;		/* par defaut 1 */
-	int			redirect_input;		/* nombre de '<' entre chaque pipe */
-	int			redirect_output;	/* nombre de '>' */
-	int			heredoc;			/* nombre de '<< */
-	int			delimiter_append;	/* nombre de '>>' */
-	int			nb_cmd;				/* nombre de commandes dans le tab cmd */
+	char		**cmd;
+	char		**infile;
+	char		**outfile;
+	char		**eof;
+	int			fdin;
+	int			fdout;
+	int			redirect_input;
+	int			redirect_output;
+	int			heredoc;
+	int			delimiter_append;
+	int			nb_cmd;
 }				t_exec;
 
+/*
+** s_data: Data structure for minishell.
+** input: User input string.
+** pipes: Number of pipes + 1.
+** exec: Array of 't_exec' structures, sized per the number of pipes + 1.
+** token_list: Input transformed into a linked list. See libft .h file.
+** env: Linked list of environment variables.
+** env_tab: Environment in character array format.
+** nb_env: Variable count in env. Used when adding variables via export.
+** path: 't_path' struct with parsed path info.
+*/
 typedef struct s_data
 {
 	char		*input;
-	int			pipes;			/* nombre de pipes + 1 */
-	t_exec		*exec;			/* tableau de structures 't_exec' en fonction du nombre de pipes + 1 */
-	t_list		*token_list;	/* input tranforme en liste chainee (voir le .h de la libft )*/
-	t_list		*env;			/* liste chainee env */
-	char		**env_tab;		/* env en tableau de char */
-	int			nb_env;			/* nb de variable dans env, au cas ou nouvelle variable avec export */
+	int			pipes;
+	t_exec		*exec;
+	t_list		*token_list;
+	t_list		*env;
+	char		**env_tab;
+	int			nb_env;
 	t_path		path;
 }				t_data;
 
 /* MAIN */
 void	print_all(t_data *data);
+void	ft_handler(int sig);
 
 /* SPLIT LIST */
 int		is_metacharacter(char c);
@@ -79,11 +110,14 @@ int		is_redirection(t_list *tmp);
 /* COUNT */
 int		count_cmd(t_list *tmp);
 void	count_pipes(t_data *data);
-void    count_redirections(t_list *tmp, t_exec *current, int x);
-void    init_exec(t_exec *current, int x);
+void	count_redirections(t_list *tmp, t_exec *current, int x);
+void	init_exec(t_exec *current, int x);
 
 /* REDIRECTIONS */
 void	fill_files(t_data *data);
+
+/* HEREDOC / EOF */
+void	fill_eof(t_data *data);
 
 /* PATH */
 void	parse_path(t_data *data);
@@ -99,7 +133,7 @@ void	builtin_export(t_data *data, char **pos);
 
 /* ECHO */
 void	print_lines(int i, char **str, int fd);
-void		builtin_echo_str(t_data *data, char **cmd);
+void	builtin_echo_str(t_data *data, char **cmd);
 
 /* UNSET */
 void	builtin_unset(t_data *data, t_list *pos);
@@ -109,4 +143,8 @@ void	clear_cmd(t_data *data);
 void	free_tab(char **tab);
 void	exit_all(t_data *data, int err, char *str);
 
+/* EXEC */
+void	execution(t_data *data);
+int		process_creation(t_data *data, t_exec exec);
+int		command_exec(t_data *data, t_exec exec);
 #endif
