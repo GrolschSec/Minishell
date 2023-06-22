@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/22 15:33:10 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:03:00 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	command_exec(t_data *data, t_exec *exec)
 		path = ft_strdup(exec->cmd[0]);
 	else if (!is_builtin(exec->cmd[0]))
 		path = get_cmd_path(exec->cmd[0], data);
-	printf("%s", path);
 	if (exec->fdin < 0 || exec->fdout < 0 || (!path && !is_builtin(exec->cmd[0])))
 		return (free(path), -1);
 	if (exec->fdin > STDIN_FILENO)
@@ -157,30 +156,26 @@ int	is_builtin(char *cmd)
 char	*get_cmd_path(char *cmd, t_data *data)
 {
 	int		i;
-	char	**path;
-	char	*cmd_path;
+	char	*path;
 	char	*tmp;
 	
-	(void)data;
-	path = ft_split(getenv("PATH"), ':');
-	if (!path)
-		return (NULL);
 	i = 0;
-	while (path[i])
+	while (data->path.tab[i])
 	{
-		tmp = ft_strjoin(path[i], "/");
+		tmp = ft_strjoin2(data->path.tab[i], "/");
 		if (!tmp)
-			return (free_tab_exec(path, i), NULL);
-		cmd_path = ft_strjoin(tmp, cmd);
-		if (!cmd_path)
-			return (free_tab_exec(path, i), NULL);
-		if (access(cmd_path, X_OK) == 0)
-			return (free_tab_exec(path, i), cmd_path);
-		free(cmd_path);
-		cmd_path = NULL;
+			return (NULL);
+		path = ft_strjoin2(tmp, cmd);
+		free(tmp);
+		if (!path)
+			return (NULL);
+		if (access(path, X_OK) == 0)
+			return (path);
+		free(path);
+		path = NULL;
 		i++;
 	}
-	return (free_tab(path), NULL);
+	return (NULL);
 }
 
 /*
@@ -229,6 +224,22 @@ int	exec_last_child(t_data *data, t_exec *exec)
 	return (0);
 }
 
+char	*ft_strjoin2(char *s1, char const *s2)
+{
+	char	*dst;
+	size_t	len_s1;
+	size_t	len_s2;
+
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	dst = malloc((sizeof(char) * len_s1) + (sizeof(char) * len_s2) + 1);
+	if (dst == 0 || !dst)
+		return (NULL);
+	ft_strlcpy(dst, s1, (len_s1 + 1));
+	ft_strlcat(dst, s2, (len_s1 + len_s2 + 1));
+	return (dst);
+}
+
 /*
  * last_child creates a new process and executes the command in the child.
  * The parent waits for the child and retrieves the exit status.
@@ -261,5 +272,5 @@ int	last_child(t_data *data, t_exec *exec)
 		if (WIFEXITED(status))
 			g_exit = WEXITSTATUS(status);
 	}
-	return (signal(SIGINT, ft_handler), signal(SIGQUIT, SIG_IGN), 0);
+	return (0);
 }
