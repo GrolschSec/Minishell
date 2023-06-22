@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/22 15:27:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:33:10 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ int	exec_last_child(t_data *data, t_exec *exec)
 	{
 		close(data->cpy_in);
 		close(data->cpy_out);
-		return (0); /*clening*/
+		return (0); /*cleaning*/
 	}
 	return (0);
 }
