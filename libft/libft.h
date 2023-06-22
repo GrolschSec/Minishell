@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 12:18:12 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:30:41 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ typedef enum	e_type
 	PIPE,
 	COMMANDE,
 	OPTION,
-	INFILE,
-	OUTFILE,
+	INFILE,				/* ce qui suit '<' */
+	OUTFILE,			/* ce qui suit '>' ou '>> */
+	ENDOFFILE,			/* ce qui suit '<<' */
 	REDIRECT_INPUT,		/* < */
 	REDIRECT_OUTPUT,	/* > */
-	DELIMITER_INPUT,	/* << */
+	HEREDOC,			/* << */
 	DELIMITER_APPEND,	/* >> */
 	DOLLAR,
 	EPERLUETTE,
@@ -36,8 +37,6 @@ typedef enum	e_type
 	SEMICOLON,
 	PARENTHESIS,
 	BLANCK,
-	HEREDOC,			/* pas sure que ce soit utile */
-	ENDOFFILE,			/* ce qui suit '<<' */
 	VARIABLE_NAME,
 	VARIABLE_VALUE,
 	EXIT_STATUS,

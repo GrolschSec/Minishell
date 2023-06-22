@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/21 18:35:47 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:52:40 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ void	free_tab(char **tab)
 	free (tab);
 }
 
+void	close_fds(t_data *data)
+{
+	int		x;
+
+	x = 0;
+	while (x < data->pipes)
+	{
+		if (data->exec[x].fdin != 0)
+			close(data->exec[x].fdin);
+		if (data->exec[x].fdout != 1)
+			close(data->exec[x].fdout);
+		x++;
+	}
+}
 /**
  * Clears the command data structure.
  *
@@ -68,15 +82,12 @@ void	clear_cmd(t_data *data)
 				free_tab(data->exec[i].outfile);
 			if (data->exec[i].eof)
 				free_tab(data->exec[i].eof);
-			data->exec[i].fdin = 0;
-			data->exec[i].fdout = 1;
-			data->exec[i].redirect_input = 0;
-			data->exec[i].redirect_output = 0;
-			data->exec[i].heredoc = 0;
-			data->exec[i].delimiter_append = 0;
-			data->exec[i].nb_cmd = 0;
+			if (data->exec[i].last_redir_out)
+				free(data->exec[i].last_redir_out);
 			i++;
 		}
+		if (data->exec)
+			free(data->exec);
 	}
 }
 

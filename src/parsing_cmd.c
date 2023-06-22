@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/21 18:59:59 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:48:44 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	is_redirection(t_list *tmp) /* check si n'est pas une commande mais une redi
 {
 	if (tmp->type == INFILE || tmp->type == OUTFILE
 		|| tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT
-		|| tmp->type == HEREDOC || tmp->type == ENDOFFILE)
+		|| tmp->type == HEREDOC || tmp->type == ENDOFFILE
+		|| tmp->type == DELIMITER_APPEND)
 		return (1);
 	return (0);
 }
@@ -136,5 +137,6 @@ void	parse_cmd(t_data *data)
 	put_cmd_in_tab(data, data->pipes);
 	fill_files(data);
 	fill_eof(data);
+	open_files(data);
 	print_tab(data);
 }

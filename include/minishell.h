@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/21 18:58:35 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:48:36 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ typedef struct s_exec
 	char		**infile;
 	char		**outfile;
 	char		**eof;
+	char		*last_redir_out;
 	int			fdin;
 	int			fdout;
 	int			redirect_input;
 	int			redirect_output;
 	int			heredoc;
-	int			delimiter_append;
+	// int			delimiter_append;
 	int			nb_cmd;
 }				t_exec;
 
@@ -115,6 +116,7 @@ void	init_exec(t_exec *current, int x);
 
 /* REDIRECTIONS */
 void	fill_files(t_data *data);
+void	open_files(t_data *data);
 
 /* HEREDOC / EOF */
 void	fill_eof(t_data *data);
@@ -142,6 +144,7 @@ void	builtin_unset(t_data *data, t_list *pos);
 void	clear_cmd(t_data *data);
 void	free_tab(char **tab);
 void	exit_all(t_data *data, int err, char *str);
+void	close_fds(t_data *data);
 
 /* EXEC */
 void	execution(t_data *data);

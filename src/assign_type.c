@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/18 19:08:38 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:20:37 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	len_is_two(t_list *tmp)
 		tmp->next->type = ENDOFFILE;
 	}
 	if (tmp->content[0] == '>' && tmp->content[1] == '>' && tmp->type == 0)
+	{
 		tmp->type = DELIMITER_APPEND;
+		tmp->next->type = OUTFILE;
+	}
 }
 
 void	type_dollar(t_list *tmp)

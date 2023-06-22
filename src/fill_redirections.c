@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/21 18:58:46 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:35:12 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	put_outfiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 	if (current->redirect_output <= 0)
 		return ;
 	else
-		current->outfile = malloc(sizeof(char *) * (current->redirect_output + 1));
+		current->outfile = malloc(sizeof(char *)
+				* (current->redirect_output + 1));
 	if (current->outfile == NULL)
 		exit_all(data, 1, "problem in redirect output");
 	while (nb_outfile < current->redirect_output && tmp != NULL)
@@ -43,7 +44,8 @@ void	put_infiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 	if (current->redirect_input <= 0)
 		return ;
 	else
-		current->infile = malloc(sizeof(char *) * (current->redirect_input + 1));
+		current->infile = malloc(sizeof(char *)
+				* (current->redirect_input + 1));
 	if (current->infile == NULL)
 		exit_all(data, 1, "problem in redirect input");
 	while (tmp != NULL && nb_infile < current->redirect_input)
@@ -79,6 +81,45 @@ void	fill_files(t_data *data)
 		put_outfiles_in_tab(data, tmp, &data->exec[x]);
 		if (tmp->type == PIPE && tmp != NULL)
 			tmp = tmp->next;
+		x++;
+	}
+}
+
+void	open_files(t_data *data)
+{
+	int		x;
+
+	x = 0;
+	while (x < data->pipes)
+	{
+		if (data->exec[x].redirect_input > 0)
+		{
+			data->exec[x].fdin = open(data->exec[x].infile
+				[data->exec[x].redirect_input - 1], O_RDONLY);
+			if (data->exec[x].fdin < 0)
+			{
+				exit_all(data, 1, "Can't open fdin");
+			}
+		}
+		if (data->exec[x].redirect_output > 0)
+		{
+			if (ft_strncmp(data->exec[x].last_redir_out, ">", 1) == 0)
+			{
+				data->exec[x].fdout = open(data->exec[x].outfile
+					[data->exec[x].redirect_output - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+			}
+			else if (ft_strncmp(data->exec[x].last_redir_out, ">>", 2) == 0)
+			{
+				data->exec[x].fdout = open(data->exec[x].outfile
+					[data->exec[x].redirect_output - 1], O_CREAT | O_RDWR | O_APPEND | O_TRUNC, 0644);
+			}
+			if (data->exec[x].fdout == -1)
+			{
+				exit_all(data, 1, "Can't open fdout");
+			}
+		}
+		// printf("data->exec[%d].fdin: %d\n", x, data->exec[x].fdin);
+		// printf("data->exec[%d].fdout: %d\n", x, data->exec[x].fdout);
 		x++;
 	}
 }

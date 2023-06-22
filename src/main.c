@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/21 18:53:09 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:52:16 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ int	main(int argc, char **argv, char **env)
 			parse_cmd(&data);
 			// exec_cmd(&data); /* mini fonction exec pour tester certains builtins */
 			// execution(&data);
-			// LEAK: the return of readline should be free
 			clear_cmd(&data);
 		}
 	}
