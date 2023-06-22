@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/22 15:06:11 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:27:30 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,12 +219,6 @@ int	exec_last_child(t_data *data, t_exec *exec)
 		close(data->cpy_in);
 		close(data->cpy_in);
 		//cleaning
-	}
-	else if (is_builtin(exec->cmd[0]) == EXPORT 
-		|| is_builtin(exec->cmd[0]) == UNSET 
-		|| is_builtin(exec->cmd[0]) == CD)
-	{
-		command_exec(data, exec);
 	}
 	else if (last_child(data, exec) < 0)
 	{
