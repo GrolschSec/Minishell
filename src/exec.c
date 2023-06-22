@@ -6,12 +6,19 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:53:01 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:06:11 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+ * The execution function executes a pipeline of commands.
+ * Duplication of standard I/O is done for restoration.
+ * It creates processes for all commands except the last one.
+ * Then it executes the last command separately.
+ * data: Global runtime information.
+ */
 void	execution(t_data *data)
 {
 	int	i;
@@ -36,6 +43,15 @@ void	execution(t_data *data)
 	return ; //cleaning and back to prompt
 }
 
+/*
+ * process_creation creates a process to run a command in a pipeline,
+ * excluding the last one. A pipe is created for communication.
+ * A new process is forked, where output is redirected to the pipe.
+ * The parent process redirects input from the pipe and waits for built-ins.
+ * data: Global runtime information.
+ * exec: Information about the command to be executed.
+ * Returns: 0 on success, -1 if fork failed.
+ */
 int	process_creation(t_data *data, t_exec *exec)
 {
 	int	fd[2];
@@ -64,6 +80,17 @@ int	process_creation(t_data *data, t_exec *exec)
 	return (0);
 }
 
+/*
+ * command_exec executes a command.
+ * If the command is a built-in, it's handled separately.
+ * If it's an external command, command path is obtained and 
+ * execve is called to replace the current process image.
+ * File descriptors are duplicated before the command execution.
+ * data: Global runtime information.
+ * exec: Information about the command to be executed.
+ * Returns: -1 if error occurred during command preparation, -1 if 
+ * command path could not be obtained or if it failed to open FD.
+ */
 int	command_exec(t_data *data, t_exec *exec)
 {
 	char	*path;
@@ -93,6 +120,12 @@ int	command_exec(t_data *data, t_exec *exec)
 	return (free(path), -1); // i have to remake the errcode for those functions clearer.
 }
 
+/*
+ * is_builtin checks if a command is a built-in command.
+ * cmd: Command name.
+ * Returns: An integer representing the built-in command if it's 
+ * a built-in command, or 0 otherwise.
+ */
 int	is_builtin(char *cmd)
 {
 	if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
@@ -112,6 +145,15 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
+/*
+ * get_cmd_path gets the path to a command from the PATH env variable.
+ * The command is checked in each directory in the PATH until a directory
+ * is found where the command is executable.
+ * cmd: Command name.
+ * data: Global runtime information.
+ * Returns: A string containing the path to the command, or NULL if the 
+ * command was not found in the PATH or if an error occurred.
+ */
 char	*get_cmd_path(char *cmd, t_data *data)
 {
 	int		i;
@@ -141,6 +183,12 @@ char	*get_cmd_path(char *cmd, t_data *data)
 	return (free_tab(path), NULL);
 }
 
+/*
+ * free_tab_exec frees a null-terminated array of strings, 
+ * starting from a specific index.
+ * tab: Array of strings.
+ * i: Index to start freeing from.
+ */
 void	free_tab_exec(char **tab, int i)
 {
 	if (!tab)
@@ -155,6 +203,15 @@ void	free_tab_exec(char **tab, int i)
 	free(tab);
 }
 
+/*
+ * exec_last_child handles the execution of the last command in a pipeline.
+ * For the exit built-in command, some cleanup is done without execution.
+ * For export, unset, and cd built-ins, command is executed directly without new process.
+ * For other commands, a new process is created for execution.
+ * data: Global runtime information.
+ * exec: Information about the command to be executed.
+ * Returns: 0
+ */
 int	exec_last_child(t_data *data, t_exec *exec)
 {
 	if (is_builtin(exec->cmd[0]) == EXIT)
@@ -178,6 +235,14 @@ int	exec_last_child(t_data *data, t_exec *exec)
 	return (0);
 }
 
+/*
+ * last_child creates a new process and executes the command in the child.
+ * The parent waits for the child and retrieves the exit status.
+ * If the command is not built-in and not a local executable, an error code is set.
+ * data: Global runtime information.
+ * exec: Information about the command to be executed.
+ * Returns: 0 after setting signal handlers.
+ */
 int	last_child(t_data *data, t_exec *exec)
 {
 	int	pid;
