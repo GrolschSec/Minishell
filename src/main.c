@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/21 02:00:08 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:55:23 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,8 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(data.input);
 			parse_cmd(&data);
-			clear_cmd(&data);
 			execution(&data);
+			clear_cmd(&data);
 			// LEAK: the return of readline should be free
 		}
 		//exec_cmd(&data); /* mini fonction exec pour tester certains builtins */

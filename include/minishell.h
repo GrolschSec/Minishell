@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/21 14:03:16 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:51:21 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,22 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
 extern int	g_exit;
+
+enum e_buitin
+{
+	NOT_BUILTIN,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+};
+
 
 typedef struct s_path
 {
@@ -73,6 +87,8 @@ typedef struct s_data
 {
 	char		*input;
 	int			pipes;
+	int			cpy_in;
+	int			cpy_out;
 	t_exec		*exec;
 	t_list		*token_list;
 	t_list		*env;
@@ -137,6 +153,11 @@ void	exit_all(t_data *data, int err, char *str);
 
 /* EXEC */
 void	execution(t_data *data);
-int		process_creation(t_data *data, t_exec exec);
-int		command_exec(t_data *data, t_exec exec);
+int		process_creation(t_data *data, t_exec *exec);
+int		command_exec(t_data *data, t_exec *exec);
+int		is_builtin(char *cmd);
+char	*get_cmd_path(char *cmd, t_data *data);
+int		exec_last_child(t_data *data, t_exec *exec);
+int		last_child(t_data *data, t_exec *exec);
+void	free_tab_exec(char **tab, int i);
 #endif
