@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 15:09:03 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:36:55 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,8 @@ int	main(int argc, char **argv, char **env)
 	if (!isatty(STDIN_FILENO)) //|| !isatty(STDOUT_FILENO))
 		return (0);
 	ft_bzero(&data, sizeof(data));
-	fill_env_list(env, &data); // Segfault env -i
+	fill_env_list(env, &data);
 	parse_path(&data);
-	// print_env_tab(&data); -> pour tester si env ok
 	while (1)
 	{
 		signal(SIGINT, ft_handler);
@@ -149,10 +148,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(data.input);
 			parse_cmd(&data);
 			execution(&data);
-			clear_cmd(&data);
-			// LEAK: the return of readline should be free
 		}
-		//exec_cmd(&data); /* mini fonction exec pour tester certains builtins */
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 17:18:51 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:39:19 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,4 +161,5 @@ int		exec_last_child(t_data *data, t_exec *exec);
 int		last_child(t_data *data, t_exec *exec);
 void	free_tab_exec(char **tab, int i);
 char	*ft_strjoin2(char *s1, char const *s2);
+void	end_exec(t_data *data);
 #endif

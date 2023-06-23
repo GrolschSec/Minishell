@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/22 18:03:00 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:38:58 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	execution(t_data *data)
 		i++;
 	}
 	exec_last_child(data, &data->exec[i]);
+	end_exec(data);
 	return ; //cleaning and back to prompt
 }
 
@@ -57,7 +58,7 @@ int	process_creation(t_data *data, t_exec *exec)
 	int	fd[2];
 	int	pid;
 
-	pipe(fd);
+	pipe(fd); // gerer l'erreur de pipe
 	pid = fork();
 	if (pid < 0)
 		return (-1);
@@ -273,4 +274,13 @@ int	last_child(t_data *data, t_exec *exec)
 			g_exit = WEXITSTATUS(status);
 	}
 	return (0);
+}
+
+void	end_exec(t_data *data)
+{
+	dup2(data->cpy_out, STDOUT_FILENO);
+	dup2(data->cpy_in, STDIN_FILENO);
+	close(data->cpy_in);
+	close(data->cpy_out);
+	clear_cmd(data);
 }
