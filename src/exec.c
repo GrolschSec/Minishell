@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/23 13:38:58 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:04:32 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,10 @@ int	command_exec(t_data *data, t_exec *exec)
 	}
 	else
 	{
-		execve(path, exec->cmd, data->env_tab); // Carefull env tab they could be null.
-		//get_error_exec(exec); // the problem with the tab is that you need to remake it each time you run a command
-		// if not you could have a problem with a command like `export BLA=5 | echo $BLA`
+		execve(path, exec->cmd, data->env_tab);
+		//exec_name: command not found
+		// error_code: 127
+		//error_exec()
 	}
 	return (free(path), -1); // i have to remake the errcode for those functions clearer.
 }
@@ -161,6 +162,7 @@ char	*get_cmd_path(char *cmd, t_data *data)
 	char	*tmp;
 	
 	i = 0;
+	// maybe add a security in case there is no env
 	while (data->path.tab[i])
 	{
 		tmp = ft_strjoin2(data->path.tab[i], "/");
@@ -255,8 +257,6 @@ int	last_child(t_data *data, t_exec *exec)
 	int	status;
 
 	pid = fork();
-	// signal(SIGINT, ??);
-	// signal(SIGUIT, ??);
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
