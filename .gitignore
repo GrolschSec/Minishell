@@ -1,0 +1,10 @@
+.gdb_history
+leaks.txt
+obj
+libft/*.a
+*.o
+*.a
+libft/
+libft/
+minishell
+.vscode

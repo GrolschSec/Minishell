@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 19:48:36 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:18:51 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,22 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
+extern int	g_exit;
+
+enum e_buitin
+{
+	NOT_BUILTIN,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+};
+
 
 # define COLOR_RESET "\e[0;37m"
 # define COLOR_RED "\e[1;31m"
@@ -79,6 +94,8 @@ typedef struct s_data
 {
 	char		*input;
 	int			pipes;
+	int			cpy_in;
+	int			cpy_out;
 	t_exec		*exec;
 	t_list		*token_list;
 	t_list		*env;
@@ -148,6 +165,13 @@ void	close_fds(t_data *data);
 
 /* EXEC */
 void	execution(t_data *data);
-int		process_creation(t_data *data, t_exec exec);
-int		command_exec(t_data *data, t_exec exec);
+int		process_creation(t_data *data, t_exec *exec);
+int		command_exec(t_data *data, t_exec *exec);
+int		is_builtin(char *cmd);
+char	*get_cmd_path(char *cmd, t_data *data);
+int		exec_last_child(t_data *data, t_exec *exec);
+int		last_child(t_data *data, t_exec *exec);
+void	free_tab_exec(char **tab, int i);
+char	*ft_strjoin2(char *s1, char const *s2);
+void	end_exec(t_data *data);
 #endif

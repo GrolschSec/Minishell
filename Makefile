@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
+#    By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 14:37:37 by nagvaill          #+#    #+#              #
-#    Updated: 2023/06/21 18:15:28 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/06/23 17:23:43 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ FILES = 	main					\
 			export					\
 			echo					\
 			exit					\
-			# exec					
+			exec					
 			# unset					
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 16:31:43 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:22:34 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ int	main(int argc, char **argv, char **env)
 	ft_bzero(&data, sizeof(data));
 	fill_env_list(env, &data); // Segfault env -i
 	parse_path(&data);
-	// print_env_tab(&data); -> pour tester si env ok
 	while (1)
 	{
 		signal(SIGINT, ft_handler);
@@ -148,10 +147,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(data.input);
 			parse_cmd(&data);
-			// exec_cmd(&data); /* mini fonction exec pour tester certains builtins */
-			// execution(&data);
-			clear_cmd(&data);
-			// close_fds(&data);
+			execution(&data);
 		}
 	}
 	return (0);

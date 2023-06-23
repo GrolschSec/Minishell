@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:05:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 15:24:00 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/20 19:00:45 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@ void	print_path(t_data *data)
 	printf("path: %s\n", data->path.line);
 	printf("tab0: %s\n", data->path.tab[0]);
 }
+*/
+
+/*
+** parse_path: Retrieves the PATH environment variable from the environment 
+** list and stores its value in the data structure. Also splits the PATH 
+** into a string array using ':' as the delimiter.
+**
+** Args:
+**   data: Pointer to the data structure where the PATH value and the split 
+**   PATH are stored.
+**
+** Side effects:
+**   If an error occurs, the program exits with an error message.
+**   If the PATH variable is found, its value is stored in data->path.line
+**   and its split form is stored in data->path.tab.
 */
 void	parse_path(t_data *data)
 {

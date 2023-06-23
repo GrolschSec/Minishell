@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 17:30:41 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:19:05 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef enum	e_type
+typedef enum e_type
 {
 	SINGLE_QUOTE,
 	DOUBLE_QUOTE,

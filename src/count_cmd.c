@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   count_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 19:23:19 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:19:37 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+** Function: is_not_redirection
+** ----------------------------
+** Determines if a token is not a redirection.
+**
+** Args:
+** - tmp: Pointer to the token list.
+**
+** Returns:
+** - 1 if the token is not a redirection, 0 otherwise.
+*/
 int	is_not_redirection(t_list *tmp)
 {
 	if (tmp->type != INFILE && tmp->type != OUTFILE
@@ -22,6 +33,17 @@ int	is_not_redirection(t_list *tmp)
 	return (0);
 }
 
+/*
+** Function: count_cmd
+** -------------------
+** Counts the number of commands before a PIPE token.
+**
+** Args:
+** - tmp: Pointer to the token list.
+**
+** Returns:
+** - The number of commands before a PIPE token.
+*/
 int	count_cmd(t_list *tmp)
 {
 	int		i;
@@ -40,6 +62,17 @@ int	count_cmd(t_list *tmp)
 	return (i);
 }
 
+/*
+** Function: count_pipes
+** ---------------------
+** Counts the number of PIPE tokens in a list.
+**
+** Args:
+** - data: Pointer to the main data structure.
+**
+** Side effects:
+** - The number of PIPE tokens found is stored in data->pipes.
+*/
 void	count_pipes(t_data *data)
 {
 	t_list	*tmp;
@@ -55,6 +88,19 @@ void	count_pipes(t_data *data)
 	data->pipes++;
 }
 
+/*
+** Function: count_redirections
+** ----------------------------
+** Counts the number of redirections in a command.
+**
+** Args:
+** - tmp: Pointer to the token list.
+** - current: Pointer to the current command structure.
+** - x: Index of the command structure.
+**
+** Side effects:
+** - Updates the redirection count in the command structure.
+*/
 void	count_redirections(t_list *tmp, t_exec *current, int x)
 {
 	if (tmp->type == REDIRECT_INPUT)
@@ -72,6 +118,18 @@ void	count_redirections(t_list *tmp, t_exec *current, int x)
 	// 	current[x].delimiter_append++;
 }
 
+/*
+** Function: init_exec
+** -------------------
+** Initializes an 't_exec' structure.
+**
+** Args:
+** - current: Pointer to the 't_exec' structure to be initialized.
+** - x: Index of the 't_exec' structure.
+**
+** Side effects:
+** - Initializes the 't_exec' structure to default values.
+*/
 void	init_exec(t_exec *current, int x)
 {
 	current[x].infile = NULL;

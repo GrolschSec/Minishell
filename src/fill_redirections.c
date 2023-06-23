@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   fill_redirections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 17:02:03 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:21:57 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+/*
+** Function: put_outfiles_in_tab
+** -----------------------------
+** Allocates an array of strings to store output file names linked with a 
+** command in a 't_exec' structure. Fills the array from a token list. Array 
+** size depends on the number of output redirections in the command.
+**
+** Args:
+** - data: Pointer to the main data structure.
+** - tmp: Pointer to a token list.
+** - current: Pointer to the 't_exec' structure to be filled.
+**
+** Side effects:
+** In case of error (e.g., allocation failure), the program exits with an
+** error message. On success, output file names are copied into 'outfile' array 
+** in 'current'.
+*/
 
 void	put_outfiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 {
@@ -36,6 +54,24 @@ void	put_outfiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 	current->outfile[current->redirect_output] = NULL;
 }
 
+/*
+** Function: put_infiles_in_tab
+** -----------------------------
+** Allocates an array of strings to store input file names associated with a 
+** command in a 't_exec' structure. Fills the array from a token list. Array 
+** size depends on the number of input redirections in the command.
+**
+** Args:
+** - data: Pointer to the main data structure.
+** - tmp: Pointer to a token list.
+** - current: Pointer to the 't_exec' structure to be filled.
+**
+** Side effects:
+** In case of an error (e.g., allocation failure), the program exits with an
+** error message. On success, input file names are copied into 'infile' array 
+** in 'current'.
+*/
+
 void	put_infiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 {
 	int	nb_infile;
@@ -60,6 +96,21 @@ void	put_infiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 	current->infile[current->redirect_input] = NULL;
 }
 
+/*
+** Function: fill_files
+** ---------------------
+** For each 't_exec' command in 'data', retrieves input and output files 
+** from the token list. Stores them in 'infile' and 'outfile' arrays in the 
+** corresponding 't_exec' structure.
+**
+** Args:
+** - data: Pointer to the main data structure.
+**
+** Side effects:
+** In case of an error, the program exits with an error message. On success,
+** the 'infile' and 'outfile' arrays in each 't_exec' structure in 'data'
+** are filled with corresponding input and output file names.
+*/
 void	fill_files(t_data *data)
 {
 	t_list	*tmp;
