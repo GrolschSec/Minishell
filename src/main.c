@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 19:52:16 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:31:43 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int	main(int argc, char **argv, char **env)
 			// exec_cmd(&data); /* mini fonction exec pour tester certains builtins */
 			// execution(&data);
 			clear_cmd(&data);
+			// close_fds(&data);
 		}
 	}
 	return (0);

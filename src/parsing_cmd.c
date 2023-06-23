@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 18:48:44 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:05:25 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	print_tab(t_data *data) /* print pour checker si c'est bon (a virer plus ta
 		if (data->exec[nb_jobs].redirect_input > 0)
 		{
 			infile = 0;
-			printf("nb d'infiles: %d\n", data->exec[nb_jobs].redirect_input);
 			while (infile < data->exec[nb_jobs].redirect_input)
 			{
 				printf("infile[%d]: %s\n", infile, data->exec[nb_jobs].infile[infile]);
@@ -52,6 +51,7 @@ void	print_tab(t_data *data) /* print pour checker si c'est bon (a virer plus ta
 				printf("outfile[%d]: %s\n", outfile, data->exec[nb_jobs].outfile[outfile]);
 				outfile++;
 			}
+			printf("outfile de sortie em mode: %s\n", data->exec[nb_jobs].last_redir_out);
 		}
 		if (data->exec[nb_jobs].heredoc > 0)
 		{

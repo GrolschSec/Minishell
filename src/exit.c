@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 19:52:40 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:16:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	free_env(t_data *data)
 void	exit_all(t_data *data, int err, char *str)
 {
 	if (str != NULL)
-		fprintf(stderr, "%s\n", str);
+		printf("%s\n", str);
 	free_env(data);
 	if (data->path.tab && data->path.tab != NULL)
 		free_tab(data->path.tab);

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/22 19:35:12 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:02:03 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,38 +88,51 @@ void	fill_files(t_data *data)
 void	open_files(t_data *data)
 {
 	int		x;
+	int		out;
+	int		in;
 
+	in = 0;
+	out = 0;
 	x = 0;
 	while (x < data->pipes)
 	{
 		if (data->exec[x].redirect_input > 0)
 		{
-			data->exec[x].fdin = open(data->exec[x].infile
-				[data->exec[x].redirect_input - 1], O_RDONLY);
-			if (data->exec[x].fdin < 0)
+			in = data->exec[x].redirect_input;
+			if (data->exec[x].fdin != 0)
+				close(data->exec[x].fdin);
+			if (access(data->exec[x].infile[in - 1], R_OK) != 0)
+				exit_all(data, 1, "fdin doesn't exist");
 			{
-				exit_all(data, 1, "Can't open fdin");
+				data->exec[x].fdin = open(data->exec[x].infile[in - 1], O_RDONLY);
 			}
+			if (data->exec[x].fdin < 0)
+				printf("Can't open fdin\n");
 		}
 		if (data->exec[x].redirect_output > 0)
 		{
+			while (out < data->exec[x].redirect_output - 1)
+			{
+				if (data->exec[x].fdout && data->exec[x].fdout != 1)
+					close(data->exec[x].fdout);
+				data->exec[x].fdout = open(data->exec[x].outfile[out], O_CREAT | O_RDWR | O_TRUNC, 0644);
+				out++;
+			}
 			if (ft_strncmp(data->exec[x].last_redir_out, ">", 1) == 0)
 			{
-				data->exec[x].fdout = open(data->exec[x].outfile
-					[data->exec[x].redirect_output - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+				if (data->exec[x].fdout != 1)
+					close(data->exec[x].fdout);
+				data->exec[x].fdout = open(data->exec[x].outfile[out], O_CREAT | O_RDWR | O_TRUNC, 0644);
 			}
 			else if (ft_strncmp(data->exec[x].last_redir_out, ">>", 2) == 0)
 			{
-				data->exec[x].fdout = open(data->exec[x].outfile
-					[data->exec[x].redirect_output - 1], O_CREAT | O_RDWR | O_APPEND | O_TRUNC, 0644);
+				if (data->exec[x].fdout != 1)
+					close(data->exec[x].fdout);
+				data->exec[x].fdout = open(data->exec[x].outfile[out], O_CREAT | O_RDWR | O_APPEND | O_TRUNC, 0644);
 			}
 			if (data->exec[x].fdout == -1)
-			{
-				exit_all(data, 1, "Can't open fdout");
-			}
+				printf("Can't open fdout\n");
 		}
-		// printf("data->exec[%d].fdin: %d\n", x, data->exec[x].fdin);
-		// printf("data->exec[%d].fdout: %d\n", x, data->exec[x].fdout);
 		x++;
 	}
 }
