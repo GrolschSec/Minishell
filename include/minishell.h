@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 17:18:51 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:16:01 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,13 @@ typedef struct s_exec
 {
 	char		**cmd;
 	char		**infile;
-	char		**outfile;
+	t_list		*outfile;
 	char		**eof;
-	char		*last_redir_out;
 	int			fdin;
 	int			fdout;
 	int			redirect_input;
 	int			redirect_output;
 	int			heredoc;
-	// int			delimiter_append;
 	int			nb_cmd;
 }				t_exec;
 
@@ -104,6 +102,10 @@ typedef struct s_data
 	t_path		path;
 }				t_data;
 
+/* PRINT ----  TO REMOVE */
+void	print_tab(t_data *data);
+void	print_all(t_data *data);
+
 /* MAIN */
 void	print_all(t_data *data);
 void	ft_handler(int sig);
@@ -115,12 +117,22 @@ char	*fill_tmp(char *str, int len);
 void	add_node(t_data *data, char *str, int i, int j);
 void	add_node_double_quote(t_data *data, char *str, int i, int j);
 void	add_node_single_quote(t_data *data, char *str, int i, int j);
+void	split_double_quotes(t_data *data, char *str, int *i, int *j);
+void	split_single_quotes(t_data *data, char *str, int *i, int *j);
 void	split_in_list(t_data *data, char *str);
 
 /* PARSE COMMANDES */
-void	assign_type(t_data *data);
-void	parse_cmd(t_data *data);
 int		is_redirection(t_list *tmp);
+void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x);
+void	put_cmd_in_tab(t_data *data, int nb);
+void	parse_cmd(t_data *data);
+
+/* ASSIGN TYPES */
+void	len_is_one(t_data *data, t_list *tmp);
+void	len_is_two(t_list *tmp);
+void	type_dollar(t_list *tmp);
+void	type_option(t_list *tmp);
+void	assign_type(t_data *data);
 
 // /* ENV VARIABLES */
 // void	assign_variable_name(t_data *data, t_list *current);

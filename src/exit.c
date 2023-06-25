@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 17:21:47 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/25 14:37:38 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	close_fds(t_data *data)
 		x++;
 	}
 }
+
 /**
  * Clears the command data structure.
  *
@@ -79,11 +80,9 @@ void	clear_cmd(t_data *data)
 			if (data->exec[i].infile)
 				free_tab(data->exec[i].infile);
 			if (data->exec[i].outfile)
-				free_tab(data->exec[i].outfile);
+				ft_lstclear(&data->exec[i].outfile, del);
 			if (data->exec[i].eof)
 				free_tab(data->exec[i].eof);
-			if (data->exec[i].last_redir_out)
-				free(data->exec[i].last_redir_out);
 			i++;
 		}
 		if (data->exec)
