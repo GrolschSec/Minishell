@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/23 17:21:28 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:23:21 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,19 @@ void	execution(t_data *data)
 	i = 0;
 	data->cpy_in = dup(0);
 	data->cpy_out = dup(1);
-	while (i < data->pipes - 1) // problem ici pour le calcul de pipes -1 pour last child
+	while (i < data->pipes - 1)
 	{
 		if (process_creation(data, &data->exec[i]) < 0)
 		{
-			dup2(data->cpy_out, STDOUT_FILENO);
-			if (!is_builtin(data->exec[i].cmd[0]) && data->exec[i].cmd[0][0] != '.')
-				//printerror command not found and return
-			close(data->cpy_in);
-			close(data->cpy_out);
-			return ; //cleaning
+			execution_handling(data, i);
+			return ;
 		}
 		i++;
 	}
+	data->exec[i].is_last = 1;
 	exec_last_child(data, &data->exec[i]);
 	end_exec(data);
-	return ; //cleaning and back to prompt
+	return ;
 }
 
 /*
@@ -58,7 +55,7 @@ int	process_creation(t_data *data, t_exec *exec)
 	int	fd[2];
 	int	pid;
 
-	pipe(fd); // gerer l'erreur de pipe
+	pipe(fd);
 	pid = fork();
 	if (pid < 0)
 		return (-1);
@@ -77,6 +74,7 @@ int	process_creation(t_data *data, t_exec *exec)
 		dup2(fd[1], STDOUT_FILENO);
 		command_exec(data, exec);
 		close(fd[1]);
+		return (-1);
 	}
 	return (0);
 }
@@ -96,115 +94,33 @@ int	command_exec(t_data *data, t_exec *exec)
 {
 	char	*path;
 
-	if ((exec->cmd[0][0] == '/' || exec->cmd[0][0] == '.') && !is_builtin(exec->cmd[0]))
+	if ((exec->cmd[0][0] == '/' || exec->cmd[0][0] == '.')
+			&& !is_builtin(exec->cmd[0]))
 		path = ft_strdup(exec->cmd[0]);
 	else if (!is_builtin(exec->cmd[0]))
 		path = get_cmd_path(exec->cmd[0], data);
-	if (exec->fdin < 0 || exec->fdout < 0 || (!path && !is_builtin(exec->cmd[0])))
+	if (exec->fdin < 0 || exec->fdout < 0
+		|| (!path && !is_builtin(exec->cmd[0])))
 		return (free(path), -1);
 	if (exec->fdin > STDIN_FILENO)
 		dup2(exec->fdin, STDIN_FILENO);
 	if (exec->fdout > STDOUT_FILENO)
 		dup2(exec->fdout, STDOUT_FILENO);
 	if (is_builtin(exec->cmd[0]))
-	{
-		printf("is_builtin\n");
-		//select_builtin(data, exec);
-	}
+		select_builtin(data, exec);
 	else
 	{
 		execve(path, exec->cmd, data->env_tab);
-		//exec_name: command not found
-		// error_code: 127
-		//error_exec()
+		exec_error(exec->cmd[0], strerror(errno));
 	}
-	return (free(path), -1); // i have to remake the errcode for those functions clearer.
-}
-
-/*
- * is_builtin checks if a command is a built-in command.
- * cmd: Command name.
- * Returns: An integer representing the built-in command if it's 
- * a built-in command, or 0 otherwise.
- */
-int	is_builtin(char *cmd)
-{
-	if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
-		return (2);
-	else if (ft_strncmp(cmd, "pwd", ft_strlen(cmd)) == 0)
-		return (3);
-	else if (ft_strncmp(cmd, "export", ft_strlen(cmd)) == 0)
-		return (4);
-	else if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
-		return (5);
-	else if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
-		return (6);
-	else if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
-		return (7);
-	return (0);
-}
-
-/*
- * get_cmd_path gets the path to a command from the PATH env variable.
- * The command is checked in each directory in the PATH until a directory
- * is found where the command is executable.
- * cmd: Command name.
- * data: Global runtime information.
- * Returns: A string containing the path to the command, or NULL if the 
- * command was not found in the PATH or if an error occurred.
- */
-char	*get_cmd_path(char *cmd, t_data *data)
-{
-	int		i;
-	char	*path;
-	char	*tmp;
-	
-	i = 0;
-	// maybe add a security in case there is no env
-	while (data->path.tab[i])
-	{
-		tmp = ft_strjoin2(data->path.tab[i], "/");
-		if (!tmp)
-			return (NULL);
-		path = ft_strjoin2(tmp, cmd);
-		free(tmp);
-		if (!path)
-			return (NULL);
-		if (access(path, X_OK) == 0)
-			return (path);
-		free(path);
-		path = NULL;
-		i++;
-	}
-	return (NULL);
-}
-
-/*
- * free_tab_exec frees a null-terminated array of strings, 
- * starting from a specific index.
- * tab: Array of strings.
- * i: Index to start freeing from.
- */
-void	free_tab_exec(char **tab, int i)
-{
-	if (!tab)
-		return ;
-	if (!tab[i])
-		i++;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	return (free(path), -1);
 }
 
 /*
  * exec_last_child handles the execution of the last command in a pipeline.
  * For the exit built-in command, some cleanup is done without execution.
- * For export, unset, and cd built-ins, command is executed directly without new process.
+ * For export, unset, and cd built-ins, 
+ * command is executed directly without new process.
  * For other commands, a new process is created for execution.
  * data: Global runtime information.
  * exec: Information about the command to be executed.
@@ -213,40 +129,21 @@ void	free_tab_exec(char **tab, int i)
 int	exec_last_child(t_data *data, t_exec *exec)
 {
 	if (is_builtin(exec->cmd[0]) == EXIT)
-	{
-		close(data->cpy_in);
-		close(data->cpy_in);
-		//cleaning
-	}
+		exit_builtin(data, exec);
 	else if (last_child(data, exec) < 0)
 	{
 		close(data->cpy_in);
 		close(data->cpy_out);
-		return (0); /*cleaning*/
+		return (exit_ps(data, *data->exit_code), 0);
 	}
 	return (0);
-}
-
-char	*ft_strjoin2(char *s1, char const *s2)
-{
-	char	*dst;
-	size_t	len_s1;
-	size_t	len_s2;
-
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	dst = malloc((sizeof(char) * len_s1) + (sizeof(char) * len_s2) + 1);
-	if (dst == 0 || !dst)
-		return (NULL);
-	ft_strlcpy(dst, s1, (len_s1 + 1));
-	ft_strlcat(dst, s2, (len_s1 + len_s2 + 1));
-	return (dst);
 }
 
 /*
  * last_child creates a new process and executes the command in the child.
  * The parent waits for the child and retrieves the exit status.
- * If the command is not built-in and not a local executable, an error code is set.
+ * If the command is not built-in and not a local executable, 
+ * an error code is set.
  * data: Global runtime information.
  * exec: Information about the command to be executed.
  * Returns: 0 after setting signal handlers.
@@ -262,8 +159,12 @@ int	last_child(t_data *data, t_exec *exec)
 		signal(SIGINT, SIG_DFL);
 		if (command_exec(data, exec) < 0)
 		{
-			if (exec->cmd[0] && !is_builtin(exec->cmd[0]) && exec->cmd[0][0] != '.')
-				return (g_exit = 127, /*error_handling*/0);
+			if (exec->cmd[0] && !is_builtin(exec->cmd[0])
+				&& exec->cmd[0][0] != '.' && exec->cmd[0][0] != '/')
+			{
+				*data->exit_code = 127;
+				return (exec_error(exec->cmd[0], "command not found"), -1);
+			}
 			return (-1);
 		}
 	}
@@ -271,16 +172,7 @@ int	last_child(t_data *data, t_exec *exec)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-			g_exit = WEXITSTATUS(status);
+			*data->exit_code = WEXITSTATUS(status);
 	}
 	return (0);
-}
-
-void	end_exec(t_data *data)
-{
-	dup2(data->cpy_out, STDOUT_FILENO);
-	dup2(data->cpy_in, STDIN_FILENO);
-	close(data->cpy_in);
-	close(data->cpy_out);
-	clear_cmd(data);
 }

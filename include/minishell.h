@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 17:18:51 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:29:59 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
-extern int	g_exit;
+# include <errno.h>
+# define COLOR_RESET "\e[0;37m"
+# define COLOR_RED "\e[1;31m"
 
 enum e_buitin
 {
@@ -36,12 +38,6 @@ enum e_buitin
 	ENV,
 	EXIT,
 };
-
-
-# define COLOR_RESET "\e[0;37m"
-# define COLOR_RED "\e[1;31m"
-
-extern int	g_exit;
 
 typedef struct s_path
 {
@@ -75,7 +71,7 @@ typedef struct s_exec
 	int			redirect_input;
 	int			redirect_output;
 	int			heredoc;
-	// int			delimiter_append;
+	int			is_last;
 	int			nb_cmd;
 }				t_exec;
 
@@ -96,6 +92,7 @@ typedef struct s_data
 	int			pipes;
 	int			cpy_in;
 	int			cpy_out;
+	int			*exit_code;
 	t_exec		*exec;
 	t_list		*token_list;
 	t_list		*env;
@@ -162,16 +159,32 @@ void	clear_cmd(t_data *data);
 void	free_tab(char **tab);
 void	exit_all(t_data *data, int err, char *str);
 void	close_fds(t_data *data);
+void	free_env(t_data *data);
 
-/* EXEC */
+/* EXEC_1 */
 void	execution(t_data *data);
 int		process_creation(t_data *data, t_exec *exec);
 int		command_exec(t_data *data, t_exec *exec);
-int		is_builtin(char *cmd);
-char	*get_cmd_path(char *cmd, t_data *data);
 int		exec_last_child(t_data *data, t_exec *exec);
 int		last_child(t_data *data, t_exec *exec);
-void	free_tab_exec(char **tab, int i);
+
+/* EXEC_2 */
+int		is_builtin(char *cmd);
+char	*get_cmd_path(char *cmd, t_data *data);
+void	select_builtin(t_data *data, t_exec *exec);
+void	execution_handling(t_data *data, int i);
+
+/* EXEC_UTILS */
 char	*ft_strjoin2(char *s1, char const *s2);
 void	end_exec(t_data *data);
+void	exit_ps(t_data *data, int error);
+void	exec_error(char *name, char *str);
+
+/*BUILTIN EXIT*/
+void	exit_builtin(t_data *data, t_exec *exec);
+int		str_isdigit(char *str);
+int		convert_to_exit_code(int nb);
+void	numeric_arg_error(t_exec *exec);
+void	perform_exit(int ex, t_data *data, t_exec *exec);
+
 #endif
