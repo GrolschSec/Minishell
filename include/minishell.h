@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/26 20:18:07 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/27 00:34:17 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <limits.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
 # include <errno.h>
@@ -174,17 +175,21 @@ char	*get_cmd_path(char *cmd, t_data *data);
 void	select_builtin(t_data *data, t_exec *exec);
 void	execution_handling(t_data *data, int i);
 
-/* EXEC_UTILS */
+/* EXEC_UTILS_1 */
 char	*ft_strjoin2(char *s1, char const *s2);
 void	end_exec(t_data *data);
 void	exit_ps(t_data *data, int error);
 void	exec_error(char *name, char *str);
 void	exit_minishell(t_data *data);
 
+/* EXEC_UTILS_2 */
+long long	ft_atoll(const char *str);
+int			is_out_of_range(const char *str);
+
 /*BUILTIN EXIT*/
 void	exit_builtin(t_data *data, t_exec *exec);
 int		str_isdigit(char *str);
-int		convert_to_exit_code(int nb);
+int		convert_to_exit_code(long long nb);
 void	numeric_arg_error(t_exec *exec);
 void	perform_exit(int ex, t_data *data, t_exec *exec);
 

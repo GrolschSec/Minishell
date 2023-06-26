@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:29:08 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/26 21:42:32 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/27 00:52:48 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,6 @@ Comportement de exit:
 			- $> exit '666'"666"666
 			- $> exit +'666'"666"666
 			- $> exit -'666'"666"666
-		- $> exit 9223372036854775807
-		- $> exit 9223372036854775808
-		- $> exit -9223372036854775808
-		- $> exit -9223372036854775809
 */
 
 void	exit_builtin(t_data *data, t_exec *exec)
@@ -54,7 +50,7 @@ void	exit_builtin(t_data *data, t_exec *exec)
 		printf("exit\n");
 	if (exec->nb_cmd > 1)
 	{
-		if (!str_isdigit(exec->cmd[1]))
+		if (!str_isdigit(exec->cmd[1]) || is_out_of_range(exec->cmd[1]))
 		{
 			numeric_arg_error(exec);
 			*data->exit_code = 2;
@@ -87,7 +83,7 @@ int	str_isdigit(char *str)
 	return (1);
 }
 
-int	convert_to_exit_code(int nb)
+int	convert_to_exit_code(long long nb)
 {
 	int	code;
 
