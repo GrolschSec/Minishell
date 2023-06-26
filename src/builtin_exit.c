@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:29:08 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/26 18:10:56 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:42:32 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ Comportement de exit:
 		- analyse du message erreur: 
 			- "minishell: exit: `premier arguments donner`: numeric argument required"
 		- exit code erreur 2
+	Cas non gerers actuellement:
+		Cas a gerer directement dans le parsing (tester avec expr):
+			- $> exit '6'66
+			- $> exit '2'66'32'
+			- $> exit '666'"666"666
+			- $> exit +'666'"666"666
+			- $> exit -'666'"666"666
+		- $> exit 9223372036854775807
+		- $> exit 9223372036854775808
+		- $> exit -9223372036854775808
+		- $> exit -9223372036854775809
 */
 
 void	exit_builtin(t_data *data, t_exec *exec)
@@ -65,7 +76,7 @@ int	str_isdigit(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i])
 	{
@@ -104,10 +115,16 @@ void	perform_exit(int ex, t_data *data, t_exec *exec)
 {
 	if (ex)
 	{
-		if (data->pipes == 1 || (data->pipes > 1 && !exec->is_last))
+		if (data->pipes == 1)
 		{
 			close(data->cpy_in);
+			close(data->cpy_out);
+			exit_minishell(data);
+		}
+		else if (data->pipes > 1 && !exec->is_last)
+		{
 			close(data->cpy_in);
+			close(data->cpy_out);
 			exit_ps(data, *data->exit_code);
 		}
 		else if (data->pipes > 1 && exec->is_last)

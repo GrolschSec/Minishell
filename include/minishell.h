@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/26 18:29:59 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:18:07 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ char	*ft_strjoin2(char *s1, char const *s2);
 void	end_exec(t_data *data);
 void	exit_ps(t_data *data, int error);
 void	exec_error(char *name, char *str);
+void	exit_minishell(t_data *data);
 
 /*BUILTIN EXIT*/
 void	exit_builtin(t_data *data, t_exec *exec);

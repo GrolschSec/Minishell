@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:25:03 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/26 18:26:50 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:17:55 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,16 @@ char	*ft_strjoin2(char *s1, char const *s2)
 	ft_strlcpy(dst, s1, (len_s1 + 1));
 	ft_strlcat(dst, s2, (len_s1 + len_s2 + 1));
 	return (dst);
+}
+
+void	exit_minishell(t_data *data)
+{
+	free_env(data);
+	if (data->path.tab && data->path.tab != NULL)
+		free_tab(data->path.tab);
+	if (data->path.line && data->path.line != NULL)
+		free(data->path.line);
+	clear_cmd(data);
+	rl_clear_history();
+	exit(*data->exit_code);
 }
