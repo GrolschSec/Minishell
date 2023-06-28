@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 17:19:37 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/25 14:33:30 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,9 @@ void	count_redirections(t_list *tmp, t_exec *current, int x)
 	if (tmp->type == REDIRECT_INPUT)
 		current[x].redirect_input++;
 	if (tmp->type == REDIRECT_OUTPUT || tmp->type == DELIMITER_APPEND)
-	{
 		current[x].redirect_output++;
-		if (current[x].last_redir_out != NULL)
-			free(current[x].last_redir_out);
-		current[x].last_redir_out = ft_strdup(tmp->content);
-	}
 	if (tmp->type == HEREDOC)
 		current[x].heredoc++;
-	// if (tmp->type == DELIMITER_APPEND)
-	// 	current[x].delimiter_append++;
 }
 
 /*
@@ -135,11 +128,9 @@ void	init_exec(t_exec *current, int x)
 	current[x].infile = NULL;
 	current[x].outfile = NULL;
 	current[x].eof = NULL;
-	current[x].last_redir_out = NULL;
 	current[x].fdin = 0;
 	current[x].fdout = 1;
 	current[x].redirect_input = 0;
 	current[x].redirect_output = 0;
 	current[x].heredoc = 0;
-	// current[x].delimiter_append = 0;
 }

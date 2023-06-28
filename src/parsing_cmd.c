@@ -3,70 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 17:22:42 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:00:49 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	print_tab(t_data *data) /* print pour checker si c'est bon (a virer plus tard) */
-{
-	int	i;
-	int	nb_jobs;
-	int	infile;
-	int	outfile;
-	int nb_eof;
-	
-	nb_eof = 0;
-	outfile = 0;
-	infile = 0;
-	nb_jobs = 0;
-	i = 0;
-	while (nb_jobs < data->pipes)
-	{
-		i = 0;
-		while (i < data->exec[nb_jobs].nb_cmd)
-		{
-			// printf("nb_cmd: %d\n", data->exec[nb_jobs].nb_cmd);
-			printf("data->exec[%d].cmd[%d]: %s\n", nb_jobs, i, data->exec[nb_jobs].cmd[i]);
-			i++;
-		}
-		if (data->exec[nb_jobs].redirect_input > 0)
-		{
-			infile = 0;
-			while (infile < data->exec[nb_jobs].redirect_input)
-			{
-				printf("infile[%d]: %s\n", infile, data->exec[nb_jobs].infile[infile]);
-				infile++;
-			}
-		}
-		if (data->exec[nb_jobs].redirect_output > 0)
-		{
-			outfile = 0;
-			while (outfile < data->exec[nb_jobs].redirect_output)
-			{
-				printf("outfile[%d]: %s\n", outfile, data->exec[nb_jobs].outfile[outfile]);
-				outfile++;
-			}
-			printf("outfile de sortie em mode: %s\n", data->exec[nb_jobs].last_redir_out);
-		}
-		if (data->exec[nb_jobs].heredoc > 0)
-		{
-			nb_eof = 0;
-			while (nb_eof < data->exec[nb_jobs].heredoc)
-			{
-				printf("eof[%d]: %s\n", nb_eof, data->exec[nb_jobs].eof[nb_eof]);
-				nb_eof++;
-			}
-		}
-		nb_jobs++;
-	}
-}
-
-int	is_redirection(t_list *tmp) /* check si n'est pas une commande mais une redirection */
+int	is_redirection(t_list *tmp)
 {
 	if (tmp->type == INFILE || tmp->type == OUTFILE
 		|| tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT
@@ -76,7 +22,7 @@ int	is_redirection(t_list *tmp) /* check si n'est pas une commande mais une redi
 	return (0);
 }
 
-void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x) /* remplit les exec_cmd pour chaque exec */
+void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 {
 	int		y;
 	t_list	*count;
@@ -104,7 +50,7 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x) /* remplit le
 	current[x].cmd[y] = NULL;
 }
 
-void	put_cmd_in_tab(t_data *data, int nb) /* malloc le nombre de t_exec en fonction du nb de pipes */
+void	put_cmd_in_tab(t_data *data, int nb)
 {
 	t_list	*tmp;
 	int		x;
@@ -124,9 +70,7 @@ void	put_cmd_in_tab(t_data *data, int nb) /* malloc le nombre de t_exec en fonct
 void	parse_cmd(t_data *data)
 {
 	char	*str;
-	//int		i;
 
-	//i = 0;
 	str = NULL;
 	str = ft_strtrim(data->input, " ");
 	split_in_list(data, str);

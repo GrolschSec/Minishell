@@ -3,40 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
 /*   Updated: 2023/06/27 16:08:58 by rlouvrie         ###   ########.fr       */
+=======
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
+/*   Updated: 2023/06/25 18:01:06 by mrabourd         ###   ########.fr       */
+>>>>>>> mrabourd
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*
-** Function: print_all
-** -------------------
-** Prints all tokens in the list for debugging. (Function will be removed)
-**
-** Args:
-** - data: Pointer to the main data structure.
-**
-** Side effects:
-** - Prints the content and type of each token in the list.
-*/
-void	print_all(t_data *data)
-{
-	t_list	*tmp;
-
-	tmp = data->token_list;
-	printf("----START ALL-----\n");
-	while (tmp != NULL)
-	{
-		printf("%s\n", tmp->content);
-		printf("type: %u\n", tmp->type);
-		tmp = tmp->next;
-	}
-	printf("----END ALL-----\n");
-}
 
 /*
 ** Function: builtin_pwd

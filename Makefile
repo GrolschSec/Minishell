@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/17 14:37:37 by nagvaill          #+#    #+#              #
-#    Updated: 2023/06/28 12:56:06 by rlouvrie         ###   ########.fr        #
+#    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
+#    Updated: 2023/06/28 14:17:03 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,17 @@ Make		=	Make
 FILES = 	main					\
 			path					\
 			split_list				\
+			add_nodes				\
 			split_list_utils		\
+			split_doublequote		\
+			split_singlequote		\
 			assign_type				\
+			assign_type_utils		\
 			parsing_cmd				\
 			count_cmd				\
 			fill_redirections		\
 			fill_eof				\
+			open_files				\
 			env 					\
 			export					\
 			echo					\
@@ -41,6 +46,8 @@ FILES = 	main					\
 			builtin_cd				\
 			builtin_export			\
 			builtin_echo			\
+			exec					\
+			TEST_print				\
 			# unset					
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
