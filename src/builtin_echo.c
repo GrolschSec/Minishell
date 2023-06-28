@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 12:53:17 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/28 13:04:18 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:41:17 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	echo_builtin(t_exec *exec)
 	i = 1;
 	while (exec->cmd[i])
 	{
-		if (i == 1 && ft_strncmp(exec->cmd[i], "-n", ft_strlen(exec->cmd[i])) == 0)
+		if (i == 1
+			&& ft_strncmp(exec->cmd[i], "-n", ft_strlen(exec->cmd[i])) == 0)
 			r = 0;
 		else
 			printf("%s", exec->cmd[i]);

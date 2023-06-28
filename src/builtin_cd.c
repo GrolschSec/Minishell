@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/28 15:23:40 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:49:27 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,36 +64,6 @@ void	cd_error(char *path)
 		return ;
 	perror(msg);
 	free(msg);
-}
-
-char	*ft_getenv(t_data *data, char *name)
-{
-	t_list	*tmp;
-	char	*str_tmp;
-	char	**split;
-
-	str_tmp = ft_strjoin2(name, "=");
-	if (!str_tmp)
-		return (NULL);
-	tmp = data->env;
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->content, str_tmp, ft_strlen(str_tmp)) == 0)
-			break ;
-		tmp = tmp->next;
-	}
-	free(str_tmp);
-	if (tmp)
-	{
-		split = ft_split(tmp->content, '=');
-		if (!split)
-			return (NULL);
-		if (!split[1])
-			return (free_tab(split), NULL);
-		str_tmp = split[1];
-		return (free(split[0]), free(split), str_tmp);
-	}
-	return (NULL);
 }
 
 void	cd_no_arg_case(t_data *data, t_exec *exec)
