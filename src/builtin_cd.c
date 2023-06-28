@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/27 18:14:32 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:23:40 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,30 +66,92 @@ void	cd_error(char *path)
 	free(msg);
 }
 
-void	cd_builtin(t_data *data, t_exec *exec)
+char	*ft_getenv(t_data *data, char *name)
+{
+	t_list	*tmp;
+	char	*str_tmp;
+	char	**split;
+
+	str_tmp = ft_strjoin2(name, "=");
+	if (!str_tmp)
+		return (NULL);
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->content, str_tmp, ft_strlen(str_tmp)) == 0)
+			break ;
+		tmp = tmp->next;
+	}
+	free(str_tmp);
+	if (tmp)
+	{
+		split = ft_split(tmp->content, '=');
+		if (!split)
+			return (NULL);
+		if (!split[1])
+			return (free_tab(split), NULL);
+		str_tmp = split[1];
+		return (free(split[0]), free(split), str_tmp);
+	}
+	return (NULL);
+}
+
+void	cd_no_arg_case(t_data *data, t_exec *exec)
+{
+	char	*home;
+	char	*actual_path;
+	int		ex_code;
+
+	home = ft_getenv(data, "HOME");
+	if (!home)
+	{
+		write(2, "minishell: cd: HOME not set", 27);
+		return ;
+	}
+	actual_path = getcwd(NULL, 0);
+	ex_code = chdir(home);
+	if (ex_code != 0)
+	{
+		cd_error(exec->cmd[1]);
+		*data->exit_code = 1;
+	}
+	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+		update_env(data, "PWD", getcwd(NULL, 0));
+	else if (exec->is_last && data->pipes > 1)
+		chdir(actual_path);
+	free(actual_path);
+	free(home);
+}
+
+void	cd_arg_case(t_data *data, t_exec *exec)
 {
 	char	*actual_path;
 	int		ex_code;
 
+	actual_path = getcwd(NULL, 0);
+	ex_code = chdir(exec->cmd[1]);
+	if (ex_code != 0)
+	{
+		cd_error(exec->cmd[1]);
+		*data->exit_code = 1;
+	}
+	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+		update_env(data, "PWD", getcwd(NULL, 0));
+	else if (exec->is_last && data->pipes > 1)
+		chdir(actual_path);
+	free(actual_path);
+}
+
+void	cd_builtin(t_data *data, t_exec *exec)
+{
 	if (exec->nb_cmd > 2)
 	{
 		write(2, "minishell: cd: too many arguments\n", 34);
 		*data->exit_code = 1;
 		return ;
 	}
-	else if (exec->nb_cmd == 2 || exec->nb_cmd == 1)
-	{
-		actual_path = getcwd(NULL, 0);
-		ex_code = chdir(exec->cmd[1]);
-		if (ex_code != 0)
-		{
-			cd_error(exec->cmd[1]);
-			*data->exit_code = 1;
-		}
-		if (exec->is_last && data->pipes == 1 && ex_code == 0)
-			update_env(data, "PWD", getcwd(NULL, 0));
-		else if (exec->is_last && data->pipes > 1)
-			chdir(actual_path);
-		free(actual_path);
-	}
+	else if (exec->nb_cmd == 1)
+		cd_no_arg_case(data, exec);
+	else if (exec->nb_cmd == 2)
+		cd_arg_case(data, exec);
 }

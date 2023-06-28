@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:12:49 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/28 13:03:39 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:26:25 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ char	*make_new_var(char *name, char *value)
 		return (free(value), NULL);
 	new_env = ft_strjoin(tmp_str, value);
 	if (!new_env)
-		return (free(value), NULL);
+		return (free(value), free(tmp_str), NULL);
 	return (free(value), new_env);
 }

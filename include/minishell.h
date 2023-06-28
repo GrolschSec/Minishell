@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/28 14:15:33 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:16:59 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,9 @@ void	perform_exit(int ex, t_data *data, t_exec *exec);
 /* BUILTIN CD */
 void	cd_error(char *path);
 void	cd_builtin(t_data *data, t_exec *exec);
+char	*ft_getenv(t_data *data, char *name);
+void	cd_no_arg_case(t_data *data, t_exec *exec);
+void	cd_arg_case(t_data *data, t_exec *exec);
 
 /* BUILTIN_EXPORT */
 void	update_env(t_data *data, char *name, char *value);
@@ -216,4 +219,7 @@ char	*make_new_var(char *name, char *value);
 
 /* BUILTIN ECHO */
 void	echo_builtin(t_exec *exec);
+
+/* BUILTIN PWD */
+void	pwd_builtin(void);
 #endif

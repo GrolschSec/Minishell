@@ -6,7 +6,7 @@
 #    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/06/28 14:32:14 by rlouvrie         ###   ########.fr        #
+#    Updated: 2023/06/28 14:47:43 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ FILES = 	main					\
 			builtin_cd				\
 			builtin_export			\
 			builtin_echo			\
+			builtin_pwd				\
 			TEST_print				\
 			# unset					
 
