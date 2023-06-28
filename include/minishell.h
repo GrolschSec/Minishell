@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/27 00:34:17 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:04:10 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,4 +193,14 @@ int		convert_to_exit_code(long long nb);
 void	numeric_arg_error(t_exec *exec);
 void	perform_exit(int ex, t_data *data, t_exec *exec);
 
+/* BUILTIN CD */
+void	cd_error(char *path);
+void	cd_builtin(t_data *data, t_exec *exec);
+
+/* BUILTIN_EXPORT */
+void	update_env(t_data *data, char *name, char *value);
+char	*make_new_var(char *name, char *value);
+
+/* BUILTIN ECHO */
+void	echo_builtin(t_exec *exec);
 #endif

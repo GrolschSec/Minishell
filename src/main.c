@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/26 20:44:39 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:08:58 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ void	ft_handler(int sig)
 	}
 }
 
+
+/* 
+	path est une variable d'env donc parse path n'est pas 
+	a jour si on modifie la variable.
+*/
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;

@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/26 18:23:21 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:48:53 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	command_exec(t_data *data, t_exec *exec)
 {
 	char	*path;
 
+	path = NULL;
 	if ((exec->cmd[0][0] == '/' || exec->cmd[0][0] == '.')
 			&& !is_builtin(exec->cmd[0]))
 		path = ft_strdup(exec->cmd[0]);
@@ -112,8 +113,9 @@ int	command_exec(t_data *data, t_exec *exec)
 	{
 		execve(path, exec->cmd, data->env_tab);
 		exec_error(exec->cmd[0], strerror(errno));
+		free(path);
 	}
-	return (free(path), -1);
+	return (-1);
 }
 
 /*
@@ -130,6 +132,8 @@ int	exec_last_child(t_data *data, t_exec *exec)
 {
 	if (is_builtin(exec->cmd[0]) == EXIT)
 		exit_builtin(data, exec);
+	else if (is_builtin(exec->cmd[0]) == CD)
+		command_exec(data, exec);
 	else if (last_child(data, exec) < 0)
 	{
 		close(data->cpy_in);

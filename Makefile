@@ -6,7 +6,7 @@
 #    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 14:37:37 by nagvaill          #+#    #+#              #
-#    Updated: 2023/06/27 00:33:22 by rlouvrie         ###   ########.fr        #
+#    Updated: 2023/06/28 12:56:06 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,10 @@ FILES = 	main					\
 			exec_2					\
 			exec_utils_1			\
 			exec_utils_2			\
-			builtin_exit			
+			builtin_exit			\
+			builtin_cd				\
+			builtin_export			\
+			builtin_echo			\
 			# unset					
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
