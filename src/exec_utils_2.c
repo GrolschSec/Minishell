@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 00:23:40 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/27 00:43:15 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:59:33 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	is_out_of_range(const char *str)
 	{
 		if (sign > 0 && result > (LLONG_MAX - (str[i] - '0')) / 10)
 			return (1);
-		if (sign < 0 && -result < (LLONG_MIN + (str[i] - '0')) / 10)
+		if (sign < 0 && - result < (LLONG_MIN + (str[i] - '0')) / 10)
 			return (1);
 		result = result * 10 + (str[i] - '0');
 		i++;
