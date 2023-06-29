@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/28 16:49:27 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:27:14 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 		*data->exit_code = 1;
 	}
 	if (exec->is_last && data->pipes == 1 && ex_code == 0)
-		update_env(data, "PWD", getcwd(NULL, 0));
+		ft_setenv(data, "PWD=", getcwd(NULL, 0));
 	else if (exec->is_last && data->pipes > 1)
 		chdir(actual_path);
 	free(actual_path);
@@ -106,7 +106,7 @@ void	cd_arg_case(t_data *data, t_exec *exec)
 		*data->exit_code = 1;
 	}
 	if (exec->is_last && data->pipes == 1 && ex_code == 0)
-		update_env(data, "PWD", getcwd(NULL, 0));
+		ft_setenv(data, "PWD", getcwd(NULL, 0));
 	else if (exec->is_last && data->pipes > 1)
 		chdir(actual_path);
 	free(actual_path);
