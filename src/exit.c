@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 14:37:38 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:52:53 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,9 @@ void	exit_all(t_data *data, int err, char *str)
 	if (data->path.tab && data->path.tab != NULL)
 		free_tab(data->path.tab);
 	if (data->path.line && data->path.line != NULL)
-		free (data->path.line);
+		free(data->path.line);
+	if (data->tilde)
+		free(data->tilde);
 	if (err == 1)
 	{
 		clear_cmd(data);

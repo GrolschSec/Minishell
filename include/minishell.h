@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 18:16:01 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:40:06 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <limits.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
-extern int	g_exit;
+# include <errno.h>
+# define COLOR_RESET "\e[0;37m"
+# define COLOR_RED "\e[1;31m"
 
 enum e_buitin
 {
@@ -36,12 +39,6 @@ enum e_buitin
 	ENV,
 	EXIT,
 };
-
-
-# define COLOR_RESET "\e[0;37m"
-# define COLOR_RED "\e[1;31m"
-
-extern int	g_exit;
 
 typedef struct s_path
 {
@@ -74,6 +71,7 @@ typedef struct s_exec
 	int			redirect_input;
 	int			redirect_output;
 	int			heredoc;
+	int			is_last;
 	int			nb_cmd;
 }				t_exec;
 
@@ -91,15 +89,18 @@ typedef struct s_exec
 typedef struct s_data
 {
 	char		*input;
+	char		*str;
 	int			pipes;
 	int			cpy_in;
 	int			cpy_out;
+	int			*exit_code;
 	t_exec		*exec;
 	t_list		*token_list;
 	t_list		*env;
 	char		**env_tab;
 	int			nb_env;
 	t_path		path;
+	char		*tilde;
 }				t_data;
 
 /* PRINT ----  TO REMOVE */
@@ -114,12 +115,10 @@ void	ft_handler(int sig);
 int		is_metacharacter(char c);
 int		is_space(char c);
 char	*fill_tmp(char *str, int len);
-void	add_node(t_data *data, char *str, int i, int j);
-void	add_node_double_quote(t_data *data, char *str, int i, int j);
-void	add_node_single_quote(t_data *data, char *str, int i, int j);
-void	split_double_quotes(t_data *data, char *str, int *i, int *j);
-void	split_single_quotes(t_data *data, char *str, int *i, int *j);
-void	split_in_list(t_data *data, char *str);
+void	add_node(t_data *data, int i, int j);
+void	split_in_list(t_data *data);
+void    add_in_previous_node(t_data *data, int *i, int *j);
+void    split_quote(t_data *data, int *i, int *j, char quotetype);
 
 /* PARSE COMMANDES */
 int		is_redirection(t_list *tmp);
@@ -174,16 +173,56 @@ void	clear_cmd(t_data *data);
 void	free_tab(char **tab);
 void	exit_all(t_data *data, int err, char *str);
 void	close_fds(t_data *data);
+void	free_env(t_data *data);
 
-/* EXEC */
+/* EXEC_1 */
 void	execution(t_data *data);
 int		process_creation(t_data *data, t_exec *exec);
 int		command_exec(t_data *data, t_exec *exec);
-int		is_builtin(char *cmd);
-char	*get_cmd_path(char *cmd, t_data *data);
 int		exec_last_child(t_data *data, t_exec *exec);
 int		last_child(t_data *data, t_exec *exec);
-void	free_tab_exec(char **tab, int i);
+
+/* EXEC_2 */
+int		is_builtin(char *cmd);
+char	*get_cmd_path(char *cmd, t_data *data);
+void	select_builtin(t_data *data, t_exec *exec);
+void	execution_handling(t_data *data, int i);
+
+/* EXEC_UTILS_1 */
 char	*ft_strjoin2(char *s1, char const *s2);
 void	end_exec(t_data *data);
+void	exit_ps(t_data *data, int error);
+void	exec_error(char *name, char *str);
+void	exit_minishell(t_data *data);
+
+/* EXEC_UTILS_2 */
+long long	ft_atoll(const char *str);
+int			is_out_of_range(const char *str);
+
+/*BUILTIN EXIT*/
+void	exit_builtin(t_data *data, t_exec *exec);
+int		str_isdigit(char *str);
+int		convert_to_exit_code(long long nb);
+void	numeric_arg_error(t_exec *exec);
+void	perform_exit(int ex, t_data *data, t_exec *exec);
+
+/* BUILTIN CD */
+void	cd_error(char *path);
+void	cd_builtin(t_data *data, t_exec *exec);
+void	cd_no_arg_case(t_data *data, t_exec *exec);
+void	cd_arg_case(t_data *data, t_exec *exec);
+
+/* BUILTIN_EXPORT */
+void	update_env(t_data *data, char *name, char *value);
+char	*make_new_var(char *name, char *value);
+
+/* BUILTIN ECHO */
+void	echo_builtin(t_exec *exec);
+
+/* BUILTIN PWD */
+void	pwd_builtin(void);
+
+/* BUILTIN UTILS */
+char	*ft_getenv(t_data *data, char *name);
+char	*get_value(t_list *env);
 #endif

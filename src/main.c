@@ -6,13 +6,11 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 18:01:06 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:12:53 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	g_exit = 0;
 
 /*
 ** Function: builtin_pwd
@@ -42,7 +40,8 @@ void	builtin_pwd(void)
 ** - sig: Signal number.
 **
 ** Side effects:
-** - When an interrupt signal is received, a new line is printed and the input line is reset.
+** - When an interrupt signal is received, a new line is printed 
+**		and the input line is reset.
 */
 void	ft_handler(int sig)
 {
@@ -55,62 +54,33 @@ void	ft_handler(int sig)
 	}
 }
 
-/*
-** Function: exec_cmd
-** ------------------
-** Executes the parsed commands.
-**
-** Args:
-** - data: Pointer to the main data structure.
-**
-** Side effects:
-** - Calls the appropriate built-in function for each command in the parsed list.
+
+/* 
+	path est une variable d'env donc parse path n'est pas 
+	a jour si on modifie la variable.
 */
-void	exec_cmd(t_data *data)
-{
-	int	i;
-	int	y;
-
-	y = 0;
-	i = 0;
-	while (i < data->pipes)
-	{
-		y = 0;
-		while (y < data->exec[i].nb_cmd)
-		{
-			if (ft_strncmp(data->exec[i].cmd[y], "export", ft_strlen(data->exec[i].cmd[y])) == 0)
-				builtin_export(data, &data->exec[i].cmd[y]);
-			if (ft_strncmp(data->exec[i].cmd[y], "env", ft_strlen(data->exec[i].cmd[y])) == 0)
-				print_env_tab(data);
-			if (ft_strncmp(data->exec[i].cmd[y], "echo", ft_strlen(data->exec[i].cmd[y])) == 0)
-				builtin_echo_str(data, &data->exec[i].cmd[y]);
-			if (ft_strncmp(data->exec[i].cmd[y], "pwd", ft_strlen(data->exec[i].cmd[y])) == 0)
-				builtin_pwd();
-			// if (ft_strncmp(data->exec[i].cmd[y], "unset", ft_strlen(data->exec[i].cmd[y])) == 0)
-			// 	builtin_unset(data, data->exec[i].cmd[y]); /* a retoucher */
-			y++;
-		}
-		i++;
-	}
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
+	int		exit;
+
 	(void)argv;
 	(void)argc;
-
-	if (!isatty(STDIN_FILENO)) //|| !isatty(STDOUT_FILENO))
+	(void)env;
+	exit = 0;
+	if (!isatty(STDIN_FILENO))
 		return (0);
 	ft_bzero(&data, sizeof(data));
-	fill_env_list(env, &data); // Segfault env -i
+	data.exit_code = &exit;
+	fill_env_list(env, &data);
 	parse_path(&data);
 	while (1)
 	{
 		signal(SIGINT, ft_handler);
 		signal(SIGQUIT, SIG_IGN);
+		signal(SIGPIPE, SIG_IGN);
 		data.input = readline(COLOR_RED "Minishell> " COLOR_RESET);
-		if (!data.input)	
+		if (!data.input)
 		{
 			printf("exit\n");
 			exit_all(&data, 0, NULL);

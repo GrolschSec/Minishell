@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 16:42:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:52:31 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	put_infiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 	int	nb_infile;
 
 	nb_infile = 0;
+	printf("redi input: %d\n", current->redirect_input);
 	if (current->redirect_input <= 0)
 		return ;
 	else
