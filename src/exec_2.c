@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/28 16:29:14 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:31:27 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
  * is found where the command is executable.
  * cmd: Command name.
  * data: Global runtime information.
- * Returns: A string containing the path to the command, or NULL if the
+ * Returns: A string containing the path to the command, or NULL if the 
  * command was not found in the PATH or if an error occurred.
  */
-char *get_cmd_path(char *cmd, t_data *data)
+char	*get_cmd_path(char *cmd, t_data *data)
 {
-	int i;
-	char *path;
-	char *tmp;
+	int		i;
+	char	*path;
+	char	*tmp;
 
 	i = 0;
 	if (!data->path.tab[0])
@@ -51,10 +51,10 @@ char *get_cmd_path(char *cmd, t_data *data)
 /*
  * is_builtin checks if a command is a built-in command.
  * cmd: Command name.
- * Returns: An integer representing the built-in command if it's
+ * Returns: An integer representing the built-in command if it's 
  * a built-in command, or 0 otherwise.
  */
-int is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
 		return (1);
@@ -73,7 +73,7 @@ int is_builtin(char *cmd)
 	return (0);
 }
 
-void select_builtin(t_data *data, t_exec *exec)
+void	select_builtin(t_data *data, t_exec *exec)
 {
 	if (is_builtin(exec->cmd[0]) == EXIT)
 		exit_builtin(data, exec);
@@ -81,12 +81,18 @@ void select_builtin(t_data *data, t_exec *exec)
 		cd_builtin(data, exec);
 	else if (is_builtin(exec->cmd[0]) == ECHO)
 		echo_builtin(exec);
+	else if (is_builtin(exec->cmd[0]) == PWD)
+		pwd_builtin();
+	else if (is_builtin(exec->cmd[0]) == EXPORT)
+		export_builtin(data, exec);
 }
 
-void execution_handling(t_data *data, int i)
+void	execution_handling(t_data *data, int i)
 {
 	dup2(data->cpy_out, STDOUT_FILENO);
-	if (!is_builtin(data->exec[i].cmd[0]) && data->exec[i].cmd[0][0] != '.' && data->exec[i].cmd[0][0] != '/')
+	if (!is_builtin(data->exec[i].cmd[0])
+		&& data->exec[i].cmd[0][0] != '.'
+		&& data->exec[i].cmd[0][0] != '/')
 	{
 		exec_error(data->exec[i].cmd[0], "command not found");
 		*data->exit_code = 127;

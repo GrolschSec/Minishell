@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/29 14:40:06 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:55:34 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,13 @@ void	print_all(t_data *data);
 void	ft_handler(int sig);
 
 /* SPLIT LIST */
-int		is_metacharacter(char c);
+int		is_meta(char c);
 int		is_space(char c);
 char	*fill_tmp(char *str, int len);
 void	add_node(t_data *data, int i, int j);
 void	split_in_list(t_data *data);
-void    add_in_previous_node(t_data *data, int *i, int *j);
-void    split_quote(t_data *data, int *i, int *j, char quotetype);
+void	add_in_previous_node(t_data *data, int *i, int *j);
+void	split_quote(t_data *data, int *i, int *j, char quotetype);
 
 /* PARSE COMMANDES */
 int		is_redirection(t_list *tmp);
@@ -129,7 +129,7 @@ void	parse_cmd(t_data *data);
 /* ASSIGN TYPES */
 void	len_is_one(t_data *data, t_list *tmp);
 void	len_is_two(t_list *tmp);
-void	type_dollar(t_list *tmp);
+void	type_dollar(t_data *data, t_list *tmp);
 void	type_option(t_list *tmp);
 void	assign_type(t_data *data);
 
@@ -213,8 +213,11 @@ void	cd_no_arg_case(t_data *data, t_exec *exec);
 void	cd_arg_case(t_data *data, t_exec *exec);
 
 /* BUILTIN_EXPORT */
-void	update_env(t_data *data, char *name, char *value);
+void	ft_setenv(t_data *data, char *name, char *value);
 char	*make_new_var(char *name, char *value);
+void	export_builtin(t_data *data, t_exec *exec);
+int		parse_export(char *var);
+char	**split_export(char *arg);
 
 /* BUILTIN ECHO */
 void	echo_builtin(t_exec *exec);
@@ -225,4 +228,10 @@ void	pwd_builtin(void);
 /* BUILTIN UTILS */
 char	*ft_getenv(t_data *data, char *name);
 char	*get_value(t_list *env);
+
+/* BUILTIN ERROR */
+void	invalid_option(char c);
+void	not_valid_identifier(char *arg);
+void	print_usage(void);
+void	export_no_arg(t_data *data);
 #endif

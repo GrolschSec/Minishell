@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:59:43 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/05/21 16:09:42 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:54:23 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_list	*ft_lstnew(char *content)
 		return (0);
 	new->next = NULL;
 	new->content = ft_strdup(content);
-	new->full = 0;
-	new->printed = 0;
 	new->type = 0;
 	return (new);
 }

@@ -6,14 +6,14 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:08:29 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/29 16:28:57 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:02:29 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 /*
-** is_metacharacter: Checks if a character is a metacharacter.
+** is_meta: Checks if a character is a metacharacter.
 ** Metacharacters include '|', '&', ';', '(', ')', '<', '>'.
 **
 ** Args:
@@ -22,7 +22,7 @@
 ** Returns:
 **   1 if the character is a metacharacter, 0 otherwise.
 */
-int	is_metacharacter(char c)
+int	is_meta(char c)
 {
 	if (c == '|' || c == '&' || c == ';')
 		return (1);

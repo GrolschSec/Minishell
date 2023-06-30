@@ -6,7 +6,7 @@
 #    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/06/29 16:12:07 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/06/30 15:28:05 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ FILES = 	main					\
 			builtin_echo			\
 			builtin_pwd				\
 			builtin_utils			\
+			builtin_error			\
 			TEST_print				\
 			# unset					
 

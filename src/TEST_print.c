@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:00:28 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/29 16:37:11 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:04:34 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	print_tab(t_data *data)
 			printf("data->exec[%d].cmd[%d]: %s\n", nb_jobs, i, data->exec[nb_jobs].cmd[i]);
 			i++;
 		}
-		printf("nb jobs: %d\n", nb_jobs);
 		if (data->exec[nb_jobs].redirect_input > 0)
 		{
 			infile = 0;

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 18:12:52 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:13:01 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,22 @@ void	len_is_two(t_list *tmp)
 ** Side effects:
 ** Assigns a type to the token based on its content.
 */
-void	type_dollar(t_list *tmp)
+void	type_dollar(t_data *data, t_list *tmp)
 {
-	int	i;
+	char	*variable;
 
-	i = 1;
-	while (tmp->content[i])
+	variable = NULL;
+	if (ft_strlen(tmp->content) == 2 && tmp->content[1] == '?')
 	{
-		if (ft_strlen(tmp->content) == 2 && tmp->content[i] == '?')
-			tmp->type = EXIT_STATUS;
-		else
-			tmp->type = ENVIRONMENT_VARIABLE;
-		i++;
+		tmp->type = EXIT_STATUS;
+	}
+	else
+	{
+		tmp->type = ENVIRONMENT_VARIABLE;
+		variable = ft_getenv(data, &tmp->content[1]);
+		free(tmp->content);
+		tmp->content = ft_strdup(variable);
+		free(variable);
 	}
 }
 

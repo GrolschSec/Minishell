@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/29 16:52:25 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:40:05 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 	while (y < current[x].nb_cmd)
 	{
 		if ((*tmp)->next != NULL && is_redirection(*tmp) == 1)
-		{
 			count_redirections(*tmp, current, x);
-		}
 		else
 			current[x].cmd[y++] = ft_strdup((*tmp)->content);
 		*tmp = (*tmp)->next;

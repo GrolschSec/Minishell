@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/29 16:32:59 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:54:52 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	assign_type(t_data *data)
 		if (tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT)
 			redirection_file(tmp);
 		if (tmp->content[0] == '$')
-			type_dollar(tmp);
+			type_dollar(data, tmp);
 		if (tmp->content[0] == '-')
 			type_option(tmp);
 		if (tmp->type == SINGLE_QUOTE || tmp->type == DOUBLE_QUOTE)

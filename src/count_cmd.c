@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 14:33:30 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:51:52 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,4 +133,5 @@ void	init_exec(t_exec *current, int x)
 	current[x].redirect_input = 0;
 	current[x].redirect_output = 0;
 	current[x].heredoc = 0;
+	current[x].is_last = 0;
 }
