@@ -6,11 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:12:49 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 18:39:25 by mrabourd         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*   Updated: 2023/06/30 18:26:08 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:49:30 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +52,10 @@ void	ft_setenv(t_data *data, char *name, char *value)
 		tmp = tmp->next;
 	}
 	if (!env)
-<<<<<<< HEAD
-		ft_lstadd_back(&data->env, ft_lstnew(new_env));
-=======
 	{
 		ft_lstadd_back(&data->env, ft_lstnew(new_env));
 		free(new_env);
 	}
->>>>>>> main
 	else
 	{
 		tmp_str = env->content;

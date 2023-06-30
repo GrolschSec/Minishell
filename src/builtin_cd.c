@@ -6,11 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 18:39:13 by mrabourd         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*   Updated: 2023/06/30 18:25:57 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:46:09 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +75,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 	home = ft_getenv(data, "HOME");
 	if (!home)
 	{
-<<<<<<< HEAD
-		write(2, "minishell: cd: HOME not set", 27);
-=======
 		write(2, "minishell: cd: HOME not set\n", 28);
->>>>>>> main
 		return ;
 	}
 	actual_path = getcwd(NULL, 0);

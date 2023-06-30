@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:43:34 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/29 18:44:40 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:16:36 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	invalid_option(char c)
 	char	*msg;
 
 	if (c)
-	tmp = ft_strjoin2("minishell: export: `-", &c);
+		tmp = ft_strjoin2("minishell: export: `-", &c);
 	if (!tmp)
 		return ;
 	msg = ft_strjoin2(tmp, "': invalid option\n");

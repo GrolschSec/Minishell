@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:22:50 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 17:42:52 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:17:33 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	del_next_node(t_list *prev)
 	{
 		free(tmp->content);
 		free(tmp);
-	}		
+	}
 }
 
 void	ft_unsetenv(t_data *data, char *name)

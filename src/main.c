@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/29 17:09:05 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:58:38 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_handler(int sig)
 	}
 }
 
-
 /* 
 	path est une variable d'env donc parse path n'est pas 
 	a jour si on modifie la variable.
@@ -87,8 +86,10 @@ int	main(int argc, char **argv, char **env)
 		else if (data.input && data.input[0])
 		{
 			add_history(data.input);
-			parse_cmd(&data);
-			execution(&data);
+			if (parse_cmd(&data) != 0)
+				signal(SIGINT, ft_handler);
+			else
+				execution(&data);
 		}
 	}
 	return (0);

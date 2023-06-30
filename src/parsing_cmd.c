@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 16:40:05 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:12:10 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,29 @@ void	put_cmd_in_tab(t_data *data, int nb)
 	}
 }
 
-void	parse_cmd(t_data *data)
+int	input_is_only_space(t_data *data, char *input)
 {
+	int	i;
+
+	i = 0;
+	while (input[i] && is_space(input[i]) == 1)
+	{
+		i++;
+	}
+	if ((int)ft_strlen(input) == i
+			|| (input[i] == '!' && (int)ft_strlen(input) == 1)
+			|| (input[i] == ':' && (int)ft_strlen(input) == 1))
+	{
+		*data->exit_code = 127;
+		return (1);
+	}
+	return (0);
+}
+
+int	parse_cmd(t_data *data)
+{
+	if (input_is_only_space(data, data->input) != 0)
+		return (1);
 	data->str = ft_strtrim(data->input, " ");
 	split_in_list(data);
 	free (data->str);
@@ -80,4 +101,5 @@ void	parse_cmd(t_data *data)
 	fill_eof(data);
 	open_files(data);
 	print_tab(data);
+	return (0);
 }

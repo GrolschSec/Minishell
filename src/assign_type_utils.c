@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 17:13:01 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:26:31 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ void	type_dollar(t_data *data, t_list *tmp)
 	if (ft_strlen(tmp->content) == 2 && tmp->content[1] == '?')
 	{
 		tmp->type = EXIT_STATUS;
+		free(tmp->content);
+		variable = ft_itoa(*data->exit_code);
+		tmp->content = ft_strdup(variable);
+		free(variable);
 	}
 	else
 	{

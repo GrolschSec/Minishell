@@ -6,10 +6,9 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 18:39:52 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:56:01 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -125,7 +124,7 @@ void	split_quote(t_data *data, int *i, int *j, char quotetype);
 int		is_redirection(t_list *tmp);
 void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x);
 void	put_cmd_in_tab(t_data *data, int nb);
-void	parse_cmd(t_data *data);
+int		parse_cmd(t_data *data);
 
 /* ASSIGN TYPES */
 void	len_is_one(t_data *data, t_list *tmp);
@@ -235,8 +234,6 @@ void	invalid_option(char c);
 void	not_valid_identifier(char *arg);
 void	print_usage(void);
 void	export_no_arg(t_data *data);
-<<<<<<< HEAD
-=======
 
 /* BUILTIN UNSET */
 void	unset_builtin(t_data *data, t_exec *exec);
@@ -246,5 +243,5 @@ void	ft_unsetenv(t_data *data, char *name);
 
 /*BUILTIN ENV*/
 void	env_builtin(t_data *data, t_exec *exec);
->>>>>>> main
+
 #endif

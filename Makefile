@@ -6,7 +6,7 @@
 #    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/06/30 18:39:46 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/06/30 18:53:27 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,7 @@ FILES = 	main					\
 			fill_redirections		\
 			fill_eof				\
 			open_files				\
-			env 					\
-			export					\
-			echo					\
+			env						\
 			exit					\
 			exec_1					\
 			exec_2					\
@@ -48,13 +46,9 @@ FILES = 	main					\
 			builtin_pwd				\
 			builtin_utils			\
 			builtin_error			\
-<<<<<<< HEAD
-=======
 			builtin_unset			\
 			builtin_env				\
->>>>>>> main
-			TEST_print				\
-			# unset					
+			TEST_print							
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
