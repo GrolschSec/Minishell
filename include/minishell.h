@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 16:55:34 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:27:40 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,4 +234,13 @@ void	invalid_option(char c);
 void	not_valid_identifier(char *arg);
 void	print_usage(void);
 void	export_no_arg(t_data *data);
+
+/* BUILTIN UNSET */
+void	unset_builtin(t_data *data, t_exec *exec);
+void	del_first_node(t_data *data);
+void	del_next_node(t_list *prev);
+void	ft_unsetenv(t_data *data, char *name);
+
+/*BUILTIN ENV*/
+void	env_builtin(t_data *data, t_exec *exec);
 #endif

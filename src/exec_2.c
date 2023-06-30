@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/29 15:31:27 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:26:39 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ void	select_builtin(t_data *data, t_exec *exec)
 		pwd_builtin();
 	else if (is_builtin(exec->cmd[0]) == EXPORT)
 		export_builtin(data, exec);
+	else if (is_builtin(exec->cmd[0]) == UNSET)
+		unset_builtin(data, exec);
+	else if (is_builtin(exec->cmd[0]) == ENV)
+		env_builtin(data, exec);
 }
 
 void	execution_handling(t_data *data, int i)
