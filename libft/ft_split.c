@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 18:18:37 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/03/07 16:03:59 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:41:56 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	ft_nchar(char const *s, char c, int i)
 }
 
 static void	ft_strdup2(char c, const char *s, char *new, int i)
-{	
+{
 	int	j;
 
 	j = 0;

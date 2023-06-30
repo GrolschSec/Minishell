@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 17:54:09 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:58:19 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static void	add_node_env(t_data *data, char **env)
 	while (env[i])
 	{
 		new = ft_lstnew(env[i]);
-		if (ft_strchr(env[i], '=') == 0)
-			new->full = 1;
+		if (ft_strncmp(new->content, "HOME=", 5) == 0)
+			data->tilde = ft_strdup(new->content);
 		res = ft_lstadd_back(&data->env, new);
 		if (res == 1)
 			exit_all(data, 1, "There is a problem to fill the env list");
@@ -79,6 +79,7 @@ void	fill_env_list(char **env, t_data *data)
 		data->nb_env = 0;
 		return ;
 	}
+	printf("tilde: %s\n", data->tilde);
 	data->nb_env = count_env_list(data->env);
 	put_env_in_tab(data);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
+#    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/06/28 14:32:14 by rlouvrie         ###   ########.fr        #
+#    Updated: 2023/06/30 15:28:05 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,8 @@ Make		=	Make
 FILES = 	main					\
 			path					\
 			split_list				\
-			add_nodes				\
 			split_list_utils		\
-			split_doublequote		\
-			split_singlequote		\
+			split_quote				\
 			assign_type				\
 			assign_type_utils		\
 			parsing_cmd				\
@@ -46,6 +44,9 @@ FILES = 	main					\
 			builtin_cd				\
 			builtin_export			\
 			builtin_echo			\
+			builtin_pwd				\
+			builtin_utils			\
+			builtin_error			\
 			TEST_print				\
 			# unset					
 
@@ -71,7 +72,7 @@ $(NAME)    :    $(OBJ)
 clean    :
 	@rm -rf $(OBJ_DIR)
 	@rm -f $(OBJF)
-	@cd $(DIR_LIB) && $(MAKE) clean
+	@make fclean -C $(DIR_LIB)
 
 fclean    :    clean
 	@rm -f $(NAME)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   exec_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:25:03 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/26 20:17:55 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:00:48 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	exit_minishell(t_data *data)
 		free_tab(data->path.tab);
 	if (data->path.line && data->path.line != NULL)
 		free(data->path.line);
+	if (data->tilde && data->tilde != NULL)
+		free(data->tilde);
 	clear_cmd(data);
 	rl_clear_history();
 	exit(*data->exit_code);

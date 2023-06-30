@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:35:48 by mrabourd          #+#    #+#             */
-/*   Updated: 2022/11/14 18:54:45 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:43:37 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_atoi(const char *nptr)
 	while ((nptr[i] > 8 && nptr[i] < 14) || nptr[i] == 32)
 		i++;
 	if (nptr[i] == '-' || nptr[i] == '+')
-	{	
+	{
 		if (nptr[i] == '-')
 			signe = -signe;
 		i++;

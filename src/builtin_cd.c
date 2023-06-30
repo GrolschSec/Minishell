@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/27 18:14:32 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:27:14 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,30 +66,62 @@ void	cd_error(char *path)
 	free(msg);
 }
 
-void	cd_builtin(t_data *data, t_exec *exec)
+void	cd_no_arg_case(t_data *data, t_exec *exec)
+{
+	char	*home;
+	char	*actual_path;
+	int		ex_code;
+
+	home = ft_getenv(data, "HOME");
+	if (!home)
+	{
+		write(2, "minishell: cd: HOME not set", 27);
+		return ;
+	}
+	actual_path = getcwd(NULL, 0);
+	ex_code = chdir(home);
+	if (ex_code != 0)
+	{
+		cd_error(exec->cmd[1]);
+		*data->exit_code = 1;
+	}
+	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+	else if (exec->is_last && data->pipes > 1)
+		chdir(actual_path);
+	free(actual_path);
+	free(home);
+}
+
+void	cd_arg_case(t_data *data, t_exec *exec)
 {
 	char	*actual_path;
 	int		ex_code;
 
+	actual_path = getcwd(NULL, 0);
+	ex_code = chdir(exec->cmd[1]);
+	if (ex_code != 0)
+	{
+		cd_error(exec->cmd[1]);
+		*data->exit_code = 1;
+	}
+	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+		ft_setenv(data, "PWD", getcwd(NULL, 0));
+	else if (exec->is_last && data->pipes > 1)
+		chdir(actual_path);
+	free(actual_path);
+}
+
+void	cd_builtin(t_data *data, t_exec *exec)
+{
 	if (exec->nb_cmd > 2)
 	{
 		write(2, "minishell: cd: too many arguments\n", 34);
 		*data->exit_code = 1;
 		return ;
 	}
-	else if (exec->nb_cmd == 2 || exec->nb_cmd == 1)
-	{
-		actual_path = getcwd(NULL, 0);
-		ex_code = chdir(exec->cmd[1]);
-		if (ex_code != 0)
-		{
-			cd_error(exec->cmd[1]);
-			*data->exit_code = 1;
-		}
-		if (exec->is_last && data->pipes == 1 && ex_code == 0)
-			update_env(data, "PWD", getcwd(NULL, 0));
-		else if (exec->is_last && data->pipes > 1)
-			chdir(actual_path);
-		free(actual_path);
-	}
+	else if (exec->nb_cmd == 1)
+		cd_no_arg_case(data, exec);
+	else if (exec->nb_cmd == 2)
+		cd_arg_case(data, exec);
 }

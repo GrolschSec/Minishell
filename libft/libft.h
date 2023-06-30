@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 17:19:05 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:41:32 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef struct s_list
 {
 	char			*content;
 	struct s_list	*next;
-	int				full;	/* ne sert plus a rien, a virer (c'etait pour export) */
-	int				printed;/* idem  */
 	t_type			type;	/* dans minishell.h */
 }	t_list;
 

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 18:00:49 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:40:05 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,9 @@ void	put_cmd_in_tab(t_data *data, int nb)
 
 void	parse_cmd(t_data *data)
 {
-	char	*str;
-
-	str = NULL;
-	str = ft_strtrim(data->input, " ");
-	split_in_list(data, str);
-	free (str);
+	data->str = ft_strtrim(data->input, " ");
+	split_in_list(data);
+	free (data->str);
 	assign_type(data);
 	// print_all(data);
 	count_pipes(data);

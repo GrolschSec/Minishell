@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:05:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 17:46:42 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:39:35 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,4 @@ void	parse_path(t_data *data)
 		data->path.tab = ft_split(data->path.line, ':');
 	else
 		exit_all(data, 1, "env: No such file or directory");
-/*	print_path(data);*/
 }

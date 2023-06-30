@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:00:28 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 18:16:16 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:04:34 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,10 @@ void	print_all(t_data *data)
 	printf("----START ALL-----\n");
 	while (tmp != NULL)
 	{
-		printf("%s\n", tmp->content);
-		printf("type: %u\n", tmp->type);
-		// printf("%d\n", tmp->printed);
+		printf("list: %s\n", tmp->content);
+		printf("type: %d\n", tmp->type);
 		tmp = tmp->next;
 	}
-	// printf("%d\n", tmp->printed);
 	printf("----END ALL-----\n");
 }
 
@@ -75,7 +73,7 @@ void	print_tab(t_data *data)
 		{
 			while (tmp_out != NULL)
 			{
-				printf("outfile: %s\n", tmp_out->content);
+				printf("outfile[%d]: %s\n", nb_jobs, tmp_out->content);
 				tmp_out = tmp_out->next;
 			}
 		}

@@ -6,101 +6,77 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:53:43 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 17:15:10 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:46:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	split_meta_utils(t_data *data, char *str, int *i, int *j)
+static void	split_meta(t_data *data, int *i, int *j)
 {
-	while (*i + 1 < (int)ft_strlen(str) && str[*i] == str[*j])
-		(*i)++;
-	if (*i + 1 < (int)ft_strlen(str))
-		add_node(data, str, *i, *j);
-	else if (*i + 1 == (int)ft_strlen(str) && str[*i] == str[*j])
-	{
-		add_node(data, str, *i + 1, *j);
-		*j = *i + 1;
-		return ;
-	}
-	else if (*i + 1 == (int)ft_strlen(str) && str[*i] != str[*j])
-	{
-		add_node(data, str, *i, *j);
-		*j = *i;
-		return ;
-	}
-}
-
-/*
-** split_meta: Splits metacharacters from user input into individual nodes.
-**
-** Args:
-**   data: Pointer to the data structure where the token list is located.
-**   str: The user input string.
-**   i: Pointer to the current index in the string.
-**   j: Pointer to the start index of the substring.
-*/
-static void	split_meta(t_data *data, char *str, int *i, int *j)
-{
-	(*i)++;
-	if (str[*i] && *i + 1 < (int)ft_strlen(str) && str[*i] == str[*j])
-		split_meta_utils(data, str, i, j);
-	else if (str[*i] && *i + 1 == (int)ft_strlen(str))
-	{
-		add_node(data, str, *i + 1, *j);
-		*j = (int)ft_strlen(str);
-		return ;
-	}
-	else
-		add_node(data, str, *i, *j);
-	while (str[*i] && is_space(str[*i]) == 1)
-		(*i)++;
 	*j = *i;
+	(*i)++;
+	if (data->str[*i])
+	{
+		if (data->str[*i] == data->str[*i - 1])
+		{
+			while (data->str[*i] && (data->str[*i] == data->str[*i - 1]))
+				(*i)++;
+		}
+	}
+	add_node(data, *i, *j);
 	(*i)--;
 }
 
-/* A NORMER -- fonction qui repartit l'input  en liste chainee */
-/*
-** split_in_list: Splits the user input into nodes based on space,
-** metacharacters, and quotes, and adds them to the token list.
-**
-** Args:
-**   data: Pointer to the data structure where the token list is located.
-**   str: The user input string.
-*/
-void	split_in_list(t_data *data, char *str)
+void	if_is_quote(t_data *data, int *i, int *j)
 {
-	int		i;
-	int		j;
+	if (*i > 0 && is_space(data->str[*i - 1]) == 0
+		&& is_meta(data->str[*i - 1]) == 0)
+		add_in_previous_node(data, i, j);
+	else
+		split_quote(data, i, j, data->str[*i]);
+}
+
+void	if_is_else(t_data *data, int *i, int *j)
+{
+	if (*i > 0 && (data->str[*i - 1] == '\"' || data->str[*i - 1] == '\''))
+		add_in_previous_node(data, i, j);
+	else
+	{
+		while (data->str[*i] && (is_meta(data->str[*i]) == 0
+				&& is_space(data->str[*i]) == 0
+				&& data->str[*i] != '\"' && data->str[*i] != '\''))
+			(*i)++;
+		add_node(data, *i, *j);
+		(*i)--;
+	}
+}
+
+void	split_in_list(t_data *data)
+{
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	while (str[i])
-	{	
-		if (str[i] && j != i && (is_metacharacter(str[i]) == 1
-				|| is_space(str[i]) == 1 || str[i] == '\"' || str[i] == '\''))
+	while (data->str[i])
+	{
+		if (is_meta(data->str[i]) == 1)
+			split_meta(data, &i, &j);
+		else if (data->str[i] == '\"' || data->str[i] == '\'')
+			if_is_quote(data, &i, &j);
+		else if (data->str[i] == ' ')
 		{
-			add_node(data, str, i, j);
-			while (str[i] && is_space(str[i]) == 1)
+			while (data->str[i] == ' ')
 				i++;
-			j = i;
+			i--;
 		}
-		if (str[i] && j == i && is_space(str[i]) == 1)
+		else if (is_meta(data->str[i]) == 0 && is_space(data->str[i]) == 0)
+			if_is_else(data, &i, &j);
+		if (data->str[i])
 		{
-			while (str[i] && is_space(str[i]) == 1)
-				i++;
-			j = i;
-		}
-		if (str[i] && i == j && is_metacharacter(str[i]) == 1)
-			split_meta(data, str, &i, &j);
-		if (str[i] && i == j && str[i] == '\"')
-			split_double_quotes(data, str, &i, &j);
-		if (str[i] && i == j && str[i] == '\'')
-			split_single_quotes(data, str, &i, &j);
-		if (str[i])
 			i++;
+			j = i;
+		}
 	}
-	if (j != i && is_space(str[j]) == 0)
-		add_node(data, str, i, j);
 }

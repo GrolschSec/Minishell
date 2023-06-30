@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:23 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/06 00:41:19 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:49:04 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 void	del(void *list)
 {
 	t_list	*tmp;
+
 	tmp = (t_list *)list;
 	free (tmp->content);
 	tmp->content = NULL;
-	tmp->full = 0;
-	tmp->printed = 0;
 	tmp->type = 0;
 }
 

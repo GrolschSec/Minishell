@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:07:54 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/23 19:30:49 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:40:43 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	fill_eof(t_data *data)
 
 	x = 0;
 	tmp = data->token_list;
-	// count_heredoc(data);
 	while (x < data->pipes)
 	{
 		put_eofs_in_tab(data, tmp, &data->exec[x]);

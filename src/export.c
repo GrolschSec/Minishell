@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:00:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/20 14:47:15 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:56:17 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	do_export(t_data *data, char **pos)
 		{
 			new = ft_lstnew(pos[i]);
 			new->type = ENVIRONMENT_VARIABLE;
-			new->full = 0;
 			// if (tmp->next && tmp->next->type == VARIABLE_VALUE)
 			// 	new->content = ft_strjoin(new->content, tmp->next->content);
 			ret = ft_lstadd_back(&data->env, new);

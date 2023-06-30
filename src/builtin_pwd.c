@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 12:53:17 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/29 12:21:08 by mrabourd         ###   ########.fr       */
+/*   Created: 2023/06/28 14:45:43 by rlouvrie          #+#    #+#             */
+/*   Updated: 2023/06/28 14:49:20 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	echo_builtin(t_exec *exec)
+void	pwd_builtin(void)
 {
-	int	i;
-	int	r;
+	char	*path;
 
-	r = 1;
-	i = 1;
-	while (exec->cmd[i])
-	{
-		if (i == 1
-			&& ft_strncmp(exec->cmd[i], "-n", ft_strlen(exec->cmd[i])) == 0)
-			r = 0;
-		else
-			printf("%s", exec->cmd[i]);
-		i++;
-	}
-	if (r)
-		printf("\n");
+	path = getcwd(NULL, 0);
+	if (!path)
+		return ;
+	printf("%s\n", path);
+	free(path);
 }
