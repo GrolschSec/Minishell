@@ -6,9 +6,10 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:48:42 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 17:08:49 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 18:39:29 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/minishell.h"
 

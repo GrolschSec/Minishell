@@ -6,9 +6,10 @@
 #    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/06/30 15:28:05 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/06/30 18:39:46 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 SRC_DIR		=	src/
 OBJ_DIR		=	obj/
@@ -47,6 +48,11 @@ FILES = 	main					\
 			builtin_pwd				\
 			builtin_utils			\
 			builtin_error			\
+<<<<<<< HEAD
+=======
+			builtin_unset			\
+			builtin_env				\
+>>>>>>> main
 			TEST_print				\
 			# unset					
 
