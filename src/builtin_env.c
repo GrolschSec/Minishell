@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:49:24 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 17:19:58 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:43:59 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ void	env_builtin(t_data *data, t_exec *exec)
 			if (tmp)
 			{
 				error_msg = ft_strjoin(tmp, "’");
-				perror(error_msg);
-				free(error_msg);
+				if (error_msg)
+				{
+					perror(error_msg);
+					free(error_msg);
+				}
 			}
 			if (errno == EACCES)
 				*data->exit_code = 126;

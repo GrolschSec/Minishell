@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:22:50 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 16:36:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:42:52 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,39 +56,40 @@ void	del_next_node(t_list *prev)
 	}		
 }
 
-void    ft_unsetenv(t_data *data, char *name)
+void	ft_unsetenv(t_data *data, char *name)
 {
-    char    *str;
-    t_list  *current;
-    t_list  *prev;
+	char	*str;
+	t_list	*current;
+	t_list	*prev;
 
-    str = ft_strjoin2(name, "=");
-    if (!str)
-        return ;
-    current = data->env;
-    if (current && ft_strncmp(str, current->content, ft_strlen(str)) == 0)
-    {
-        del_first_node(data);
-        free(str);
-        return ;
-    }
-    prev = current;
-    current = current->next;
-    while (current)
-    {
-        if (current->content && ft_strncmp(current->content, str, ft_strlen(str)) == 0)
-        {
-            prev->next = current->next;
-            free(current->content);
-            free(current);
-            current = prev->next;
-        }
-        else
-        {
-            prev = current;
-            current = current->next;
-        }
-    }
-    free(str);
-    return ;
+	str = ft_strjoin2(name, "=");
+	if (!str)
+		return ;
+	current = data->env;
+	if (current && ft_strncmp(str, current->content, ft_strlen(str)) == 0)
+	{
+		del_first_node(data);
+		free(str);
+		return ;
+	}
+	prev = current;
+	current = current->next;
+	while (current)
+	{
+		if (current->content
+			&& ft_strncmp(current->content, str, ft_strlen(str)) == 0)
+		{
+			prev->next = current->next;
+			free(current->content);
+			free(current);
+			current = prev->next;
+		}
+		else
+		{
+			prev = current;
+			current = current->next;
+		}
+	}
+	free(str);
+	return ;
 }
