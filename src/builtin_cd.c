@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/29 18:27:14 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:37:48 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 	home = ft_getenv(data, "HOME");
 	if (!home)
 	{
-		write(2, "minishell: cd: HOME not set", 27);
+		write(2, "minishell: cd: HOME not set\n", 28);
 		return ;
 	}
 	actual_path = getcwd(NULL, 0);

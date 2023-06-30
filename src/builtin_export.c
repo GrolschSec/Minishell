@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:12:49 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/29 18:49:08 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:45:17 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	ft_setenv(t_data *data, char *name, char *value)
 		tmp = tmp->next;
 	}
 	if (!env)
+	{
 		ft_lstadd_back(&data->env, ft_lstnew(new_env));
+		free(new_env);
+	}
 	else
 	{
 		tmp_str = env->content;
