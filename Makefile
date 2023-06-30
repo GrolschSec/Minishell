@@ -6,7 +6,7 @@
 #    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/06/30 15:23:16 by rlouvrie         ###   ########.fr        #
+#    Updated: 2023/06/30 17:06:46 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ FILES = 	main					\
 			builtin_utils			\
 			builtin_error			\
 			builtin_unset			\
+			builtin_env				\
 			TEST_print				\
 			# unset					
 

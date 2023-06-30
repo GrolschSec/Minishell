@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 15:51:06 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:19:26 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	select_builtin(t_data *data, t_exec *exec)
 		export_builtin(data, exec);
 	else if (is_builtin(exec->cmd[0]) == UNSET)
 		unset_builtin(data, exec);
+	else if (is_builtin(exec->cmd[0]) == ENV)
+		env_builtin(data, exec);
 }
 
 void	execution_handling(t_data *data, int i)
