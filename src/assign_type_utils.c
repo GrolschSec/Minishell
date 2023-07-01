@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 19:26:31 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/01 15:30:25 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,20 @@ void	len_is_one(t_data *data, t_list *tmp)
 	if (tmp->content[0] == '>' && tmp->type == 0)
 		tmp->type = REDIRECT_OUTPUT;
 	if (tmp->content[0] == '&' && tmp->type == 0)
-	{
 		tmp->type = EPERLUETTE;
-		exit_all(data, 1, "There is a problem in the input");
-	}
 	if ((tmp->content[0] == '(' || tmp->content[0] == ')') && tmp->type == 0)
 		tmp->type = PARENTHESIS;
 	if (tmp->content[0] == ';' && tmp->type == 0)
 		tmp->type = SEMICOLON;
 	if (tmp->content[0] == ' ' && tmp->type == 0)
 		tmp->type = BLANCK;
+	if (tmp->type == EPERLUETTE || tmp->type == PARENTHESIS
+		|| tmp->type == SEMICOLON)
+	{
+		data->error = 1;
+		*data->exit_code = 2;
+		printf("minishell: unexpected input\n");
+	}
 }
 
 /*
@@ -58,17 +62,45 @@ void	len_is_one(t_data *data, t_list *tmp)
 ** Side effects:
 ** Assigns a type to the token based on its content.
 */
-void	len_is_two(t_list *tmp)
+void	len_is_two(t_data *data, t_list *tmp)
 {
-	if (tmp->content[0] == '<' && tmp->content[1] == '<' && tmp->type == 0)
+	if (tmp->content[0] == '<' && tmp->content[1] == '<' )
 	{
 		tmp->type = HEREDOC;
-		tmp->next->type = ENDOFFILE;
+		if (tmp->next != NULL)
+		{
+			if (is_meta(tmp->next->content[0]) == 0)
+				tmp->next->type = ENDOFFILE;
+			else
+			{
+				data->error = 1;
+				printf("minishell: syntax error near unexpected token `<<'\n");
+			}
+		}
+		else
+		{
+			data->error = 1;
+			printf("minishell: syntax error near unexpected token `newline'\n");
+		}
 	}
-	if (tmp->content[0] == '>' && tmp->content[1] == '>' && tmp->type == 0)
+	if (tmp->content[0] == '>' && tmp->content[1] == '>')
 	{
 		tmp->type = DELIMITER_APPEND;
-		tmp->next->type = OUTFILE;
+		if (tmp->next != NULL)
+		{
+			if (is_meta(tmp->next->content[0]) == 0)
+				tmp->next->type = OUTFILE;
+			else
+			{
+				data->error = 1;
+				printf("minishell: syntax error near unexpected token `>>'\n");
+			}
+		}
+		else
+		{
+			data->error = 1;
+			printf("minishell: syntax error near unexpected token `newline'\n");
+		}
 	}
 }
 

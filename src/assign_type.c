@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 20:29:26 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/01 15:31:04 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,35 @@
 */
 void	redirection_file(t_data *data, t_list *tmp)
 {
-	(void)data;
-	// if (((tmp->type == REDIRECT_INPUT || tmp->type == HEREDOC)
-	// 	|| (tmp->type == REDIRECT_OUTPUT || tmp->type == DELIMITER_APPEND))
-	// 	&& tmp->next == NULL)
-	// {
-	// 	*data->exit_code = 2;
-	// 	printf("Minishell : syntax error near unexpected token `newline'\n");
-	// 	clear_cmd(data);
-	// 	signal(SIGINT, ft_handler);
-	// }
-	if (tmp->type == REDIRECT_OUTPUT && tmp->next->type == 0)
-		tmp->next->type = OUTFILE;
-	if (tmp->type == REDIRECT_INPUT && tmp->next->type == 0)
-		tmp->next->type = INFILE;
+	if ((tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT)
+		&& tmp->next == NULL)
+	{
+		*data->exit_code = 2;
+		data->error = 1;
+		printf("minishell: syntax error near unexpected token `newline'\n");
+	}
+	else if (tmp->type == REDIRECT_OUTPUT && tmp->next->type == 0)
+	{
+		if (is_meta(tmp->next->content[0]) == 0)
+			tmp->next->type = OUTFILE;
+		else
+		{
+			*data->exit_code = 2;
+			data->error = 1;
+			printf("minishell: syntax error near unexpected token `>'\n");
+		}
+	}
+	else if (tmp->type == REDIRECT_INPUT && tmp->next->type == 0)
+	{
+		if (is_meta(tmp->next->content[0]) == 0)
+			tmp->next->type = INFILE;
+		else
+		{
+			*data->exit_code = 2;
+			data->error = 1;
+			printf("minishell: syntax error near unexpected token `<'\n");
+		}
+	}
 }
 
 /*
@@ -96,15 +111,16 @@ void	assign_type(t_data *data)
 	{
 		if (ft_strlen(tmp->content) == 1)
 			len_is_one(data, tmp);
-		if (ft_strlen(tmp->content) == 2)
-			len_is_two(tmp);
-		if (tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT)
+		if (ft_strlen(tmp->content) == 2 && data->error == 0)
+			len_is_two(data, tmp);
+		if ((tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT)
+			&& data->error == 0)
 			redirection_file(data, tmp);
-		if (tmp->content[0] == '$')
+		if (tmp->content[0] == '$' && data->error == 0)
 			type_dollar(data, tmp);
-		if (tmp->content[0] == '-')
+		if (tmp->content[0] == '-' && data->error == 0)
 			type_option(tmp);
-		if (ft_strlen(tmp->content) > 1 && tmp->type == 0)
+		if (ft_strlen(tmp->content) > 1 && tmp->type == 0 && data->error == 0)
 			type_arithmetic(tmp);
 		tmp = tmp->next;
 	}

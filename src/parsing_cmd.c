@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 20:12:10 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/01 15:29:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 		*tmp = (*tmp)->next;
 	}
 	current[x].cmd[y] = NULL;
+	if (current[x].cmd[0] == NULL)
+		data->error = 2;
 }
 
 void	put_cmd_in_tab(t_data *data, int nb)
@@ -67,7 +69,7 @@ void	put_cmd_in_tab(t_data *data, int nb)
 	}
 }
 
-int	input_is_only_space(t_data *data, char *input)
+void	input_is_only_space(t_data *data, char *input)
 {
 	int	i;
 
@@ -77,29 +79,38 @@ int	input_is_only_space(t_data *data, char *input)
 		i++;
 	}
 	if ((int)ft_strlen(input) == i
-			|| (input[i] == '!' && (int)ft_strlen(input) == 1)
-			|| (input[i] == ':' && (int)ft_strlen(input) == 1))
+		|| (input[i] == '!' && (int)ft_strlen(input) == 1)
+		|| (input[i] == ':' && (int)ft_strlen(input) == 1))
 	{
 		*data->exit_code = 127;
-		return (1);
+		data->error = 1;
 	}
-	return (0);
 }
 
-int	parse_cmd(t_data *data)
+void	parse_cmd(t_data *data)
 {
-	if (input_is_only_space(data, data->input) != 0)
-		return (1);
-	data->str = ft_strtrim(data->input, " ");
-	split_in_list(data);
-	free (data->str);
-	assign_type(data);
+	input_is_only_space(data, data->input);/* problem si que des spaces*/
+	if (data->error == 0)
+		data->str = ft_strtrim(data->input, " ");
+	if (data->error == 0)
+	{
+		split_in_list(data);
+		free (data->str);
+	}
+	if (data->error == 0)
+		assign_type(data);
 	// print_all(data);
-	count_pipes(data);
-	put_cmd_in_tab(data, data->pipes);
-	fill_files(data);
-	fill_eof(data);
-	open_files(data);
-	print_tab(data);
-	return (0);
+	if (data->error == 0)
+		count_pipes(data);
+	if (data->error == 0)
+		put_cmd_in_tab(data, data->pipes);
+	if (data->error == 0)
+		fill_files(data);
+	if (data->error == 0)
+		fill_eof(data);
+	if (data->error == 0)
+		open_files(data);
+	if (data->error == 2)
+		printf("minishell: syntax error near unexpected token `|'\n");
+	// print_tab(data);
 }

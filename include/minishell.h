@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 19:56:01 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/01 14:32:37 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_data
 {
 	char		*input;
 	char		*str;
+	int			error;
 	int			pipes;
 	int			cpy_in;
 	int			cpy_out;
@@ -124,11 +125,11 @@ void	split_quote(t_data *data, int *i, int *j, char quotetype);
 int		is_redirection(t_list *tmp);
 void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x);
 void	put_cmd_in_tab(t_data *data, int nb);
-int		parse_cmd(t_data *data);
+void	parse_cmd(t_data *data);
 
 /* ASSIGN TYPES */
 void	len_is_one(t_data *data, t_list *tmp);
-void	len_is_two(t_list *tmp);
+void	len_is_two(t_data *data, t_list *tmp);
 void	type_dollar(t_data *data, t_list *tmp);
 void	type_option(t_list *tmp);
 void	assign_type(t_data *data);

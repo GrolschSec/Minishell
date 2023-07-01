@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:53:43 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 16:46:07 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/01 15:13:00 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	split_meta(t_data *data, int *i, int *j)
 	(*i)++;
 	if (data->str[*i])
 	{
-		if (data->str[*i] == data->str[*i - 1])
+		if ((data->str[*i] == '>' || data->str[*i] == '<')
+			&&data->str[*i] == data->str[*i - 1])
 		{
 			while (data->str[*i] && (data->str[*i] == data->str[*i - 1]))
 				(*i)++;

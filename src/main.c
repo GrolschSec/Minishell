@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 19:58:38 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/01 15:25:17 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,13 @@ int	main(int argc, char **argv, char **env)
 	if (!isatty(STDIN_FILENO))
 		return (0);
 	ft_bzero(&data, sizeof(data));
+	printf("&data->error: %d\n", data.error);
 	data.exit_code = &exit;
 	fill_env_list(env, &data);
 	parse_path(&data);
 	while (1)
 	{
+		data.error = 0;
 		signal(SIGINT, ft_handler);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGPIPE, SIG_IGN);
@@ -86,10 +88,14 @@ int	main(int argc, char **argv, char **env)
 		else if (data.input && data.input[0])
 		{
 			add_history(data.input);
-			if (parse_cmd(&data) != 0)
-				signal(SIGINT, ft_handler);
-			else
+			parse_cmd(&data);
+			if (data.error == 0)
 				execution(&data);
+			else
+			{
+				clear_cmd(&data);
+				signal(SIGQUIT, SIG_IGN);
+			}
 		}
 	}
 	return (0);
