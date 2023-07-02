@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/01 15:31:04 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:18:31 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	assign_type(t_data *data)
 	tmp = data->token_list;
 	while (tmp != NULL)
 	{
-		if (ft_strlen(tmp->content) == 1)
+		if (ft_strlen(tmp->content) == 1 && data->error == 0)
 			len_is_one(data, tmp);
 		if (ft_strlen(tmp->content) == 2 && data->error == 0)
 			len_is_two(data, tmp);

@@ -6,43 +6,12 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:08:29 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/01 15:14:45 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/02 14:51:19 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*
-** is_meta: Checks if a character is a metacharacter.
-** Metacharacters include '|', '&', ';', '(', ')', '<', '>'.
-**
-** Args:
-**   c: Character to be checked.
-**
-** Returns:
-**   1 if the character is a metacharacter, 0 otherwise.
-*/
-int	is_meta(char c)
-{
-	if (c == '&' || c == ';')
-		return (1);
-	if (c == '(' || c == ')')
-		return (1);
-	if (c == '<' || c == '>' || c == '|')
-		return (1);
-	return (0);
-}
-
-/*
-** is_space: Checks if a character is a space character.
-** Space characters include ' ', '\t', '\n', '\v', '\f', '\r'.
-**
-** Args:
-**   c: Character to be checked.
-**
-** Returns:
-**   1 if the character is a space character, 0 otherwise.
-*/
 int	is_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n')
@@ -110,6 +79,25 @@ void	add_node(t_data *data, int i, int j)
 	tmp = fill_tmp(&data->str[j], i - j);
 	if (tmp == NULL || data->str == NULL)
 		exit_all(data, 1, "Problem with malloc in add_node");
+	new = ft_lstnew(tmp);
+	free (tmp);
+	ret = ft_lstadd_back(&data->token_list, new);
+	if (ret == 1)
+		exit_all(data, 1, "Problem with malloc in add_node in add_back");
+}
+
+void	add_empty_node(t_data *data)
+{
+	char	*tmp;
+	t_list	*new;
+	int		ret;
+
+	ret = 0;
+	new = NULL;
+	tmp = malloc(sizeof(char) * 1);
+	if (tmp == NULL || data->str == NULL)
+		exit_all(data, 1, "Problem with malloc in add_node");
+	tmp[0] = '\0';
 	new = ft_lstnew(tmp);
 	free (tmp);
 	ret = ft_lstadd_back(&data->token_list, new);

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/01 15:30:25 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/02 14:28:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,22 @@ void	len_is_two(t_data *data, t_list *tmp)
 	}
 }
 
+void	is_env_variable(t_data *data, t_list *tmp, char *variable)
+{
+	tmp->type = ENVIRONMENT_VARIABLE;
+	variable = ft_getenv(data, &tmp->content[1]);
+	if (variable == NULL)
+	{
+		tmp->type = COMMANDE;
+	}
+	else
+	{
+		free(tmp->content);
+		tmp->content = ft_strdup(variable);
+		free(variable);
+	}
+}
+
 /*
 ** Function: type_dollar
 ** ----------------------
@@ -128,14 +144,10 @@ void	type_dollar(t_data *data, t_list *tmp)
 		tmp->content = ft_strdup(variable);
 		free(variable);
 	}
+	else if (ft_strlen(tmp->content) == 1)
+		tmp->type = COMMANDE;
 	else
-	{
-		tmp->type = ENVIRONMENT_VARIABLE;
-		variable = ft_getenv(data, &tmp->content[1]);
-		free(tmp->content);
-		tmp->content = ft_strdup(variable);
-		free(variable);
-	}
+		is_env_variable(data, tmp, variable);
 }
 
 /*

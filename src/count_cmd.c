@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/01 15:22:44 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:26:58 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	count_pipes(t_data *data)
 		tmp = tmp->next;
 	}
 	data->pipes++;
-	printf("pipes: %d\n", data->pipes);
 }
 
 /*

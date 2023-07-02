@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:04:07 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 16:37:47 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/02 14:48:05 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 void	split_quote(t_data *data, int *i, int *j, char quotetype)
 {
 	(*i)++;
+	if (data->str[*i] == quotetype)
+	{
+		add_empty_node(data);
+		return ;
+	}
 	*j = *i;
 	if (data->str[*i] == '\0')
 		exit_all(data, 1, "There is a quote missing");
@@ -82,4 +87,17 @@ void	add_in_previous_node(t_data *data, int *i, int *j)
 	if (flag == 1)
 		(*i)--;
 	*j = *i;
+}
+
+void	if_is_quote(t_data *data, int *i, int *j)
+{
+	if (*i > 0 && is_space(data->str[*i - 1]) == 0
+		&& is_meta(data->str[*i - 1]) == 0)
+	{
+		add_in_previous_node(data, i, j);
+	}
+	else
+	{
+		split_quote(data, i, j, data->str[*i]);
+	}
 }
