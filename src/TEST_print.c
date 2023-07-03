@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   TEST_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:00:28 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 16:04:34 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:13:25 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	print_all(t_data *data)
 
 void	print_tab(t_data *data)
 {
-	int	i;
-	int	nb_jobs;
-	int	infile;
+	int		i;
+	int		nb_jobs;
+	int		infile;
 	t_list	*tmp_out;
-	int nb_eof;
-	
+	int		nb_eof;
+
 	nb_eof = 0;
 	infile = 0;
 	nb_jobs = 0;

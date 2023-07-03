@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 13:26:19 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:10:56 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	fill_exitcode(t_list *tmp, char *variable, char *prev, char *next)
 	free(tmp->content);
 	if (prev != NULL)
 		tmp->content = ft_strjoin(prev, variable);
-	else 
+	else
 		tmp->content = ft_strdup(variable);
 	free (variable);
 	if (next != NULL)
