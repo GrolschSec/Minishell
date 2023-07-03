@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 18:25:57 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:21:14 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 	if (!home)
 	{
 		write(2, "minishell: cd: HOME not set\n", 28);
+		*data->exit_code = 1;
 		return ;
 	}
 	actual_path = getcwd(NULL, 0);
@@ -91,6 +92,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 		chdir(actual_path);
 	free(actual_path);
 	free(home);
+	*data->exit_code = 0;
 }
 
 void	cd_arg_case(t_data *data, t_exec *exec)

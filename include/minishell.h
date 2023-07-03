@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 18:27:40 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:54:42 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,9 @@ int		parse_export(char *var);
 char	**split_export(char *arg);
 
 /* BUILTIN ECHO */
-void	echo_builtin(t_exec *exec);
+void	echo_builtin(t_data *data, t_exec *exec);
+void	check_options(t_exec *exec, int *i, int *r);
+int		is_n_options(char *cmd);
 
 /* BUILTIN PWD */
 void	pwd_builtin(void);

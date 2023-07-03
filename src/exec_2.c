@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 18:26:39 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:54:58 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	select_builtin(t_data *data, t_exec *exec)
 	else if (is_builtin(exec->cmd[0]) == CD)
 		cd_builtin(data, exec);
 	else if (is_builtin(exec->cmd[0]) == ECHO)
-		echo_builtin(exec);
+		echo_builtin(data, exec);
 	else if (is_builtin(exec->cmd[0]) == PWD)
 		pwd_builtin();
 	else if (is_builtin(exec->cmd[0]) == EXPORT)
