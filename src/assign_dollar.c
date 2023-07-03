@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 13:26:19 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:30:24 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,16 @@ void	is_env_variable(t_data *data, t_list *tmp, int *i, char *prev)
 	char	*variable;
 
 	variable = ft_getenv(data, &tmp->content[*i]);
-	if (variable == NULL)
-	{
+	if (variable == NULL && tmp->type == SINGLE_QUOTE)
 		tmp->type = COMMANDE;
+	else if (variable == NULL && (tmp->type == DOUBLE_QUOTE || tmp->type == 0))
+	{
+		free(tmp->content);
+		tmp->content = malloc (sizeof(char) * 2);
+		tmp->content[0] = ' ';
+		tmp->content[1] = '\0';
+		if (tmp->type == 0)
+			data->error = 1;
 	}
 	else
 	{

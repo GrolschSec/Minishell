@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/25 18:16:57 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:09:08 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	open_outfile(t_data *data, int x, t_list *out)
 					O_CREAT | O_RDWR | O_APPEND, 0644);
 		}
 		if (data->exec[x].fdout == -1)
-			printf("Can't open fdout\n");
+		{
+			printf("Fail to open fdout\n");
+		}
 		out = out->next;
 	}
 }
@@ -42,13 +44,17 @@ void	open_infile(t_data *data, int x, int in)
 	if (data->exec[x].fdin != 0)
 		close(data->exec[x].fdin);
 	if (access(data->exec[x].infile[in - 1], R_OK) != 0)
-		exit_all(data, 1, "fdin doesn't exist");
+	{
+		exec_error(data->exec[x].infile[in - 1], "No such file or directory");
+		data->error = 1;
+	}
+	else
 	{
 		data->exec[x].fdin = open(data->exec[x].infile[in - 1],
 				O_RDONLY);
+		if (data->exec[x].fdin < 0)
+			printf("Fail to open fdin\n");
 	}
-	if (data->exec[x].fdin < 0)
-		printf("Can't open fdin\n");
 }
 
 void	open_files(t_data *data)

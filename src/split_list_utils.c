@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:08:29 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 11:16:07 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:22:00 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	add_node(t_data *data, int i, int j, char quotetype)
 	new = ft_lstnew(tmp);
 	if (quotetype != '\0' && quotetype == '\'')
 		new->type = SINGLE_QUOTE;
+	if (quotetype != '\0' && quotetype == '\"')
+		new->type = DOUBLE_QUOTE;
 	free (tmp);
 	ret = ft_lstadd_back(&data->token_list, new);
 	if (ret == 1)
