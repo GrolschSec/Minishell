@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/02 13:18:31 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:15:41 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,27 @@ void	type_arithmetic(t_list *tmp)
 	}
 }
 
-/*
-** Function: assign_type
-** ----------------------
-** Assigns types to tokens in the list based on their content.
-**
-** Args:
-** - data: Pointer to the main data structure.
-**
-** Side effects:
-** Assigns types to the tokens in the list based on their content.
-*/
+void	verify_dollar(t_data *data, t_list *tmp)
+{
+	int	i;
+
+	i = 0;
+	if (tmp == NULL || tmp->content[i] == '\0')
+		return ;
+	while (tmp->content[i])
+	{
+		if (tmp->content[i] == '$' && data->error == 0)
+		{
+			if (tmp->type != SINGLE_QUOTE)
+			{
+				type_dollar(data, tmp, i);
+			}
+		}
+		i++;
+	}
+}
+
 void	assign_type(t_data *data)
-/* gerer les $variable <-- important */
 {
 	t_list	*tmp;
 
@@ -116,12 +124,11 @@ void	assign_type(t_data *data)
 		if ((tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT)
 			&& data->error == 0)
 			redirection_file(data, tmp);
-		if (tmp->content[0] == '$' && data->error == 0)
-			type_dollar(data, tmp);
 		if (tmp->content[0] == '-' && data->error == 0)
 			type_option(tmp);
 		if (ft_strlen(tmp->content) > 1 && tmp->type == 0 && data->error == 0)
 			type_arithmetic(tmp);
+		verify_dollar(data, tmp);
 		tmp = tmp->next;
 	}
 }

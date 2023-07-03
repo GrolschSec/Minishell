@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:04:07 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/02 14:48:05 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:12:19 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	split_quote(t_data *data, int *i, int *j, char quotetype)
 		if (data->str[*i] == '\0')
 			exit_all(data, 1, "There is a quote missing");
 	}
-	add_node(data, *i, *j);
+	add_node(data, *i, *j, quotetype);
 	*j = *i + 1;
 }
 

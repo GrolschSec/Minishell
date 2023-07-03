@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/02 14:48:17 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:11:58 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		is_meta(char c);
 int		is_space(char c);
 void	if_is_quote(t_data *data, int *i, int *j);
 char	*fill_tmp(char *str, int len);
-void	add_node(t_data *data, int i, int j);
+void	add_node(t_data *data, int i, int j, char quotetype);
 void	add_empty_node(t_data *data);
 void	split_in_list(t_data *data);
 void	add_in_previous_node(t_data *data, int *i, int *j);
@@ -133,7 +133,7 @@ void	parse_cmd(t_data *data);
 /* ASSIGN TYPES */
 void	len_is_one(t_data *data, t_list *tmp);
 void	len_is_two(t_data *data, t_list *tmp);
-void	type_dollar(t_data *data, t_list *tmp);
+void	type_dollar(t_data *data, t_list *tmp, int i);
 void	type_option(t_list *tmp);
 void	assign_type(t_data *data);
 

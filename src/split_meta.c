@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 14:39:47 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/02 14:40:43 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:16:30 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	split_meta(t_data *data, int *i, int *j)
 				(*i)++;
 		}
 	}
-	add_node(data, *i, *j);
+	add_node(data, *i, *j, '\0');
 	(*i)--;
 }

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/02 14:26:14 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:18:03 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	input_is_only_space(t_data *data, char *input)
 
 void	parse_cmd(t_data *data)
 {
-	input_is_only_space(data, data->input);/* problem si que des spaces*/
+	input_is_only_space(data, data->input);
 	if (data->error == 0)
 		data->str = ft_strtrim(data->input, " ");
 	if (data->error == 0)

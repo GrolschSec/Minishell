@@ -6,7 +6,7 @@
 #    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/02 14:40:54 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/07/03 12:37:27 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ FILES = 	main					\
 			split_quote				\
 			split_meta				\
 			assign_type				\
+			assign_dollar			\
 			assign_type_utils		\
 			parsing_cmd				\
 			count_cmd				\

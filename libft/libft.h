@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 20:27:11 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:25:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 typedef enum e_type
 {
+	COMMANDE,
 	SINGLE_QUOTE,
 	DOUBLE_QUOTE,
 	PIPE,
-	COMMANDE,
 	OPTION,
 	INFILE,				/* ce qui suit '<' */
 	OUTFILE,			/* ce qui suit '>' ou '>> */
