@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 13:54:42 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:01:10 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_data
 {
 	char		*input;
 	char		*str;
+	int			error;
 	int			pipes;
 	int			cpy_in;
 	int			cpy_out;
@@ -114,11 +115,14 @@ void	ft_handler(int sig);
 /* SPLIT LIST */
 int		is_meta(char c);
 int		is_space(char c);
+void	if_is_quote(t_data *data, int *i, int *j);
 char	*fill_tmp(char *str, int len);
-void	add_node(t_data *data, int i, int j);
+void	add_node(t_data *data, int i, int j, char quotetype);
+void	add_empty_node(t_data *data);
 void	split_in_list(t_data *data);
 void	add_in_previous_node(t_data *data, int *i, int *j);
 void	split_quote(t_data *data, int *i, int *j, char quotetype);
+void	split_meta(t_data *data, int *i, int *j);
 
 /* PARSE COMMANDES */
 int		is_redirection(t_list *tmp);
@@ -128,8 +132,8 @@ void	parse_cmd(t_data *data);
 
 /* ASSIGN TYPES */
 void	len_is_one(t_data *data, t_list *tmp);
-void	len_is_two(t_list *tmp);
-void	type_dollar(t_data *data, t_list *tmp);
+void	len_is_two(t_data *data, t_list *tmp);
+void	type_dollar(t_data *data, t_list *tmp, int i);
 void	type_option(t_list *tmp);
 void	assign_type(t_data *data);
 
@@ -245,4 +249,5 @@ void	ft_unsetenv(t_data *data, char *name);
 
 /*BUILTIN ENV*/
 void	env_builtin(t_data *data, t_exec *exec);
+
 #endif

@@ -6,9 +6,10 @@
 #    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/06/30 18:27:01 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/07/03 12:37:27 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 SRC_DIR		=	src/
 OBJ_DIR		=	obj/
@@ -25,16 +26,16 @@ FILES = 	main					\
 			split_list				\
 			split_list_utils		\
 			split_quote				\
+			split_meta				\
 			assign_type				\
+			assign_dollar			\
 			assign_type_utils		\
 			parsing_cmd				\
 			count_cmd				\
 			fill_redirections		\
 			fill_eof				\
 			open_files				\
-			env 					\
-			export					\
-			echo					\
+			env						\
 			exit					\
 			exec_1					\
 			exec_2					\
@@ -49,8 +50,7 @@ FILES = 	main					\
 			builtin_error			\
 			builtin_unset			\
 			builtin_env				\
-			TEST_print				\
-			# unset					
+			TEST_print							
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))

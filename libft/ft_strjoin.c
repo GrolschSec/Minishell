@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:49:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/03/07 15:45:00 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:52:42 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	dst = malloc((sizeof(char) * len_s1) + (sizeof(char) * len_s2) + 1);
+	dst = malloc((sizeof(char) * len_s1) + (sizeof(char) * (len_s2 + 1)));
 	if (dst == 0 || !dst)
 		return (NULL);
 	ft_strlcpy(dst, s1, (len_s1 + 1));

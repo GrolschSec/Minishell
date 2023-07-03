@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:22:50 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 20:17:55 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:01:48 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	del_next_node(t_list *prev)
 	{
 		free(tmp->content);
 		free(tmp);
-	}		
+	}
 }
 
 void	ft_unsetenv(t_data *data, char *name)

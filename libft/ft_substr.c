@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 20:40:00 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/03/07 15:47:59 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:35:29 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static char	*ft_malloc(size_t len_new)
 
 	new = 0;
 	new = malloc(sizeof(char) * len_new);
+	if (new == NULL)
+		return (NULL);
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/28 15:58:19 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:12:52 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	fill_env_list(char **env, t_data *data)
 		data->nb_env = 0;
 		return ;
 	}
-	printf("tilde: %s\n", data->tilde);
 	data->nb_env = count_env_list(data->env);
 	put_env_in_tab(data);
 }
