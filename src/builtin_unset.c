@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:22:50 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/03 14:01:48 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:42:33 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,26 @@ void	del_next_node(t_list *prev)
 	}
 }
 
+void	check_next_env(t_list *current, t_list *prev, char *str)
+{
+	while (current)
+	{
+		if (current->content
+			&& ft_strncmp(current->content, str, ft_strlen(str)) == 0)
+		{
+			prev->next = current->next;
+			free(current->content);
+			free(current);
+			current = prev->next;
+		}
+		else
+		{
+			prev = current;
+			current = current->next;
+		}
+	}
+}
+
 void	ft_unsetenv(t_data *data, char *name)
 {
 	char	*str;
@@ -75,22 +95,7 @@ void	ft_unsetenv(t_data *data, char *name)
 	}
 	prev = current;
 	current = current->next;
-	while (current)
-	{
-		if (current->content
-			&& ft_strncmp(current->content, str, ft_strlen(str)) == 0)
-		{
-			prev->next = current->next;
-			free(current->content);
-			free(current);
-			current = prev->next;
-		}
-		else
-		{
-			prev = current;
-			current = current->next;
-		}
-	}
+	check_next_env(current, prev, str);
 	free(str);
 	return ;
 }
