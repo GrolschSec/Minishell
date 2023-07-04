@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 11:12:52 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:32:28 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static void	add_node_env(t_data *data, char **env)
 	{
 		new = ft_lstnew(env[i]);
 		if (ft_strncmp(new->content, "HOME=", 5) == 0)
-			data->tilde = ft_strdup(new->content);
+			data->tilde = ft_substr(new->content, 5,
+					ft_strlen(new->content) - 5);
 		res = ft_lstadd_back(&data->env, new);
 		if (res == 1)
 			exit_all(data, 1, "There is a problem to fill the env list");

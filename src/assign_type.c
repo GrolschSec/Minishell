@@ -6,11 +6,19 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 13:15:41 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:30:49 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	error(t_data *data, char *str)
+{
+	*data->exit_code = 2;
+	data->error = 1;
+	printf("minishell: syntax error near unexpected token ");
+	printf("%s\n", str);
+}
 
 /*
 ** Function: redirection_file
@@ -29,32 +37,20 @@ void	redirection_file(t_data *data, t_list *tmp)
 {
 	if ((tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT)
 		&& tmp->next == NULL)
-	{
-		*data->exit_code = 2;
-		data->error = 1;
-		printf("minishell: syntax error near unexpected token `newline'\n");
-	}
+		error(data, "`newline'");
 	else if (tmp->type == REDIRECT_OUTPUT && tmp->next->type == 0)
 	{
 		if (is_meta(tmp->next->content[0]) == 0)
 			tmp->next->type = OUTFILE;
 		else
-		{
-			*data->exit_code = 2;
-			data->error = 1;
-			printf("minishell: syntax error near unexpected token `>'\n");
-		}
+			error(data, "`>'");
 	}
 	else if (tmp->type == REDIRECT_INPUT && tmp->next->type == 0)
 	{
 		if (is_meta(tmp->next->content[0]) == 0)
 			tmp->next->type = INFILE;
 		else
-		{
-			*data->exit_code = 2;
-			data->error = 1;
-			printf("minishell: syntax error near unexpected token `<'\n");
-		}
+			error(data, "`<'");
 	}
 }
 

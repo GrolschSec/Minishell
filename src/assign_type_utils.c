@@ -6,11 +6,17 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 12:36:53 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:57:34 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	replace_by_tilde(t_data *data, t_list *tmp)
+{
+	free(tmp->content);
+	tmp->content = ft_strdup(data->tilde);
+}
 
 /*
 ** Function: len_is_one
@@ -42,12 +48,34 @@ void	len_is_one(t_data *data, t_list *tmp)
 		tmp->type = SEMICOLON;
 	if (tmp->content[0] == ' ' && tmp->type == 0)
 		tmp->type = BLANCK;
+	if (tmp->content[0] == '~')
+		replace_by_tilde(data, tmp);
 	if (tmp->type == EPERLUETTE || tmp->type == PARENTHESIS
 		|| tmp->type == SEMICOLON)
 	{
 		data->error = 1;
 		*data->exit_code = 2;
 		printf("minishell: unexpected input\n");
+	}
+}
+
+void	heredoc_type(t_data *data, t_list *tmp)
+{
+	tmp->type = HEREDOC;
+	if (tmp->next != NULL)
+	{
+		if (is_meta(tmp->next->content[0]) == 0)
+			tmp->next->type = ENDOFFILE;
+		else
+		{
+			data->error = 1;
+			printf("minishell: syntax error near unexpected token `<<'\n");
+		}
+	}
+	else
+	{
+		data->error = 1;
+		printf("minishell: syntax error near unexpected token `newline'\n");
 	}
 }
 
@@ -65,24 +93,7 @@ void	len_is_one(t_data *data, t_list *tmp)
 void	len_is_two(t_data *data, t_list *tmp)
 {
 	if (tmp->content[0] == '<' && tmp->content[1] == '<' )
-	{
-		tmp->type = HEREDOC;
-		if (tmp->next != NULL)
-		{
-			if (is_meta(tmp->next->content[0]) == 0)
-				tmp->next->type = ENDOFFILE;
-			else
-			{
-				data->error = 1;
-				printf("minishell: syntax error near unexpected token `<<'\n");
-			}
-		}
-		else
-		{
-			data->error = 1;
-			printf("minishell: syntax error near unexpected token `newline'\n");
-		}
-	}
+		heredoc_type(data, tmp);
 	if (tmp->content[0] == '>' && tmp->content[1] == '>')
 	{
 		tmp->type = DELIMITER_APPEND;

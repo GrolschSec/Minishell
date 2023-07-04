@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 15:44:09 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:47:22 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,6 @@ void		type_dollar(t_data *data, t_list *tmp, int i);
 void		type_option(t_list *tmp);
 void		assign_type(t_data *data);
 
-// /* ENV VARIABLES */
-// void	assign_variable_name(t_data *data, t_list *current);
-
 /* COUNT */
 int			count_cmd(t_list *tmp);
 void		count_pipes(t_data *data);
@@ -160,17 +157,17 @@ void		parse_path(t_data *data);
 void		fill_env_list(char **env, t_data *data);
 void		print_env_tab(t_data *data);
 
-/* EXPORT */
-char		*extract_name(t_data *data, char *variable);
-void		ft_sort(t_list *tmp, t_list *print);
-void		builtin_export(t_data *data, char **pos);
+// /* EXPORT */
+// char	*extract_name(t_data *data, char *variable);
+// void	ft_sort(t_list *tmp, t_list *print);
+// void	builtin_export(t_data *data, char **pos);
 
-/* ECHO */
-void		print_lines(int i, char **str, int fd);
-void		builtin_echo_str(t_data *data, char **cmd);
+// /* ECHO */
+// void	print_lines(int i, char **str, int fd);
+// void	builtin_echo_str(t_data *data, char **cmd);
 
-/* UNSET */
-void		builtin_unset(t_data *data, t_list *pos);
+// /* UNSET */
+// void	builtin_unset(t_data *data, t_list *pos);
 
 /* EXIT */
 void		clear_cmd(t_data *data);
