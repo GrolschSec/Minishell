@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 12:53:17 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/03 14:01:41 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:51:26 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	check_options(t_exec *exec, int *i, int *r)
 int	is_n_options(char *cmd)
 {
 	int	i;
-	
+
 	i = 0;
 	if (cmd[i] == '-')
 		i++;
