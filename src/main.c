@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 12:09:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:49:18 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	g_exit = 0;
 
 /*
 ** Function: builtin_pwd
@@ -51,6 +53,7 @@ void	ft_handler(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_exit = 130;
 	}
 }
 
@@ -61,16 +64,13 @@ void	ft_handler(int sig)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
-	int		exit;
 
 	(void)argv;
 	(void)argc;
-	exit = 0;
 	if (!isatty(STDIN_FILENO))
 		return (0);
 	ft_bzero(&data, sizeof(data));
 	printf("&data->error: %d\n", data.error);
-	data.exit_code = &exit;
 	fill_env_list(env, &data);
 	parse_path(&data);
 	while (1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_type_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 15:57:34 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:42:37 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	len_is_one(t_data *data, t_list *tmp)
 		|| tmp->type == SEMICOLON)
 	{
 		data->error = 1;
-		*data->exit_code = 2;
+		g_exit = 2;
 		printf("minishell: unexpected input\n");
 	}
 }

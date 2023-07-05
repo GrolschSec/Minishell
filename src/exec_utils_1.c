@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:25:03 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/04 11:24:21 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:44:55 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ void	exit_minishell(t_data *data)
 		free(data->tilde);
 	clear_cmd(data);
 	rl_clear_history();
-	exit(*data->exit_code);
+	exit(g_exit);
 }

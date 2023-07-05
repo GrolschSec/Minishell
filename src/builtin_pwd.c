@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:45:43 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/28 14:49:20 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:47:15 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@ void	pwd_builtin(void)
 		return ;
 	printf("%s\n", path);
 	free(path);
+	g_exit = 0;
 }

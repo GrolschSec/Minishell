@@ -6,13 +6,13 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 12:53:17 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/04 13:51:26 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:45:31 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	echo_builtin(t_data *data, t_exec *exec)
+void	echo_builtin(t_exec *exec)
 {
 	int	i;
 	int	r;
@@ -29,7 +29,7 @@ void	echo_builtin(t_data *data, t_exec *exec)
 	}
 	if (r)
 		printf("\n");
-	*data->exit_code = 0;
+	g_exit = 0;
 }
 
 void	check_options(t_exec *exec, int *i, int *r)

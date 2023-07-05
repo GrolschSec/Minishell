@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/04 13:47:22 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:50:51 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <errno.h>
 # define COLOR_RESET "\e[0;37m"
 # define COLOR_RED "\e[1;31m"
+
+extern int	g_exit;
 
 enum e_buitin
 {
@@ -94,7 +96,6 @@ typedef struct s_data
 	int			pipes;
 	int			cpy_in;
 	int			cpy_out;
-	int			*exit_code;
 	t_exec		*exec;
 	t_list		*token_list;
 	t_list		*env;
@@ -221,7 +222,7 @@ int			parse_export(char *var);
 char		**split_export(char *arg);
 
 /* BUILTIN ECHO */
-void		echo_builtin(t_data *data, t_exec *exec);
+void		echo_builtin(t_exec *exec);
 void		check_options(t_exec *exec, int *i, int *r);
 int			is_n_options(char *cmd);
 

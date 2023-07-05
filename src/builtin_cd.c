@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/03 14:01:31 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:43:22 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 	if (!home)
 	{
 		write(2, "minishell: cd: HOME not set\n", 28);
-		*data->exit_code = 1;
+		g_exit = 1;
 		return ;
 	}
 	actual_path = getcwd(NULL, 0);
@@ -84,7 +84,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 	if (ex_code != 0)
 	{
 		cd_error(exec->cmd[1]);
-		*data->exit_code = 1;
+		g_exit = 1;
 	}
 	if (exec->is_last && data->pipes == 1 && ex_code == 0)
 		ft_setenv(data, "PWD=", getcwd(NULL, 0));
@@ -92,7 +92,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 		chdir(actual_path);
 	free(actual_path);
 	free(home);
-	*data->exit_code = 0;
+	g_exit = 0;
 }
 
 void	cd_arg_case(t_data *data, t_exec *exec)
@@ -105,7 +105,7 @@ void	cd_arg_case(t_data *data, t_exec *exec)
 	if (ex_code != 0)
 	{
 		cd_error(exec->cmd[1]);
-		*data->exit_code = 1;
+		g_exit = 1;
 	}
 	if (exec->is_last && data->pipes == 1 && ex_code == 0)
 		ft_setenv(data, "PWD", getcwd(NULL, 0));
@@ -119,7 +119,7 @@ void	cd_builtin(t_data *data, t_exec *exec)
 	if (exec->nb_cmd > 2)
 	{
 		write(2, "minishell: cd: too many arguments\n", 34);
-		*data->exit_code = 1;
+		g_exit = 1;
 		return ;
 	}
 	else if (exec->nb_cmd == 1)

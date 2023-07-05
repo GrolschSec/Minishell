@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/03 14:01:53 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:51:37 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	select_builtin(t_data *data, t_exec *exec)
 	else if (is_builtin(exec->cmd[0]) == CD)
 		cd_builtin(data, exec);
 	else if (is_builtin(exec->cmd[0]) == ECHO)
-		echo_builtin(data, exec);
+		echo_builtin(exec);
 	else if (is_builtin(exec->cmd[0]) == PWD)
 		pwd_builtin();
 	else if (is_builtin(exec->cmd[0]) == EXPORT)
@@ -99,9 +99,9 @@ void	execution_handling(t_data *data, int i)
 		&& data->exec[i].cmd[0][0] != '/')
 	{
 		exec_error(data->exec[i].cmd[0], "command not found");
-		*data->exit_code = 127;
+		g_exit = 127;
 	}
 	close(data->cpy_in);
 	close(data->cpy_out);
-	exit_ps(data, *data->exit_code);
+	exit_ps(data, g_exit);
 }

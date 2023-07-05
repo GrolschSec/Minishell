@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:29:08 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/27 00:52:48 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:44:12 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ void	exit_builtin(t_data *data, t_exec *exec)
 		if (!str_isdigit(exec->cmd[1]) || is_out_of_range(exec->cmd[1]))
 		{
 			numeric_arg_error(exec);
-			*data->exit_code = 2;
+			g_exit = 2;
 		}
 		else if (exec->nb_cmd > 2)
 		{
 			exec_error("exit", "too many arguments");
-			*data->exit_code = 1;
+			g_exit = 1;
 			ex = 0;
 		}
 		else
-			*data->exit_code = convert_to_exit_code(ft_atoi(exec->cmd[1]));
+			g_exit = convert_to_exit_code(ft_atoi(exec->cmd[1]));
 	}
 	perform_exit(ex, data, exec);
 }
@@ -121,7 +121,7 @@ void	perform_exit(int ex, t_data *data, t_exec *exec)
 		{
 			close(data->cpy_in);
 			close(data->cpy_out);
-			exit_ps(data, *data->exit_code);
+			exit_ps(data, g_exit);
 		}
 		else if (data->pipes > 1 && exec->is_last)
 			return ;

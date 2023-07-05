@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 16:34:09 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:45:01 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	input_is_only_space(t_data *data, char *input)
 		|| (input[i] == '!' && (int)ft_strlen(input) == 1)
 		|| (input[i] == ':' && (int)ft_strlen(input) == 1))
 	{
-		*data->exit_code = 127;
+		g_exit = 127;
 		data->error = 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/28 16:32:36 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:44:37 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	exec_last_child(t_data *data, t_exec *exec)
 	{
 		close(data->cpy_in);
 		close(data->cpy_out);
-		return (exit_ps(data, *data->exit_code), 0);
+		return (exit_ps(data, g_exit), 0);
 	}
 	return (0);
 }
@@ -164,7 +164,7 @@ int	last_child(t_data *data, t_exec *exec)
 			if (exec->cmd[0] && !is_builtin(exec->cmd[0])
 				&& exec->cmd[0][0] != '.' && exec->cmd[0][0] != '/')
 			{
-				*data->exit_code = 127;
+				g_exit = 127;
 				return (exec_error(exec->cmd[0], "command not found"), -1);
 			}
 			return (-1);
@@ -174,7 +174,7 @@ int	last_child(t_data *data, t_exec *exec)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-			*data->exit_code = WEXITSTATUS(status);
+			g_exit = WEXITSTATUS(status);
 	}
 	return (0);
 }

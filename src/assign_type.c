@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 16:30:49 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:42:46 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error(t_data *data, char *str)
 {
-	*data->exit_code = 2;
+	g_exit = 2;
 	data->error = 1;
 	printf("minishell: syntax error near unexpected token ");
 	printf("%s\n", str);

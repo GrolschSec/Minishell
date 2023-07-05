@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/04 13:47:39 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:42:24 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	dollar_exitcode(t_data *data, t_list *tmp, int *i, char *prev)
 		next = ft_substr(tmp->content, (*i + 1),
 				ft_strlen(tmp->content) - (*i + 1));
 	}
-	variable = ft_itoa(*data->exit_code);
+	variable = ft_itoa(g_exit);
 	fill_exitcode(tmp, variable, prev, next);
 }
 
