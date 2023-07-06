@@ -10,3 +10,4 @@ minishell
 .vscode
 test.c
 minishell42tester
+note-builtin.txt
