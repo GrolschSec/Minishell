@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/08 15:59:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:08:22 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ void	get_heredoc_in(t_data *data, int fd, char *end)
 		close(fd);
 		free(input);
 		free(end);
-		exit_ps(data, 0); // temporary exit to avoid double free
+		//exit_ps(data, 0); // temporary exit to avoid double free
 		// Need an exit ps or homemade thing
+		exit(0);
 	}
 	// need to convert the input using the parsing
 	ft_putstr_fd(input, fd);
