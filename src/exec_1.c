@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/05 15:44:37 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:53:48 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	execution(t_data *data)
 	i = 0;
 	data->cpy_in = dup(0);
 	data->cpy_out = dup(1);
+	heredoc_check(data);
 	while (i < data->pipes - 1)
 	{
 		if (process_creation(data, &data->exec[i]) < 0)
