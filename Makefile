@@ -6,7 +6,7 @@
 #    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/03 12:37:27 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/07/08 16:47:17 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ FILES = 	main					\
 			split_meta				\
 			assign_type				\
 			assign_dollar			\
+			assign_dollar_exitcode	\
 			assign_type_utils		\
 			parsing_cmd				\
 			count_cmd				\
@@ -70,6 +71,9 @@ $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 
 $(NAME)    :    $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -lreadline libft/libft.a -o $(NAME)
+
+tester : 
+	@make -C ../minishell-tester
 
 clean    :
 	@rm -rf $(OBJ_DIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/05 15:42:46 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:07:03 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void	verify_dollar(t_data *data, t_list *tmp)
 				type_dollar(data, tmp, i);
 			}
 		}
-		i++;
+		if (tmp->content[i])
+			i++;
 	}
 }
 
