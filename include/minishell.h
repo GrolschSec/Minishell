@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/08 17:13:08 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:18:18 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,10 @@ void		put_cmd_in_tab(t_data *data, int nb);
 void		parse_cmd(t_data *data);
 
 /* ASSIGN TYPES */
-void		len_is_one(t_data *data, t_list *tmp);
-void		len_is_two(t_data *data, t_list *tmp);
-void		fill_all(t_list *tmp, char *variable, char *prev, char *next);
 void		dollar_exitcode(t_data *data, t_list *tmp, int *i, char *prev);
 void		type_dollar(t_data *data, t_list *tmp, int i);
-void		type_option(t_list *tmp);
+void		is_unexpected(t_data *data, t_list *tmp);
+void		parse_meta(t_data *data, t_list *tmp);
 void		assign_type(t_data *data);
 
 /* COUNT */
