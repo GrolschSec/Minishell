@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 16:09:08 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/09 12:25:26 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,20 @@ void	open_infile(t_data *data, int x, int in)
 	{
 		exec_error(data->exec[x].infile[in - 1], "No such file or directory");
 		data->error = 1;
+		g_exit = 1;
 	}
-	else
+	else if (data->exec[x].cmd[0] != NULL)
 	{
 		data->exec[x].fdin = open(data->exec[x].infile[in - 1],
 				O_RDONLY);
 		if (data->exec[x].fdin < 0)
 			printf("Fail to open fdin\n");
+	}
+	else
+	{
+		printf("minishell: Not enough arguments\n");
+		data->error = 1;
+		g_exit = 1;
 	}
 }
 

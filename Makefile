@@ -6,7 +6,7 @@
 #    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/08 15:32:03 by rlouvrie         ###   ########.fr        #
+#    Updated: 2023/07/10 11:10:04 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ FILES = 	main					\
 			split_meta				\
 			assign_type				\
 			assign_dollar			\
-			assign_type_utils		\
+			assign_dollar_exitcode	\
+			assign_redirections		\
 			parsing_cmd				\
 			count_cmd				\
 			fill_redirections		\
@@ -71,6 +72,9 @@ $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 
 $(NAME)    :    $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -lreadline libft/libft.a -o $(NAME)
+
+tester : 
+	@make -C ../minishell-tester
 
 clean    :
 	@rm -rf $(OBJ_DIR)

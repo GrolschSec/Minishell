@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/05 15:45:01 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/09 13:09:43 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,15 @@ void	put_cmd_in_tab(t_data *data, int nb)
 	while (x < nb)
 	{
 		fill_exec(data, &tmp, data->exec, x);
-		if (data->exec[x].cmd[0] == NULL)
+		if (data->exec[x].cmd[0] == NULL 
+			&& data->exec[x].redirect_input == 0
+			&& data->exec[x].redirect_output == 0
+			&& data->exec[x].heredoc == 0)
+		{
 			data->error = 2;
+			g_exit = 2;
+			return ;
+		}
 		x++;
 	}
 }
@@ -99,7 +106,7 @@ void	parse_cmd(t_data *data)
 	}
 	if (data->error == 0)
 		assign_type(data);
-	// print_all(data);
+	print_all(data);
 	if (data->error == 0)
 		count_pipes(data);
 	if (data->error == 0)

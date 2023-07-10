@@ -3,72 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   assign_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/05 15:42:24 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:31:12 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	is_env_variable(t_data *data, t_list *tmp, int *i, char *prev)
+char	*fill_next(t_data *data, t_list *tmp, int *i)
 {
-	char	*variable;
-
-	variable = ft_getenv(data, &tmp->content[*i]);
-	if (variable == NULL && tmp->type == SINGLE_QUOTE)
-		tmp->type = COMMANDE;
-	else if (variable == NULL && (tmp->type == DOUBLE_QUOTE || tmp->type == 0))
-	{
-		free(tmp->content);
-		tmp->content = malloc (sizeof(char) * 2);
-		tmp->content[0] = ' ';
-		tmp->content[1] = '\0';
-		if (tmp->type == 0)
-			data->error = 1;
-	}
-	else
-	{
-		free(tmp->content);
-		if (prev != NULL)
-			tmp->content = ft_strjoin(prev, variable);
-		else
-			tmp->content = ft_strdup(variable);
-		free(variable);
-	}
-}
-
-void	fill_exitcode(t_list *tmp, char *variable, char *prev, char *next)
-{
-	free(tmp->content);
-	if (prev != NULL)
-		tmp->content = ft_strjoin(prev, variable);
-	else
-		tmp->content = ft_strdup(variable);
-	free (variable);
-	if (next != NULL)
-	{
-		tmp->content = ft_strjoin(tmp->content, next);
-		free (next);
-	}
-}
-
-void	dollar_exitcode(t_data *data, t_list *tmp, int *i, char *prev)
-{
-	char	*variable;
 	char	*next;
 
 	(void)data;
 	next = NULL;
-	variable = NULL;
+	(*i)--;
+	if (*i == (int)ft_strlen(tmp->content) - 1)
+		return (NULL);
 	if (*i < ((int)ft_strlen(tmp->content) - 1))
 	{
 		next = ft_substr(tmp->content, (*i + 1),
 				ft_strlen(tmp->content) - (*i + 1));
 	}
-	variable = ft_itoa(g_exit);
-	fill_exitcode(tmp, variable, prev, next);
+	return (next);
+}
+
+char	*parse_var(char *str, int *i)
+{
+	char	*var;
+	int		y;
+
+	y = *i;
+	var = NULL;
+	while (is_space(str[*i]) == 0 && (ft_isalnum(str[*i])
+			|| str[*i] == '_'))
+		(*i)++;
+	var = ft_substr(str, y, *i - y);
+	return (var);
+}
+
+void	is_env_variable(t_data *data, t_list *tmp, int *i, char *prev)
+{
+	char	*variable;
+	char	*next;
+	char	*var;
+
+	var = parse_var(tmp->content, i);
+	variable = ft_getenv(data, var);
+	free(var);
+	next = fill_next(data, tmp, i);
+	if (tmp->type == SINGLE_QUOTE)
+		tmp->type = COMMANDE;
+	else if (variable == NULL)
+	{
+		free (tmp->content);
+		if (prev)
+		{
+			tmp->content = ft_strdup(prev);
+			free(prev);
+		}
+		else
+			tmp->content = ft_strdup(" ");
+	}
+	else
+	{
+		fill_all(tmp, variable, prev, next);
+	}
 }
 
 void	type_dollar(t_data *data, t_list *tmp, int i)
