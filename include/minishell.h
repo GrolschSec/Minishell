@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/10 11:09:38 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:11:42 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		type_dollar(t_data *data, t_list *tmp, int i);
 void		is_unexpected(t_data *data, t_list *tmp);
 void		parse_meta(t_data *data, t_list *tmp);
 void		assign_type(t_data *data);
+void		fill_all(t_list *tmp, char *variable, char *prev, char *next);
 
 /* COUNT */
 int			count_cmd(t_list *tmp);
