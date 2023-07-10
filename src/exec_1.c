@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/08 15:53:48 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:55:00 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	command_exec(t_data *data, t_exec *exec)
 	else
 	{
 		execve(path, exec->cmd, data->env_tab);
-		exec_error(exec->cmd[0], strerror(errno));
+		dot_slash_cmd_exec_handling(exec->cmd[0]);
 		free(path);
 	}
 	return (-1);
@@ -131,6 +131,8 @@ int	command_exec(t_data *data, t_exec *exec)
  */
 int	exec_last_child(t_data *data, t_exec *exec)
 {
+	if (!exec->cmd[0] && exec->heredoc > 0)
+		return (close(exec->fdin), 1);
 	if (is_builtin(exec->cmd[0]))
 		command_exec(data, exec);
 	else if (last_child(data, exec) < 0)
@@ -164,10 +166,7 @@ int	last_child(t_data *data, t_exec *exec)
 		{
 			if (exec->cmd[0] && !is_builtin(exec->cmd[0])
 				&& exec->cmd[0][0] != '.' && exec->cmd[0][0] != '/')
-			{
-				g_exit = 127;
-				return (exec_error(exec->cmd[0], "command not found"), -1);
-			}
+				dot_slash_cmd_exec_handling(exec->cmd[0]);
 			return (-1);
 		}
 	}

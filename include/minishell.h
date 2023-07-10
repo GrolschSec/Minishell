@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/10 11:11:42 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:01:28 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,9 @@ int			is_builtin(char *cmd);
 char		*get_cmd_path(char *cmd, t_data *data);
 void		select_builtin(t_data *data, t_exec *exec);
 void		execution_handling(t_data *data, int i);
+
+/* EXEC_3 */
+void		dot_slash_cmd_exec_handling(char *cmd);
 
 /* EXEC_UTILS_1 */
 char		*ft_strjoin2(char *s1, char const *s2);

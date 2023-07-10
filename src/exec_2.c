@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/06 15:02:18 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:56:22 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ void	execution_handling(t_data *data, int i)
 	if (!is_builtin(data->exec[i].cmd[0])
 		&& data->exec[i].cmd[0][0] != '.'
 		&& data->exec[i].cmd[0][0] != '/')
-	{
-		exec_error(data->exec[i].cmd[0], "command not found");
-		g_exit = 127;
-	}
+		dot_slash_cmd_exec_handling(data->exec[i].cmd[0]);
 	close(data->cpy_in);
 	close(data->cpy_out);
 	exit_ps(data, g_exit);
