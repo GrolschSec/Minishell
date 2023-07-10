@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/09 12:21:55 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:50:29 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	main(int argc, char **argv, char **env)
 		data.error = 0;
 		signal(SIGINT, ft_handler);
 		signal(SIGQUIT, SIG_IGN);
-		signal(SIGPIPE, SIG_IGN);
 		data.input = readline(COLOR_RED "Minishell> " COLOR_RESET);
 		if (!data.input)
 		{
