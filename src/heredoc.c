@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/10 18:07:39 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:54:34 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,45 @@ void	heredoc_check(t_data *data)
 		}
 		i++;
 	}
+}
+
+char	*convert_input(char *input)
+{
+	int		i;
+	char	*c_input;
+
+	i = 0;
+	c_input = NULL;
+	while (input[i])
+	{
+		if (input[i] == '$')
+			i = handle_env_var(i, &input[i], c_input);
+		//else
+		//	add_char_to_str();
+		i++;
+	}
+	return (input);
+}
+
+int	handle_env_var(int	i, char *input, char *c_input)
+{
+	int		j;
+	int		len;
+	char	*var;
+
+	(void)var;
+	(void)c_input;
+	j = 1;
+	if (!ft_isprint(input[j]))
+		return (/*add_char_to_str(c_input, input[i]), */i);
+	else if (ft_isdigit(input[j]))
+		return (i + j);
+	else if (ft_isalpha(input[j]) || input[j] == '_')
+	{
+		len = 0;
+		while(input[j] && (ft_isalnum(input[j]) || input[j] == '_'))
+			j++;
+		len = j - 1;
+	}
+	return (i + j);
 }

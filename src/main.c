@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/10 14:50:29 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:00:00 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 	if (!isatty(STDIN_FILENO))
 		return (0);
 	ft_bzero(&data, sizeof(data));
-	printf("&data->error: %d\n", data.error);
+	//printf("&data->error: %d\n", data.error);
 	fill_env_list(env, &data);
 	parse_path(&data);
 	while (1)

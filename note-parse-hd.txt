@@ -1,0 +1,89 @@
+/* Ex Special char 
+		> $!
+		> $@
+		> $#
+		> $$
+		> $%
+		> $^
+		> $&
+		> $*
+		> $(
+		> $)
+		> _
+		> $_
+		> $-
+		> $+
+		> $=
+		> ${
+		> $}
+		> $[
+		> $]
+		> $|
+		> $\
+		> $:
+		> $;
+		> $"
+		> $'
+		> $<
+		> $>
+		> $,
+		> $.
+		> $?
+		> $/
+		> $~
+		> $`
+		> EOF
+		$: command not found
+		bash: $!
+		$@
+		$#
+		$$
+		$%
+		$^
+		$&
+		$*
+		$(
+		$)
+		_
+		$_
+		$-
+		$+
+		$=
+		${
+		$}
+		$[
+		$]
+		$|
+		$$:
+		$;
+		$"
+		$'
+		$<
+		$>
+		$,
+		$.
+		$?
+		$/
+		$~
+		$`
+	*/
+	
+	/* Parser les variables d'env 
+		- Une variable d'env doit commencer par un dollar ($),
+			- Si le caracteres d'apres n'est pas printable on affiche le dollar
+			- Si le caracteres d'apres est printable mais n'est pas alpha on print a partir du caractere suivant
+			- ENSUITE LES CARACTERES PEUVENT ETRE ALPHANUM 
+			- $HOME\$HOME Affiche la premiere variables d'env mais pas la deuxieme ??? a gerer ??
+	*/
+	/* Pas de parsing pour les parentheses */
+	/* Parsing backslash 
+		- \: ne s'affiche pas
+		- \\: affiche un backslash
+		- \$\: affiche $\ donc n'affiche pas si le characteres d'apres le backslash est un speciale
+		- \m: s'affiche normalement si caracteres a la suites est alphanum
+	*/
+	/* Parsing Quotes 
+		- "$HOME" ou '$HOME': affiche la variable d'env
+		- "$HOME$HOME" affiche les deux variables d'env
+		- 
+	*/
