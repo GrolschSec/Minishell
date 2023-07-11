@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 11:25:07 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:29:48 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum e_type
 	INFILE,				/* ce qui suit '<' */
 	OUTFILE,			/* ce qui suit '>' ou '>> */
 	ENDOFFILE,			/* ce qui suit '<<' */
+	ENDOFFILE_QUOTED,
 	REDIRECT_INPUT,		/* < */
 	REDIRECT_OUTPUT,	/* > */
 	HEREDOC,			/* << */

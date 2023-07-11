@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:43:34 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 19:16:36 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:21:54 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	invalid_option(char c)
 	char	*tmp;
 	char	*msg;
 
+	tmp = NULL;
 	if (c)
 		tmp = ft_strjoin2("minishell: export: `-", &c);
 	if (!tmp)
