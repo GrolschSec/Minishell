@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/11 18:54:34 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:05:26 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_heredoc_in(t_data *data, int fd, char *end)
 		free(end);
 		exit(0);
 	}
-	// Convert to input.
+	convert_input(input, data);
 	ft_putstr_fd(input, fd);
 	ft_putchar_fd('\n', fd);
 	free(input);
@@ -88,7 +88,7 @@ void	heredoc_check(t_data *data)
 	}
 }
 
-char	*convert_input(char *input)
+char	*convert_input(char *input, t_data *data)
 {
 	int		i;
 	char	*c_input;
@@ -98,7 +98,7 @@ char	*convert_input(char *input)
 	while (input[i])
 	{
 		if (input[i] == '$')
-			i = handle_env_var(i, &input[i], c_input);
+			i = handle_env_var(i, &input[i], c_input, data);
 		//else
 		//	add_char_to_str();
 		i++;
@@ -106,13 +106,13 @@ char	*convert_input(char *input)
 	return (input);
 }
 
-int	handle_env_var(int	i, char *input, char *c_input)
+int	handle_env_var(int	i, char *input, char *c_input, t_data *data)
 {
 	int		j;
 	int		len;
 	char	*var;
+	char	*value;
 
-	(void)var;
 	(void)c_input;
 	j = 1;
 	if (!ft_isprint(input[j]))
@@ -125,6 +125,18 @@ int	handle_env_var(int	i, char *input, char *c_input)
 		while(input[j] && (ft_isalnum(input[j]) || input[j] == '_'))
 			j++;
 		len = j - 1;
+		var = malloc(sizeof(char) * (len + 1));
+		if (!var)
+			return (i);
+		ft_strlcpy(var, input + 1, len + 1);
+		value = ft_getenv(data, var);
+		if (value)
+		{
+			
+			ft_strlcat()
+		}
+		return (i + j);
+		
 	}
 	return (i + j);
 }
