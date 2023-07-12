@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/11 18:54:34 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:34:50 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	heredoc_check(t_data *data)
 {
 	int	i;
 	int	j;
-	int	old_fd;
 
 	i = 0;
 	while (i < data->pipes)
@@ -78,9 +77,7 @@ void	heredoc_check(t_data *data)
 		{
 			while (j < data->exec[i].heredoc)
 			{
-				old_fd = data->exec[i].fdin;
 				data->exec[i].fdin = heredoc(data, data->exec[i].eof[j]);
-				close(old_fd);
 				j++;
 			}
 		}
