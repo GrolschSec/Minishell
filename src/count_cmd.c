@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 19:03:41 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:14:21 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	count_cmd_and_redir(t_data *data)
 				data->exec[x].nb_cmd++;
 			tmp = tmp->next;
 		}
+		x++;
 		if (tmp != NULL && tmp->type == PIPE)
 			tmp = tmp->next;
 		else if (tmp == NULL)

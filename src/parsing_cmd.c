@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 19:04:21 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:28:23 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,9 @@ void parse_cmd(t_data *data)
 	check_if_nothing(data);
 	heredoc_check(data);
 	if (data->error == 0)
-		fill_files(data);
-	if (data->error == 0)
-		check_if_nothing(data);
-	// HEREDOC;
-	if (data->error == 0)
 		put_cmd_in_tab(data, data->pipes);
+	if (data->error == 0)
+		fill_files(data);
 	if (data->error == 0)
 		open_files(data);
 	if (data->error == 2)
