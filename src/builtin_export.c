@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:12:49 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/06/30 18:49:30 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:23:57 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	export_builtin(t_data *data, t_exec *exec)
 	char	**cmd;
 
 	if (exec->nb_cmd == 1)
-		export_no_arg(data);
+		return ;
 	else
 	{
 		i = 1;

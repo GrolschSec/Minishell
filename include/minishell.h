@@ -6,7 +6,11 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/12 13:47:42 by rlouvrie         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/12 19:45:12 by rlouvrie         ###   ########.fr       */
+>>>>>>> origin/rlouvrie
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +146,7 @@ void		fill_all(t_list *tmp, char *variable, char *prev, char *next);
 /* COUNT */
 int			count_cmd(t_list *tmp);
 void		count_pipes(t_data *data);
-void		count_redirections(t_list *tmp, t_exec *current, int x);
+void		count_cmd_and_redir(t_list **tmp, t_exec *current, int x);
 void		init_exec(t_exec *current, int x);
 
 /* REDIRECTIONS */
@@ -150,7 +154,7 @@ void		fill_files(t_data *data);
 void		open_files(t_data *data);
 
 /* HEREDOC / EOF */
-void		fill_eof(t_data *data);
+void		fill_eof(t_data *data, int nb);
 
 /* PATH */
 void		parse_path(t_data *data);
@@ -254,6 +258,7 @@ void		check_next_env(t_list *current, t_list *prev, char *str);
 
 /*BUILTIN ENV*/
 void		env_builtin(t_data *data, t_exec *exec);
+void		print_env_list(t_data *data);
 
 /* HEREDOC */
 void		get_heredoc_in(t_data *data, int fd, char *end);
@@ -261,5 +266,6 @@ int			heredoc(t_data *data, char *end);
 void		heredoc_check(t_data *data);
 int			handle_env_var(int	i, char *input, char *c_input, t_data *data);
 char		*convert_input(char *input, t_data *data);
+void		print_heredoc_error(char *end);
 
 #endif

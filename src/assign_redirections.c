@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/09 14:16:06 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:31:33 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void	heredoc_type(t_data *data, t_list *tmp)
 {
 	if (tmp->next != NULL)
 	{
-		if (is_meta(tmp->next->content[0]) == 0)
+		if (is_meta(tmp->next->content[0]) == 0 && tmp->next->type == 0)
 			tmp->next->type = ENDOFFILE;
+		else if (tmp->next->type == SINGLE_QUOTE || tmp->next->type == DOUBLE_QUOTE)
+			tmp->next->type = ENDOFFILE_QUOTED;
 		else
 			error(data, "`<<'");
 	}

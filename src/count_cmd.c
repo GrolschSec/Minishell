@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/02 13:26:58 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:54:33 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,6 @@ int	is_not_redirection(t_list *tmp)
 		&& tmp->type != DELIMITER_APPEND)
 		return (1);
 	return (0);
-}
-
-/*
-** Function: count_cmd
-** -------------------
-** Counts the number of commands before a PIPE token.
-**
-** Args:
-** - tmp: Pointer to the token list.
-**
-** Returns:
-** - The number of commands before a PIPE token.
-*/
-int	count_cmd(t_list *tmp)
-{
-	int		i;
-
-	i = 0;
-	while (tmp != NULL)
-	{
-		if (is_not_redirection(tmp) && tmp->type != PIPE)
-			i++;
-		if (tmp->type == PIPE)
-		{
-			return (i);
-		}
-		tmp = tmp->next;
-	}
-	return (i);
 }
 
 /*
@@ -101,14 +72,24 @@ void	count_pipes(t_data *data)
 ** Side effects:
 ** - Updates the redirection count in the command structure.
 */
-void	count_redirections(t_list *tmp, t_exec *current, int x)
+void	count_cmd_and_redir(t_list **tmp, t_exec *current, int x)
 {
-	if (tmp->type == REDIRECT_INPUT)
-		current[x].redirect_input++;
-	if (tmp->type == REDIRECT_OUTPUT || tmp->type == DELIMITER_APPEND)
-		current[x].redirect_output++;
-	if (tmp->type == HEREDOC)
-		current[x].heredoc++;
+	while ((*tmp) != NULL && (*tmp)->type != PIPE)
+	{
+		if ((*tmp)->type == REDIRECT_INPUT)
+			current[x].redirect_input++;
+		else if ((*tmp)->type == REDIRECT_OUTPUT || (*tmp)->type == DELIMITER_APPEND)
+			current[x].redirect_output++;
+		else if ((*tmp)->type == HEREDOC)
+			current[x].heredoc++;
+		else if (is_not_redirection(*tmp) && (*tmp)->type != PIPE)
+			current[x].nb_cmd++;
+		(*tmp) = (*tmp)->next;
+	}
+	if ((*tmp) != NULL && (*tmp)->type == PIPE)
+		(*tmp) = (*tmp)->next;
+	else if ((*tmp) == NULL)
+		return ;
 }
 
 /*
@@ -125,6 +106,7 @@ void	count_redirections(t_list *tmp, t_exec *current, int x)
 */
 void	init_exec(t_exec *current, int x)
 {
+	current[x].cmd = NULL;
 	current[x].infile = NULL;
 	current[x].outfile = NULL;
 	current[x].eof = NULL;
@@ -134,4 +116,5 @@ void	init_exec(t_exec *current, int x)
 	current[x].redirect_output = 0;
 	current[x].heredoc = 0;
 	current[x].is_last = 0;
+	current[x].nb_cmd = 0;
 }

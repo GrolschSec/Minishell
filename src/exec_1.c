@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/10 21:55:00 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:50:15 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	execution(t_data *data)
 	i = 0;
 	data->cpy_in = dup(0);
 	data->cpy_out = dup(1);
-	heredoc_check(data);
 	while (i < data->pipes - 1)
 	{
 		if (process_creation(data, &data->exec[i]) < 0)
@@ -64,7 +63,7 @@ int	process_creation(t_data *data, t_exec *exec)
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
-		if (is_builtin(exec->cmd[0]))
+		if (exec->cmd[0] && is_builtin(exec->cmd[0]))
 			wait(NULL);
 		close(fd[0]);
 	}
@@ -96,6 +95,7 @@ int	command_exec(t_data *data, t_exec *exec)
 	char	*path;
 
 	path = NULL;
+	
 	if ((exec->cmd[0][0] == '/' || exec->cmd[0][0] == '.')
 			&& !is_builtin(exec->cmd[0]))
 		path = ft_strdup(exec->cmd[0]);
@@ -132,7 +132,7 @@ int	command_exec(t_data *data, t_exec *exec)
 int	exec_last_child(t_data *data, t_exec *exec)
 {
 	if (!exec->cmd[0] && exec->heredoc > 0)
-		return (close(exec->fdin), 1);
+		return (0);
 	if (is_builtin(exec->cmd[0]))
 		command_exec(data, exec);
 	else if (last_child(data, exec) < 0)

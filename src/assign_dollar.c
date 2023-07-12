@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/08 17:31:12 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:23:23 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	type_dollar(t_data *data, t_list *tmp, int i)
 	i++;
 	if (tmp->content[i] == '\0')
 		tmp->type = COMMANDE;
+	if (tmp->type == ENDOFFILE)
+		return ;
 	else
 	{
 		if (i > 1)

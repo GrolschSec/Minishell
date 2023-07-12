@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/12 14:05:26 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:42:36 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	get_heredoc_in(t_data *data, int fd, char *end)
 	input = readline("> ");
 	if (!input)
 	{
-		write(2, "minishell : warning : heredoc delimited by end-of-file\n", 55);
+		print_heredoc_error(end);
 		close(fd);
 		free(input);
 		free(end);
@@ -68,7 +68,6 @@ void	heredoc_check(t_data *data)
 {
 	int	i;
 	int	j;
-	int	old_fd;
 
 	i = 0;
 	while (i < data->pipes)
@@ -78,9 +77,7 @@ void	heredoc_check(t_data *data)
 		{
 			while (j < data->exec[i].heredoc)
 			{
-				old_fd = data->exec[i].fdin;
 				data->exec[i].fdin = heredoc(data, data->exec[i].eof[j]);
-				close(old_fd);
 				j++;
 			}
 		}
@@ -139,4 +136,13 @@ int	handle_env_var(int	i, char *input, char *c_input, t_data *data)
 		
 	}
 	return (i + j);
+}
+
+void	print_heredoc_error(char *end)
+{
+	write(2, "minishell: warning: ", 20);
+	write(2, "here-document delimited by end-of-file (wanted `", 48);
+	if (end)
+		write(2, end, ft_strlen(end));
+	write(2, "')\n", 3);
 }
