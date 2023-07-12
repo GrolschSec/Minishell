@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/11 18:55:02 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:41:48 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void		fill_all(t_list *tmp, char *variable, char *prev, char *next);
 /* COUNT */
 int			count_cmd(t_list *tmp);
 void		count_pipes(t_data *data);
-void		count_redirections(t_list *tmp, t_exec *current, int x);
+void		count_cmd_and_redir(t_list **tmp, t_exec *current, int x);
 void		init_exec(t_exec *current, int x);
 
 /* REDIRECTIONS */
@@ -150,7 +150,7 @@ void		fill_files(t_data *data);
 void		open_files(t_data *data);
 
 /* HEREDOC / EOF */
-void		fill_eof(t_data *data);
+void		fill_eof(t_data *data, int nb);
 
 /* PATH */
 void		parse_path(t_data *data);
