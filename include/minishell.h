@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 15:41:48 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:10:44 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,7 @@ void		check_next_env(t_list *current, t_list *prev, char *str);
 
 /*BUILTIN ENV*/
 void		env_builtin(t_data *data, t_exec *exec);
+void		print_env_list(t_data *data);
 
 /* HEREDOC */
 void		get_heredoc_in(t_data *data, int fd, char *end);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/11 19:05:28 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:54:33 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	count_cmd_and_redir(t_list **tmp, t_exec *current, int x)
 */
 void	init_exec(t_exec *current, int x)
 {
+	current[x].cmd = NULL;
 	current[x].infile = NULL;
 	current[x].outfile = NULL;
 	current[x].eof = NULL;
@@ -115,4 +116,5 @@ void	init_exec(t_exec *current, int x)
 	current[x].redirect_output = 0;
 	current[x].heredoc = 0;
 	current[x].is_last = 0;
+	current[x].nb_cmd = 0;
 }
