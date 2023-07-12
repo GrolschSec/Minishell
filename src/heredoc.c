@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/12 17:34:50 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:46:03 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	get_heredoc_in(t_data *data, int fd, char *end)
 	input = readline("> ");
 	if (!input)
 	{
-		write(2, "minishell : warning : heredoc delimited by end-of-file\n", 55);
+		print_heredoc_error(end);
 		close(fd);
 		free(input);
 		free(end);
@@ -124,4 +124,13 @@ int	handle_env_var(int	i, char *input, char *c_input)
 		len = j - 1;
 	}
 	return (i + j);
+}
+
+void	print_heredoc_error(char *end)
+{
+	write(2, "minishell: warning: ", 20);
+	write(2, "here-document delimited by end-of-file (wanted `", 48);
+	if (end)
+		write(2, end, ft_strlen(end));
+	write(2, "')\n", 3);
 }
