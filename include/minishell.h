@@ -6,7 +6,11 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/12 17:10:44 by rlouvrie         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/12 18:36:27 by mrabourd         ###   ########.fr       */
+>>>>>>> mrabourd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +79,7 @@ typedef struct s_exec
 	int			heredoc;
 	int			is_last;
 	int			nb_cmd;
+	int			is_eof;
 }				t_exec;
 
 /*
@@ -141,8 +146,8 @@ void		fill_all(t_list *tmp, char *variable, char *prev, char *next);
 
 /* COUNT */
 int			count_cmd(t_list *tmp);
-void		count_pipes(t_data *data);
-void		count_cmd_and_redir(t_list **tmp, t_exec *current, int x);
+void		count_pipes_cmd_redir(t_data *data);
+void		count_cmd_and_redir(t_data *data);
 void		init_exec(t_exec *current, int x);
 
 /* REDIRECTIONS */

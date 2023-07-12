@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 17:27:14 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:04:21 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,19 @@ void parse_cmd(t_data *data)
 	}
 	if (data->error == 0)
 		assign_type(data);
-	// if (data->error == 0)
-	count_pipes(data);
 	print_all(data);
+	count_pipes_cmd_redir(data);
 	if (data->error == 0)
 		fill_eof(data, data->pipes);
 	check_if_nothing(data);
 	heredoc_check(data);
 	if (data->error == 0)
-		put_cmd_in_tab(data, data->pipes);
-	if (data->error == 0)
 		fill_files(data);
+	if (data->error == 0)
+		check_if_nothing(data);
+	// HEREDOC;
+	if (data->error == 0)
+		put_cmd_in_tab(data, data->pipes);
 	if (data->error == 0)
 		open_files(data);
 	if (data->error == 2)
