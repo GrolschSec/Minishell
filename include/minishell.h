@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 17:58:30 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:16:31 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,5 +268,6 @@ void		heredoc_check(t_data *data);
 int			handle_env_var(int	i, char *input, char *c_input, t_data *data);
 char		*convert_input(char *input, t_data *data);
 void		print_heredoc_error(char *end);
+void		add_char_to_str(char **input, char c);
 
 #endif

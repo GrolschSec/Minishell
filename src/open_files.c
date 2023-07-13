@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 17:20:34 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:16:24 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	open_outfile(t_data *data, int x, t_list *out)
 void	open_infile(t_data *data, int x, int in)
 {
 	in = data->exec[x].redirect_input;
-	if (data->exec[x].fdin != 0)
+	if (data->exec[x].fdin != 0 && !data->exec[x].is_eof)
 		close(data->exec[x].fdin);
 	if (access(data->exec[x].infile[in - 1], R_OK) != 0)
 	{
@@ -56,6 +56,8 @@ void	open_infile(t_data *data, int x, int in)
 		if (data->exec[x].fdin < 0)
 			printf("Fail to open fdin\n");
 	}
+	else if (data->exec[x].is_eof)
+		return ;
 	else
 	{
 		printf("minishell: Not enough arguments\n");
