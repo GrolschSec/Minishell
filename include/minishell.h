@@ -6,11 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/12 13:47:42 by rlouvrie         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/12 19:45:12 by rlouvrie         ###   ########.fr       */
->>>>>>> origin/rlouvrie
+/*   Updated: 2023/07/13 10:35:15 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +193,7 @@ void		execution_handling(t_data *data, int i);
 
 /* EXEC_3 */
 void		dot_slash_cmd_exec_handling(char *cmd);
+char		**get_path(t_data *data);
 
 /* EXEC_UTILS_1 */
 char		*ft_strjoin2(char *s1, char const *s2);

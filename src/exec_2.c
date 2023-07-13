@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/10 21:56:22 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 10:34:42 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,21 @@ char	*get_cmd_path(char *cmd, t_data *data)
 	int		i;
 	char	*path;
 	char	*tmp;
+	char	**tab;
 
 	i = 0;
-	if (!data->path.tab[0])
+	tab = get_path(data);
+	if (!tab)
 		return (NULL);
-	while (data->path.tab[i])
+	while (tab[i])
 	{
-		tmp = ft_strjoin2(data->path.tab[i], "/");
+		tmp = ft_strjoin2(tab[i], "/");
 		if (!tmp)
-			return (NULL);
+			return (free_tab(tab), NULL);
 		path = ft_strjoin2(tmp, cmd);
 		free(tmp);
 		if (!path)
-			return (NULL);
+			return (free_tab(tab), NULL);
 		if (access(path, X_OK) == 0)
 			return (path);
 		free(path);
