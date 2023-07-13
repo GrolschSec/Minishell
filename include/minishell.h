@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 18:16:31 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:40:29 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,32 +154,17 @@ void		open_files(t_data *data);
 /* HEREDOC / EOF */
 void		fill_eof(t_data *data, int nb);
 
-/* PATH */
-void		parse_path(t_data *data);
-
 /* ENV */
 void		fill_env_list(char **env, t_data *data);
 void		print_env_tab(t_data *data);
 void		put_env_in_tab(t_data *data);
 
-// /* EXPORT */
-// char	*extract_name(t_data *data, char *variable);
-// void	ft_sort(t_list *tmp, t_list *print);
-// void	builtin_export(t_data *data, char **pos);
-
-// /* ECHO */
-// void	print_lines(int i, char **str, int fd);
-// void	builtin_echo_str(t_data *data, char **cmd);
-
-// /* UNSET */
-// void	builtin_unset(t_data *data, t_list *pos);
-
 /* EXIT */
-void		clear_cmd(t_data *data);
 void		free_tab(char **tab);
-void		exit_all(t_data *data, int err, char *str);
 void		close_fds(t_data *data);
+void		clear_cmd(t_data *data);
 void		free_env(t_data *data);
+void		exit_all(t_data *data, int err, char *str);
 
 /* EXEC_1 */
 void		execution(t_data *data);
