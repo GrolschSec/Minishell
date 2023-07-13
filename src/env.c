@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 16:32:28 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:04:10 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	put_env_in_tab(t_data *data)
 
 	i = 0;
 	tmp = data->env;
+	data->nb_env = ft_lstsize(data->env);
 	if (data->env == NULL)
 		data->env_tab[0] = NULL;
 	data->env_tab = malloc (sizeof(char *) * (data->nb_env + 1));

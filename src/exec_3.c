@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 20:57:54 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/13 11:37:56 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:52:42 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	dot_slash_cmd_exec_handling(char *cmd)
 	}
 	else
 	{
+		
 		exec_error(cmd, "command not found");
 		g_exit = 127;
 	}
