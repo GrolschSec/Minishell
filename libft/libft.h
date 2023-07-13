@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/11 16:29:48 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:35:28 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef enum e_type
 	REDIRECT_OUTPUT,	/* > */
 	HEREDOC,			/* << */
 	DELIMITER_APPEND,	/* >> */
+	INFILE_IS_LAST,
+	HEREDOC_IS_LAST,
 	DOLLAR,
 	EPERLUETTE,
 	WORD,
@@ -44,7 +46,6 @@ typedef enum e_type
 	ENVIRONMENT_VARIABLE,
 	NUMBER,
 	ARITHMETIC_APPEND,	/* pas sure que ce soit utile */
-
 }				t_type;
 
 typedef struct s_list
