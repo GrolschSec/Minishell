@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 16:32:28 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:20:37 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	fill_env_list(char **env, t_data *data)
 		return ;
 	}
 	data->nb_env = count_env_list(data->env);
-	put_env_in_tab(data);
 }
 
 void	print_env_tab(t_data *data)

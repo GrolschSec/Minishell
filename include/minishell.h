@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 11:38:14 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:15:55 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void		split_quote(t_data *data, int *i, int *j, char quotetype);
 void		split_meta(t_data *data, int *i, int *j);
 
 /* PARSE COMMANDES */
+int			is_not_redirection(t_list *tmp);
 int			is_redirection(t_list *tmp);
 void		fill_exec(t_data *data, t_list **tmp, t_exec *current, int x);
 void		put_cmd_in_tab(t_data *data, int nb);

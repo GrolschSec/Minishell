@@ -6,15 +6,25 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:04:07 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 15:20:31 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:08:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	msg_error_quote(t_data *data, char *str)
+{
+	g_exit = 2;
+	data->error = 1;
+	printf("%s\n", str);
+}
+
 void	split_quote(t_data *data, int *i, int *j, char quotetype)
 {
-	(*i)++;
+	if (ft_strlen(&data->input[*i]) > 1)
+		(*i)++;
+	else
+		msg_error_quote(data, "There is a quote missing");
 	if (data->str[*i] == quotetype)
 	{
 		add_empty_node(data);
@@ -22,12 +32,12 @@ void	split_quote(t_data *data, int *i, int *j, char quotetype)
 	}
 	*j = *i;
 	if (data->str[*i] == '\0')
-		exit_all(data, 1, "There is a quote missing");
+		msg_error_quote(data, "There is a quote missing");
 	while (data->str[*i] && data->str[*i] != quotetype)
 	{
 		(*i)++;
 		if (data->str[*i] == '\0')
-			exit_all(data, 1, "There is a quote missing");
+			msg_error_quote(data, "There is a quote missing");
 	}
 	add_node(data, *i, *j, quotetype);
 	*j = *i + 1;
@@ -37,7 +47,7 @@ void	add_quoted(t_data *data, int *i, int *j)
 {
 	(*j)++;
 	if (data->str[*j] == '\0')
-		exit_all(data, 1, "There is a quote missing");
+		msg_error_quote(data, "There is a quote missing");
 	if (data->str[*i] == '\'')
 	{
 		(*i)++;
@@ -51,7 +61,7 @@ void	add_quoted(t_data *data, int *i, int *j)
 			(*i)++;
 	}
 	if (data->str[*i] == '\0')
-		exit_all(data, 1, "There is a quote missing");
+		msg_error_quote(data, "There is a quote missing");
 }
 
 void	add_unquoted(t_data *data, int *i)
@@ -93,6 +103,7 @@ void	split_dollar_quote(t_data *data, int *i, int *j, char quotetype)
 {
 	t_list	*tmp;
 
+	printf("ici\n");
 	tmp = data->token_list;
 	(*i)++;
 	(*j) = *i;
@@ -103,7 +114,7 @@ void	split_dollar_quote(t_data *data, int *i, int *j, char quotetype)
 		(*j)++;
 	}
 	if (data->str[*j] == '\0')
-		exit_all(data, 1, "There is a quote missing");
+		msg_error_quote(data, "There is a quote missing");
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	if (tmp->content[0] == '$')
@@ -120,7 +131,7 @@ void	if_is_quote(t_data *data, int *i, int *j)
 		&& is_meta(data->str[*i - 1]) == 0
 		&& data->str[*i - 1] != '$')
 		add_in_previous_node(data, i, j);
-	else if (data->str[*i - 1] == '$')
+	else if (*i > 0 && data->str[*i - 1] == '$')
 		split_dollar_quote(data, i, j, data->str[*i]);
 	else
 		split_quote(data, i, j, data->str[*i]);

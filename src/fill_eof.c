@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:07:54 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 18:31:42 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:50:49 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ void	fill_eof(t_data *data, int nb)
 
 	x = 0;
 	tmp = data->token_list;
-	// data->exec = malloc(sizeof(t_exec) * nb);
-	// if (data->exec == NULL)
-	// 	exit_all(data, 1, "malloc probleme pour structure");
-	// while (x < nb)
-	// {
-	// 	init_exec(data->exec, x);
-	// 	count_cmd_and_redir(&tmp, data->exec, x);
-	// 	x++;
-	// }
-	// x = 0;
-	// tmp = data->token_list;
 	while (x < nb)
 	{
 		put_eofs_in_tab(data, tmp, &data->exec[x]);

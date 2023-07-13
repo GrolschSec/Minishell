@@ -6,20 +6,18 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 18:35:51 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:43:17 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*fill_next(t_data *data, t_list *tmp, int *i)
+char	*fill_next(t_list *tmp, int *i)
 {
 	char	*next;
 
-	(void)data;
 	next = NULL;
 	(*i)--;
-	printf("(int)ft_strlen(tmp->content) - (i + 1): %d\n", (int)ft_strlen(tmp->content) - (*i + 1));
 	if (*i == (int)ft_strlen(tmp->content) - 1)
 		return (NULL);
 	if (*i < ((int)ft_strlen(tmp->content)))
@@ -53,7 +51,7 @@ void	is_env_variable(t_data *data, t_list *tmp, int *i, char *prev)
 	var = parse_var(tmp->content, i);
 	variable = ft_getenv(data, var);
 	free(var);
-	next = fill_next(data, tmp, i);
+	next = fill_next(tmp, i);
 	if (tmp->type == SINGLE_QUOTE)
 		tmp->type = COMMANDE;
 	else if (variable == NULL)
@@ -66,6 +64,8 @@ void	is_env_variable(t_data *data, t_list *tmp, int *i, char *prev)
 		}
 		else
 			tmp->content = ft_strdup(" ");
+		if (next)
+			free (next);
 	}
 	else
 	{
@@ -78,13 +78,14 @@ int		dollar_in_single_quotes(t_list *tmp, int i)
 	int	y;
 
 	y = 0;
+	printf("i: %d\n", i);
 	if (i > 0)
 	{
 		while (tmp->content[i] != '\0')
 		{
 			if (tmp->content[i] == '\'')
 				return (y);
-			i--;
+			i++;
 			y++;
 		}
 	}
@@ -100,10 +101,8 @@ void	replace_dollar(t_data *data, t_list *tmp, int *i, char *prev)
 	var = parse_var(tmp->content, i);
 	variable = ft_getenv(data, var);
 	free(var);
-	printf("i: %d\n", *i);
-	next = fill_next(data, tmp, (i + 1));
-	printf("i + 1: %c\n", tmp->content[*i + 1]);
-	printf("next: %s\n", next);
+	(*i)++;
+	next = fill_next(tmp, i);
 	if (variable == NULL)
 	{
 		free (tmp->content);
@@ -112,13 +111,11 @@ void	replace_dollar(t_data *data, t_list *tmp, int *i, char *prev)
 			tmp->content = ft_strdup(prev);
 			tmp->content = ft_strjoin(tmp->content, "\'");
 			free(prev);
+			if (next)
+				tmp->content = ft_strjoin(tmp->content, next);
 		}
 		else
 			tmp->content = ft_strdup(" ");
-	}
-	else
-	{
-		fill_all(tmp, variable, prev, next);
 	}
 }
 
