@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 11:32:25 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:38:14 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ void		execution_handling(t_data *data, int i);
 /* EXEC_3 */
 void		dot_slash_cmd_exec_handling(char *cmd);
 char		**get_path(t_data *data);
+void		do_execve(t_data *data, t_exec *exec, char *path);
 
 /* EXEC_UTILS_1 */
 char		*ft_strjoin2(char *s1, char const *s2);

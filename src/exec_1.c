@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/13 11:10:56 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:38:33 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,7 @@ int	command_exec(t_data *data, t_exec *exec)
 	if (is_builtin(exec->cmd[0]))
 		select_builtin(data, exec);
 	else
-	{
-		put_env_in_tab(data);
-		execve(path, exec->cmd, data->env_tab);
-		dot_slash_cmd_exec_handling(exec->cmd[0]);
-		free_tab(data->env_tab);
-		free(path);
-	}
+		do_execve(data, exec, path);
 	return (-1);
 }
 
