@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 16:15:55 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:58:30 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void		select_builtin(t_data *data, t_exec *exec);
 void		execution_handling(t_data *data, int i);
 
 /* EXEC_3 */
-void		dot_slash_cmd_exec_handling(char *cmd);
+void		dot_slash_cmd_exec_handling(char *cmd, t_data *data);
 char		**get_path(t_data *data);
 void		do_execve(t_data *data, t_exec *exec, char *path);
 
