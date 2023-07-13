@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 15:25:49 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:58:19 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,5 +267,6 @@ void		heredoc_check(t_data *data);
 int			handle_env_var(int	i, char *input, char *c_input, t_data *data);
 char		*convert_input(char *input, t_data *data);
 void		print_heredoc_error(char *end);
+void		add_char_to_str(char **input, char c);
 
 #endif
