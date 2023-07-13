@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/13 11:30:28 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:29:24 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	execution_handling(t_data *data, int i)
 	if (!is_builtin(data->exec[i].cmd[0])
 		&& data->exec[i].cmd[0][0] != '.'
 		&& data->exec[i].cmd[0][0] != '/')
-		dot_slash_cmd_exec_handling(data->exec[i].cmd[0]);
+		dot_slash_cmd_exec_handling(data->exec[i].cmd[0], data);
 	close(data->cpy_in);
 	close(data->cpy_out);
 	exit_ps(data, g_exit);

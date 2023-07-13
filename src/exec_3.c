@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 20:57:54 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/13 14:52:42 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:28:54 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	dot_slash_cmd_exec_handling(char *cmd)
+void	dot_slash_cmd_exec_handling(char *cmd, t_data *data)
 {
-	int	fd;
+	int		fd;
+	char	*path;
 
 	if (ft_strchr(cmd, '/'))
 	{
@@ -26,8 +27,14 @@ void	dot_slash_cmd_exec_handling(char *cmd)
 	}
 	else
 	{
-		
-		exec_error(cmd, "command not found");
+		path = ft_getenv(data, "PATH");
+		if (!path)
+			exec_error(cmd, "No such file or directory");
+		else
+		{
+			exec_error(cmd, "command not found");
+			free(path);
+		}
 		g_exit = 127;
 	}
 }
@@ -53,7 +60,7 @@ void	do_execve(t_data *data, t_exec *exec, char *path)
 {
 	put_env_in_tab(data);
 	execve(path, exec->cmd, data->env_tab);
-	dot_slash_cmd_exec_handling(exec->cmd[0]);
+	dot_slash_cmd_exec_handling(exec->cmd[0], data);
 	free_tab(data->env_tab);
 	free(path);
 }
