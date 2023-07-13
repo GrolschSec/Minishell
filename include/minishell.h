@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 10:35:15 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:08:40 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ void		parse_path(t_data *data);
 /* ENV */
 void		fill_env_list(char **env, t_data *data);
 void		print_env_tab(t_data *data);
+void		put_env_in_tab(t_data *data);
 
 // /* EXPORT */
 // char	*extract_name(t_data *data, char *variable);

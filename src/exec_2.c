@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:11:38 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/13 10:34:42 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:30:28 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ char	*get_cmd_path(char *cmd, t_data *data)
 		if (!path)
 			return (free_tab(tab), NULL);
 		if (access(path, X_OK) == 0)
-			return (path);
+			return (free_tab(tab), path);
 		free(path);
 		path = NULL;
 		i++;
 	}
-	return (NULL);
+	return (free_tab(tab), NULL);
 }
 
 /*

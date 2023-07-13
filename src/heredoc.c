@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/12 21:42:36 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 10:37:04 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,10 @@ int	handle_env_var(int	i, char *input, char *c_input, t_data *data)
 	int		j;
 	int		len;
 	char	*var;
-	char	*value;
+	//char	*value;
 
 	(void)c_input;
+	(void)data;
 	j = 1;
 	if (!ft_isprint(input[j]))
 		return (/*add_char_to_str(c_input, input[i]), */i);
@@ -126,12 +127,12 @@ int	handle_env_var(int	i, char *input, char *c_input, t_data *data)
 		if (!var)
 			return (i);
 		ft_strlcpy(var, input + 1, len + 1);
-		value = ft_getenv(data, var);
-		if (value)
-		{
-			
-			ft_strlcat()
-		}
+		//value = ft_getenv(data, var);
+		//if (value)
+		//{
+		//	
+		//	ft_strlcat()
+		//}
 		return (i + j);
 		
 	}
