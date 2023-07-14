@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:53:43 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 13:17:12 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:33:09 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	if_is_else(t_data *data, int *i, int *j)
 {
 	if (*i > 0 && (data->str[*i - 1] == '\"' || data->str[*i - 1] == '\''))
-		add_in_previous_node(data, i, j);
+		add_in_previous_node(data, i, j, '\0');
 	else
 	{
 		while (data->str[*i] && (is_meta(data->str[*i]) == 0

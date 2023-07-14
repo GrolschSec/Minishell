@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 18:42:50 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:57:05 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,7 @@ void	is_env_variable(t_data *data, t_list *tmp, int *i, char *prev)
 	next = fill_next(tmp, i);
 	if (tmp->type == SINGLE_QUOTE)
 		tmp->type = COMMANDE;
-	else if (variable == NULL)
-	{
-		free (tmp->content);
-		if (prev)
-		{
-			tmp->content = ft_strdup(prev);
-			free(prev);
-		}
-		else
-			tmp->content = ft_strdup(" ");
-		if (next)
-			free (next);
-	}
-	else
-	{
-		fill_all(tmp, variable, prev, next);
-	}
+	fill_all(tmp, variable, prev, next);
 }
 
 int		dollar_in_single_quotes(t_list *tmp, int i)
@@ -122,7 +106,7 @@ void	replace_dollar(t_data *data, t_list *tmp, int *i, char *prev)
 
 int		only_space(t_list *tmp, int i)
 {
-	while (i > 0)
+	while (tmp->content[i] != '\0' || tmp->content[i] != '\'' || tmp->content[i] != '\"')
 	{
 		if (tmp->content[i] != ' ')
 			return (0);
@@ -146,7 +130,7 @@ void	type_dollar(t_data *data, t_list *tmp, int i)
 		return ;
 	if (i > 1)
 	{
-		if (only_space(tmp, i) == 1)
+		if (only_space(tmp, i) == 0)
 		{
 			prev = malloc (sizeof(char) * (i));
 			if (prev == NULL)
