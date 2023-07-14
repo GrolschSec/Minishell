@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 17:43:17 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:54:32 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int		dollar_in_single_quotes(t_list *tmp, int i)
 	int	y;
 
 	y = 0;
-	printf("i: %d\n", i);
 	if (i > 0)
 	{
 		while (tmp->content[i] != '\0')
@@ -130,7 +129,7 @@ void	type_dollar(t_data *data, t_list *tmp, int i)
 		tmp->type = COMMANDE;
 		return ;
 	}
-	if (tmp->type == ENDOFFILE)
+	if (tmp->type == ENDOFFILE || tmp->type == ENDOFFILE_QUOTED)
 		return ;
 	if (i > 1)
 	{

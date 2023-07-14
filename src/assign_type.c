@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/09 14:16:14 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:28:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	assign_type(t_data *data)
 	t_list	*tmp;
 
 	tmp = data->token_list;
-	while (tmp != NULL)
+	while (tmp != NULL && data->error == 0)
 	{
 		if (tmp->content[0] == '~' && data->error == 0)
 		{

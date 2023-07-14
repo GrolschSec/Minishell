@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:07:54 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 15:50:49 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:17:54 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	put_eofs_in_tab(t_data *data, t_list *tmp, t_exec *current)
 		exit_all(data, 1, "problem in redirect input");
 	while (tmp != NULL && nb_eof < current->heredoc)
 	{
-		if (tmp->type == ENDOFFILE)
+		if (tmp->type == ENDOFFILE || tmp->type == ENDOFFILE_QUOTED)
 		{
 			current->eof[nb_eof] = ft_strdup(tmp->content);
 			nb_eof++;
