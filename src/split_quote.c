@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:04:07 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 14:39:50 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:06:03 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ void	split_quote(t_data *data, int *i, int *j, char quotetype)
 	*j = *i + 1;
 }
 
-void	add_quoted(t_data *data, int *i, int *j)
+int	add_quoted(t_data *data, int *i, int *j)
 {
+	int		ret;
+
+	ret = 0;
 	(*j)++;
 	if (data->str[*j] == '\0')
 		msg_error_quote(data, "There is a quote missing");
@@ -53,6 +56,7 @@ void	add_quoted(t_data *data, int *i, int *j)
 		(*i)++;
 		while (data->str[*i] && data->str[*i] != '\'')
 			(*i)++;
+		ret = 1;
 	}
 	else if (data->str[*i] == '\"')
 	{
@@ -62,17 +66,19 @@ void	add_quoted(t_data *data, int *i, int *j)
 	}
 	if (data->str[*i] == '\0')
 		msg_error_quote(data, "There is a quote missing");
+	return (ret);
 }
 
-void	add_unquoted(t_data *data, int *i)
+int	add_unquoted(t_data *data, int *i)
 {
 	while (data->str[*i] && (is_space(data->str[*i]) == 0
 			&& is_meta(data->str[*i]) == 0
 			&& data->str[*i] != '\'' && data->str[*i] != '\"'))
 		(*i)++;
+	return (1);
 }
 
-void	add_in_previous_node(t_data *data, int *i, int *j)
+void	add_in_previous_node(t_data *data, int *i, int *j, char quote)
 {
 	char	*to_add;
 	t_list	*tmp;
@@ -85,14 +91,15 @@ void	add_in_previous_node(t_data *data, int *i, int *j)
 	if (data->str[*i] && (data->str[*i] == '\'' || data->str[*i] == '\"'))
 		add_quoted(data, i, j);
 	else if (data->str[*i])
-	{
-		add_unquoted(data, i);
-		flag = 1;
-	}
+		flag = add_unquoted(data, i);
 	to_add = fill_tmp(&data->str[*j], *i - *j);
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->content = ft_strjoin(tmp->content, to_add);
+	if (quote == '\'')
+		tmp->type = SINGLE_QUOTE;
+	if (quote == '\"')
+		tmp->type = DOUBLE_QUOTE;
 	free (to_add);
 	if (flag == 1)
 		(*i)--;
@@ -129,7 +136,7 @@ void	if_is_quote(t_data *data, int *i, int *j)
 	if (*i > 0 && is_space(data->str[*i - 1]) == 0
 		&& is_meta(data->str[*i - 1]) == 0
 		&& data->str[*i - 1] != '$')
-		add_in_previous_node(data, i, j);
+		add_in_previous_node(data, i, j, data->str[*i]);
 	else if (*i > 0 && data->str[*i - 1] == '$')
 		split_dollar_quote(data, i, j, data->str[*i]);
 	else

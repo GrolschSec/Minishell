@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 16:11:41 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:56:56 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	input_is_only_space(t_data *data, char *input)
 			&& (int)ft_strlen(input) == 1) || (input[i] == ':'
 			&& (int)ft_strlen(input) == 1))
 	{
-		g_exit = 127;
+		g_exit = 1;
 		data->error = 1;
 	}
 }

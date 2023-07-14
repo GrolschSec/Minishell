@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 17:06:16 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:01:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char		*fill_tmp(char *str, int len);
 void		add_node(t_data *data, int i, int j, char quotetype);
 void		add_empty_node(t_data *data);
 void		split_in_list(t_data *data);
-void		add_in_previous_node(t_data *data, int *i, int *j);
+void		add_in_previous_node(t_data *data, int *i, int *j, char quote);
 void		split_quote(t_data *data, int *i, int *j, char quotetype);
 void		split_meta(t_data *data, int *i, int *j);
 

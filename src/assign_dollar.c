@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 14:54:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:42:50 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	is_env_variable(t_data *data, t_list *tmp, int *i, char *prev)
 	char	*var;
 
 	var = parse_var(tmp->content, i);
+	if (ft_strlen(var) == 0)
+		return ;
 	variable = ft_getenv(data, var);
 	free(var);
 	next = fill_next(tmp, i);
@@ -118,6 +120,17 @@ void	replace_dollar(t_data *data, t_list *tmp, int *i, char *prev)
 	}
 }
 
+int		only_space(t_list *tmp, int i)
+{
+	while (i > 0)
+	{
+		if (tmp->content[i] != ' ')
+			return (0);
+		i--;
+	}
+	return (1);
+}
+
 void	type_dollar(t_data *data, t_list *tmp, int i)
 {
 	char	*prev;
@@ -133,10 +146,13 @@ void	type_dollar(t_data *data, t_list *tmp, int i)
 		return ;
 	if (i > 1)
 	{
-		prev = malloc (sizeof(char) * (i));
-		if (prev == NULL)
-			exit_all(data, 1, "Problem of malloc in dollar");
-		ft_strlcpy(prev, tmp->content, i);
+		if (only_space(tmp, i) == 1)
+		{
+			prev = malloc (sizeof(char) * (i));
+			if (prev == NULL)
+				exit_all(data, 1, "Problem of malloc in dollar");
+			ft_strlcpy(prev, tmp->content, i);
+		}
 	}
 	if (tmp->content[i] == '?')
 		dollar_exitcode(data, tmp, &i, prev);
