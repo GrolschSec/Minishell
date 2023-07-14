@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/13 10:37:04 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:35:27 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_heredoc_in(t_data *data, int fd, char *end)
 		free(end);
 		exit_ps(data, 0);
 	}
-	if (ft_strncmp(input, end, ft_strlen(end)) == 0)
+	if (ft_strncmp(input, end, ft_strlen(end)) == 0 && ft_strlen(end) == ft_strlen(input))
 	{
 		close(fd);
 		free(input);
