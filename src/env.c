@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 15:04:10 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:39:47 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	count_env_list(t_list *list)
-{
-	t_list	*tmp;
-	int		i;
-
-	tmp = list;
-	i = 0;
-	while (tmp->next != NULL)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
 
 void	put_env_in_tab(t_data *data)
 {
@@ -81,8 +66,7 @@ void	fill_env_list(char **env, t_data *data)
 		data->nb_env = 0;
 		return ;
 	}
-	data->nb_env = count_env_list(data->env);
-	put_env_in_tab(data);
+	data->nb_env = ft_lstsize(data->env);
 }
 
 void	print_env_tab(t_data *data)

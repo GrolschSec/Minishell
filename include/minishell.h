@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 11:38:14 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:40:29 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void		split_quote(t_data *data, int *i, int *j, char quotetype);
 void		split_meta(t_data *data, int *i, int *j);
 
 /* PARSE COMMANDES */
+int			is_not_redirection(t_list *tmp);
 int			is_redirection(t_list *tmp);
 void		fill_exec(t_data *data, t_list **tmp, t_exec *current, int x);
 void		put_cmd_in_tab(t_data *data, int nb);
@@ -153,32 +154,17 @@ void		open_files(t_data *data);
 /* HEREDOC / EOF */
 void		fill_eof(t_data *data, int nb);
 
-/* PATH */
-void		parse_path(t_data *data);
-
 /* ENV */
 void		fill_env_list(char **env, t_data *data);
 void		print_env_tab(t_data *data);
 void		put_env_in_tab(t_data *data);
 
-// /* EXPORT */
-// char	*extract_name(t_data *data, char *variable);
-// void	ft_sort(t_list *tmp, t_list *print);
-// void	builtin_export(t_data *data, char **pos);
-
-// /* ECHO */
-// void	print_lines(int i, char **str, int fd);
-// void	builtin_echo_str(t_data *data, char **cmd);
-
-// /* UNSET */
-// void	builtin_unset(t_data *data, t_list *pos);
-
 /* EXIT */
-void		clear_cmd(t_data *data);
 void		free_tab(char **tab);
-void		exit_all(t_data *data, int err, char *str);
 void		close_fds(t_data *data);
+void		clear_cmd(t_data *data);
 void		free_env(t_data *data);
+void		exit_all(t_data *data, int err, char *str);
 
 /* EXEC_1 */
 void		execution(t_data *data);
@@ -194,7 +180,7 @@ void		select_builtin(t_data *data, t_exec *exec);
 void		execution_handling(t_data *data, int i);
 
 /* EXEC_3 */
-void		dot_slash_cmd_exec_handling(char *cmd);
+void		dot_slash_cmd_exec_handling(char *cmd, t_data *data);
 char		**get_path(t_data *data);
 void		do_execve(t_data *data, t_exec *exec, char *path);
 
@@ -267,5 +253,6 @@ void		heredoc_check(t_data *data);
 int			handle_env_var(int	i, char *input, char *c_input, t_data *data);
 char		*convert_input(char *input, t_data *data);
 void		print_heredoc_error(char *end);
+void		add_char_to_str(char **input, char c);
 
 #endif

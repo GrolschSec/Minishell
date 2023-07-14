@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 14:44:05 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:52:20 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void	free_env(t_data *data)
  */
 void	exit_all(t_data *data, int err, char *str)
 {
+	data->error = 1;
 	if (str != NULL)
 		printf("%s\n", str);
 	free_env(data);

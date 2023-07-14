@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/14 15:35:27 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:37:46 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,32 @@ int	heredoc(t_data *data, char *end)
 	return (close(fd), -1);
 }
 
+void	add_char_to_str(char **input, char c)
+{
+	char	*c_input;
+
+	if (!*(input))
+	{
+		c_input = malloc(sizeof(char) * 2);
+		c_input[0] = c;
+		c_input[1] = '\0';
+	}
+	else
+	{
+		c_input = malloc(sizeof(char) * (ft_strlen(*input) + 2));
+		ft_strlcpy(c_input, *input, ft_strlen(*input) + 1);
+		c_input[ft_strlen(*input)] = c;
+		c_input[ft_strlen(*input) + 1] = '\0';
+		free(*input);
+	}
+	*input = c_input;
+}
+
 void	heredoc_check(t_data *data)
 {
 	int	i;
 	int	j;
+	int	fd;
 
 	i = 0;
 	while (i < data->pipes)
@@ -77,7 +99,13 @@ void	heredoc_check(t_data *data)
 		{
 			while (j < data->exec[i].heredoc)
 			{
-				data->exec[i].fdin = heredoc(data, data->exec[i].eof[j]);
+				if (j == data->exec[i].heredoc - 1 && data->exec[i].is_eof)
+					data->exec[i].fdin = heredoc(data, data->exec[i].eof[j]);
+				else
+				{
+					fd = heredoc(data, data->exec[i].eof[j]);
+					close(fd);
+				}
 				j++;
 			}
 		}

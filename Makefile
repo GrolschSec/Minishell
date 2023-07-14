@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
+#    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/10 21:04:32 by rlouvrie         ###   ########.fr        #
+#    Updated: 2023/07/13 18:36:41 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ CFLAGS		=	-Wall -Werror -Wextra
 Make		=	Make
 
 FILES = 	main					\
-			path					\
 			split_list				\
 			split_list_utils		\
 			split_quote				\

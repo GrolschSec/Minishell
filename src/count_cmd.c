@@ -6,32 +6,11 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/12 19:14:21 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:33:40 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*
-** Function: is_not_redirection
-** ----------------------------
-** Determines if a token is not a redirection.
-**
-** Args:
-** - tmp: Pointer to the token list.
-**
-** Returns:
-** - 1 if the token is not a redirection, 0 otherwise.
-*/
-int	is_not_redirection(t_list *tmp)
-{
-	if (tmp->type != INFILE && tmp->type != OUTFILE
-		&& tmp->type != REDIRECT_INPUT && tmp->type != REDIRECT_OUTPUT
-		&& tmp->type != HEREDOC && tmp->type != ENDOFFILE
-		&& tmp->type != DELIMITER_APPEND)
-		return (1);
-	return (0);
-}
 
 /*
 ** Function: init_exec
@@ -154,7 +133,6 @@ void	which_is_last_infile(t_data *data)
 			else
 				which_infile(&data->exec[x], &tmp);
 		}
-		printf("data->exec[x].is_eof: %d\n", data->exec[x].is_eof);
 		x++;
 	}
 }

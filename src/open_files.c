@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/09 12:25:26 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:45:23 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,17 @@ void	open_outfile(t_data *data, int x, t_list *out)
 		}
 		out = out->next;
 	}
+	if (data->exec[x].redirect_output && data->exec[x].nb_cmd == 0)
+	{
+		data->error = 1;
+		g_exit = 1;
+	}
 }
 
 void	open_infile(t_data *data, int x, int in)
 {
 	in = data->exec[x].redirect_input;
-	if (data->exec[x].fdin != 0)
+	if (data->exec[x].fdin != 0 && !data->exec[x].is_eof)
 		close(data->exec[x].fdin);
 	if (access(data->exec[x].infile[in - 1], R_OK) != 0)
 	{
@@ -49,16 +54,18 @@ void	open_infile(t_data *data, int x, int in)
 		data->error = 1;
 		g_exit = 1;
 	}
-	else if (data->exec[x].cmd[0] != NULL)
+	else if (data->exec[x].cmd[0] != NULL && !data->exec[x].is_eof)
 	{
 		data->exec[x].fdin = open(data->exec[x].infile[in - 1],
 				O_RDONLY);
 		if (data->exec[x].fdin < 0)
 			printf("Fail to open fdin\n");
 	}
+	else if (data->exec[x].is_eof)
+		return ;
 	else
 	{
-		printf("minishell: Not enough arguments\n");
+		// printf("minishell: Not enough arguments\n");
 		data->error = 1;
 		g_exit = 1;
 	}

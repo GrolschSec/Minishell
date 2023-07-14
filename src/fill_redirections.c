@@ -6,29 +6,42 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 15:50:54 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:51:34 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 /*
-** Function: put_infiles_in_tab
-** -----------------------------
-** Allocates an array of strings to store input file names associated with a 
-** command in a 't_exec' structure. Fills the array from a token list. Array 
-** size depends on the number of input redirections in the command.
+** Function: is_not_redirection
+** ----------------------------
+** Determines if a token is not a redirection.
 **
 ** Args:
-** - data: Pointer to the main data structure.
-** - tmp: Pointer to a token list.
-** - current: Pointer to the 't_exec' structure to be filled.
+** - tmp: Pointer to the token list.
 **
-** Side effects:
-** In case of an error (e.g., allocation failure), the program exits with an
-** error message. On success, input file names are copied into 'infile' array 
-** in 'current'.
+** Returns:
+** - 1 if the token is not a redirection, 0 otherwise.
 */
+int	is_not_redirection(t_list *tmp)
+{
+	if (tmp->type != INFILE && tmp->type != OUTFILE
+		&& tmp->type != REDIRECT_INPUT && tmp->type != REDIRECT_OUTPUT
+		&& tmp->type != HEREDOC && tmp->type != ENDOFFILE
+		&& tmp->type != DELIMITER_APPEND)
+		return (1);
+	return (0);
+}
+
+int	is_redirection(t_list *tmp)
+{
+	if (tmp->type == INFILE || tmp->type == OUTFILE
+		|| tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT
+		|| tmp->type == HEREDOC || tmp->type == ENDOFFILE
+		|| tmp->type == DELIMITER_APPEND)
+		return (1);
+	return (0);
+}
 
 void	put_infiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 {
