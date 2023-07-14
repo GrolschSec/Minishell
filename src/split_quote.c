@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:04:07 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 17:08:07 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:39:50 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	split_dollar_quote(t_data *data, int *i, int *j, char quotetype)
 {
 	t_list	*tmp;
 
-	printf("ici\n");
 	tmp = data->token_list;
 	(*i)++;
 	(*j) = *i;
