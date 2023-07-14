@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   TEST_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:00:28 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/03 15:13:25 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:11:21 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	print_tab(t_data *data)
 	int		nb_jobs;
 	int		infile;
 	t_list	*tmp_out;
+	t_list	*tmp_eof;
 	int		nb_eof;
 
 	nb_eof = 0;
@@ -77,13 +78,13 @@ void	print_tab(t_data *data)
 				tmp_out = tmp_out->next;
 			}
 		}
+		tmp_eof= data->exec[nb_jobs].eof;
 		if (data->exec[nb_jobs].heredoc > 0)
 		{
-			nb_eof = 0;
-			while (nb_eof < data->exec[nb_jobs].heredoc)
+			while (tmp_eof != NULL)
 			{
-				printf("eof[%d]: %s\n", nb_eof, data->exec[nb_jobs].eof[nb_eof]);
-				nb_eof++;
+				printf("eof[%d]: %s\n", nb_jobs, tmp_eof->content);
+				tmp_eof = tmp_eof->next;
 			}
 		}
 		nb_jobs++;

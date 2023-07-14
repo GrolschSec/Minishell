@@ -6,33 +6,35 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:07:54 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 15:50:49 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:18:13 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	put_eofs_in_tab(t_data *data, t_list *tmp, t_exec *current)
+void	put_eofs_in_list(t_data *data, t_list **tmp, t_exec *current)
 {
-	int	nb_eof;
+	int		nb_eof;
+	t_list	*new;
+	int		ret;
 
+	ret = 0;
+	new = NULL;
 	nb_eof = 0;
 	if (current->heredoc <= 0)
 		return ;
-	else
-		current->eof = malloc(sizeof(char *) * (current->heredoc + 1));
-	if (current->eof == NULL)
-		exit_all(data, 1, "problem in redirect input");
-	while (tmp != NULL && nb_eof < current->heredoc)
+	while ((*tmp) != NULL && nb_eof < current->heredoc)
 	{
-		if (tmp->type == ENDOFFILE)
+		if ((*tmp)->type == ENDOFFILE || (*tmp)->type == ENDOFFILE_QUOTED)
 		{
-			current->eof[nb_eof] = ft_strdup(tmp->content);
+			new = ft_lstnew((*tmp)->content);
+			ret = ft_lstadd_back(&current->eof, new);
+			if (ret == 1)
+				exit_all(data, 1, "Problem when add_back in outfile list");
 			nb_eof++;
 		}
-		tmp = tmp->next;
+		(*tmp) = (*tmp)->next;
 	}
-	current->eof[nb_eof] = NULL;
 }
 
 void	fill_eof(t_data *data, int nb)
@@ -42,10 +44,10 @@ void	fill_eof(t_data *data, int nb)
 
 	x = 0;
 	tmp = data->token_list;
-	while (x < nb)
+	while (x < nb && tmp)
 	{
-		put_eofs_in_tab(data, tmp, &data->exec[x]);
-		if (tmp->type == PIPE && tmp->next != NULL)
+		put_eofs_in_list(data, &tmp, &data->exec[x]);
+		if (tmp && tmp->type == PIPE)
 			tmp = tmp->next;
 		x++;
 	}
