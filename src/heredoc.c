@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/14 15:37:46 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:05:34 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	get_heredoc_in(t_data *data, int fd, char *end)
 		close(fd);
 		free(input);
 		free(end);
-		exit_ps(data, 0);
+		exit_heredoc(data, 0);
 	}
 	if (ft_strncmp(input, end, ft_strlen(end)) == 0 && ft_strlen(end) == ft_strlen(input))
 	{
 		close(fd);
 		free(input);
 		free(end);
-		exit(0);
+		exit_heredoc(data, 0);
 	}
 	convert_input(input, data);
 	ft_putstr_fd(input, fd);
@@ -124,8 +124,8 @@ char	*convert_input(char *input, t_data *data)
 	{
 		if (input[i] == '$')
 			i = handle_env_var(i, &input[i], c_input, data);
-		//else
-		//	add_char_to_str();
+		else
+			add_char_to_str();
 		i++;
 	}
 	return (input);
@@ -136,13 +136,13 @@ int	handle_env_var(int	i, char *input, char *c_input, t_data *data)
 	int		j;
 	int		len;
 	char	*var;
-	//char	*value;
+	char	*value;
 
 	(void)c_input;
 	(void)data;
 	j = 1;
 	if (!ft_isprint(input[j]))
-		return (/*add_char_to_str(c_input, input[i]), */i);
+		return (add_char_to_str(&c_input, input[i]), i);
 	else if (ft_isdigit(input[j]))
 		return (i + j);
 	else if (ft_isalpha(input[j]) || input[j] == '_')
@@ -155,12 +155,9 @@ int	handle_env_var(int	i, char *input, char *c_input, t_data *data)
 		if (!var)
 			return (i);
 		ft_strlcpy(var, input + 1, len + 1);
-		//value = ft_getenv(data, var);
-		//if (value)
-		//{
-		//	
-		//	ft_strlcat()
-		//}
+		value = ft_getenv(data, var);
+		if (value)
+			add_var_to_input(&c_input, value);
 		return (i + j);
 		
 	}
@@ -174,4 +171,36 @@ void	print_heredoc_error(char *end)
 	if (end)
 		write(2, end, ft_strlen(end));
 	write(2, "')\n", 3);
+}
+
+void	exit_heredoc(t_data *data, int error)
+{
+	int	i;
+
+	i = 0;
+	if (data->token_list && data->token_list != NULL)
+		ft_lstclear(&data->token_list, del);
+	if (data->pipes > 0)
+	{
+		while (i < data->pipes)
+		{
+			if (data->exec[i].cmd && data->exec[i].cmd != NULL)
+				free_tab(data->exec[i].cmd);
+			if (data->exec[i].infile && data->exec[i].infile != NULL)
+				free_tab(data->exec[i].infile);
+			if (data->exec[i].outfile && data->exec[i].outfile != NULL)
+				ft_lstclear(&data->exec[i].outfile, del);
+			i++;
+		}
+		if (data->exec && data->exec != NULL)
+			free(data->exec);
+	}
+	free_env(data);
+	if (data->tilde)
+		free(data->tilde);
+	if (data->path.tab)
+		free_tab(data->path.tab);
+	if (data->path.line)
+		free(data->path.line);
+	exit(error);
 }
