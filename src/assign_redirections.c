@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_redirections.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 14:25:07 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:44:32 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	redirection_file(t_data *data, t_list *tmp)
 		&& tmp->next == NULL)
 		error(data, "`newline'");
 	else if ((tmp->type == REDIRECT_OUTPUT || tmp->type == DELIMITER_APPEND)
-		&& tmp->next->type == 0)
+		&& tmp->next->type != PIPE)
 	{
 		if (is_meta(tmp->next->content[0]) == 0)
 			tmp->next->type = OUTFILE;
