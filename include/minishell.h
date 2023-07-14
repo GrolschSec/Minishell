@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 18:40:29 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:50:07 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_exec
 	char		**cmd;
 	char		**infile;
 	t_list		*outfile;
-	char		**eof;
+	t_list		*eof;
 	int			fdin;
 	int			fdout;
 	int			redirect_input;

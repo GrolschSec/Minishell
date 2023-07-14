@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 14:30:24 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:11:41 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	parse_cmd(t_data *data)
 	}
 	if (data->error == 0)
 		assign_type(data);
-	// print_all(data);
+	print_all(data);
 	count_pipes_cmd_redir(data);
 	if (data->error == 0)
 		fill_eof(data, data->pipes);

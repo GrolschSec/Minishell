@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/14 15:37:46 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:09:28 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,26 @@ void	add_char_to_str(char **input, char c)
 
 void	heredoc_check(t_data *data)
 {
-	int	i;
-	int	j;
-	int	fd;
+	int		i;
+	t_list	*tmp;
+	int		fd;
 
 	i = 0;
 	while (i < data->pipes)
 	{
-		j = 0;
+		tmp = data->exec[i].eof;
 		if (data->exec[i].heredoc > 0)
 		{
-			while (j < data->exec[i].heredoc)
+			while (tmp)
 			{
-				if (j == data->exec[i].heredoc - 1 && data->exec[i].is_eof)
-					data->exec[i].fdin = heredoc(data, data->exec[i].eof[j]);
+				if (!tmp->next && data->exec[i].is_eof)
+					data->exec[i].fdin = heredoc(data, tmp->content);
 				else
 				{
-					fd = heredoc(data, data->exec[i].eof[j]);
+					fd = heredoc(data, tmp->content);
 					close(fd);
 				}
-				j++;
+				tmp = tmp->next;
 			}
 		}
 		i++;
