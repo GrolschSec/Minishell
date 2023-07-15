@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 18:45:23 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:43:32 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	open_outfile(t_data *data, int x, t_list *out)
 					O_CREAT | O_RDWR | O_APPEND, 0644);
 		}
 		if (data->exec[x].fdout == -1)
-		{
 			printf("Fail to open fdout\n");
-		}
 		out = out->next;
 	}
 	if (data->exec[x].redirect_output && data->exec[x].nb_cmd == 0)
@@ -65,7 +63,6 @@ void	open_infile(t_data *data, int x, int in)
 		return ;
 	else
 	{
-		// printf("minishell: Not enough arguments\n");
 		data->error = 1;
 		g_exit = 1;
 	}

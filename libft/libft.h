@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 14:16:10 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:48:31 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef enum e_type
 	REDIRECT_INPUT,		/* < */
 	REDIRECT_OUTPUT,	/* > */
 	HEREDOC,			/* << */
-	DELIMITER_APPEND,	/* >> */
+	DELIM_APPEND,	/* >> */
 	INFILE_IS_LAST,
 	HEREDOC_IS_LAST,
 	DOLLAR,

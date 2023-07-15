@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:24:57 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 20:02:29 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:15:18 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 void	fill_all(t_list *tmp, char *variable, char *prev, char *next)
 {
 	free(tmp->content);
-	if (prev != NULL && variable != NULL)
+	if (prev && variable)
+	{
 		tmp->content = ft_strjoin(prev, variable);
-	else if (prev != NULL && variable == NULL)
+		free(variable);
+	}
+	else if (prev && !variable)
 	{
 		tmp->content = ft_strdup(prev);
 		free(prev);
 	}
-	else
+	else if (variable && !prev)
 	{
-		if (variable)
-		{
-			tmp->content = ft_strdup(variable);
-			free (variable);
-		}
-		else
-			tmp->content = ft_strdup(" ");
+		tmp->content = ft_strdup(variable);
+		free (variable);
 	}
+	else if (!prev && !variable)
+		tmp->content = ft_strdup(" ");
 	if (next != NULL)
 	{
 		tmp->content = ft_strjoin(tmp->content, next);

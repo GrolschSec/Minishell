@@ -3,30 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   assign_redirections.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 17:44:32 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:47:24 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	error(t_data *data, char *str)
-{
-	g_exit = 2;
-	data->error = 1;
-	printf("minishell: syntax error near unexpected token ");
-	printf("%s\n", str);
-}
-
 void	redirection_file(t_data *data, t_list *tmp)
 {
 	if ((tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT
-			|| tmp->type == HEREDOC || tmp->type == DELIMITER_APPEND)
-		&& tmp->next == NULL)
+			|| tmp->type == HEREDOC || tmp->type == DELIM_APPEND)
+		&& tmp->next == NULL )
 		error(data, "`newline'");
-	else if ((tmp->type == REDIRECT_OUTPUT || tmp->type == DELIMITER_APPEND)
+	else if ((tmp->type == REDIRECT_OUTPUT || tmp->type == DELIM_APPEND)
 		&& tmp->next->type != PIPE)
 	{
 		if (is_meta(tmp->next->content[0]) == 0)
@@ -34,7 +26,7 @@ void	redirection_file(t_data *data, t_list *tmp)
 		else
 			error(data, "`>'");
 	}
-	else if (tmp->type == REDIRECT_INPUT && tmp->next->type == 0)
+	else if (tmp->type == REDIRECT_INPUT && tmp->next->type != PIPE)
 	{
 		if (is_meta(tmp->next->content[0]) == 0)
 			tmp->next->type = INFILE;
@@ -48,8 +40,6 @@ void	heredoc_type(t_data *data, t_list *tmp)
 	if (tmp->next != NULL)
 	{
 		if (is_meta(tmp->next->content[0]) == 0 && (tmp->next->type == 0))
-			// || tmp->next->type == SINGLE_QUOTE
-			// || tmp->next->type == DOUBLE_QUOTE))
 			tmp->next->type = ENDOFFILE;
 		else if (tmp->next->type == SINGLE_QUOTE
 			|| tmp->next->type == DOUBLE_QUOTE)
@@ -63,12 +53,13 @@ void	heredoc_type(t_data *data, t_list *tmp)
 
 void	is_redir_input(t_data *data, t_list *tmp, int i)
 {
-	if (i == 0)
+	if (ft_strlen(tmp->content) == 1)
 	{
+		printf("i: %d\n", i);
 		tmp->type = REDIRECT_INPUT;
 		redirection_file(data, tmp);
 	}
-	else if (i == 1)
+	else if (ft_strlen(tmp->content) == 2)
 	{
 		tmp->type = HEREDOC;
 		heredoc_type(data, tmp);
@@ -79,10 +70,10 @@ void	is_redir_input(t_data *data, t_list *tmp, int i)
 
 void	is_redir_output(t_data *data, t_list *tmp, int i)
 {
-	if (i == 0)
+	if (ft_strlen(tmp->content) == 1)
 		tmp->type = REDIRECT_OUTPUT;
-	else if (i == 1)
-		tmp->type = DELIMITER_APPEND;
+	else if (ft_strlen(tmp->content) == 2)
+		tmp->type = DELIM_APPEND;
 	redirection_file(data, tmp);
 	if (i != 0 && i != 1)
 		error (data, "`>>'");

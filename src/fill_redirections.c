@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 19:16:18 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:49:36 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_not_redirection(t_list *tmp)
 		&& tmp->type != REDIRECT_INPUT && tmp->type != REDIRECT_OUTPUT
 		&& tmp->type != HEREDOC && tmp->type != ENDOFFILE
 		&& tmp->type != ENDOFFILE_QUOTED
-		&& tmp->type != DELIMITER_APPEND)
+		&& tmp->type != DELIM_APPEND)
 		return (1);
 	return (0);
 }
@@ -38,9 +38,9 @@ int	is_redirection(t_list *tmp)
 {
 	if (tmp->type == INFILE || tmp->type == OUTFILE
 		|| tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT
-		|| tmp->type == HEREDOC || tmp->type == ENDOFFILE 
+		|| tmp->type == HEREDOC || tmp->type == ENDOFFILE
 		|| tmp->type == ENDOFFILE_QUOTED
-		|| tmp->type == DELIMITER_APPEND)
+		|| tmp->type == DELIM_APPEND)
 		return (1);
 	return (0);
 }
@@ -99,7 +99,7 @@ void	put_outfiles_in_list(t_data *data, t_list **tmp, t_exec *current)
 		return ;
 	while ((*tmp) != NULL && nb_outfile < (current->redirect_output * 2))
 	{
-		if ((*tmp)->type == REDIRECT_OUTPUT || (*tmp)->type == DELIMITER_APPEND
+		if ((*tmp)->type == REDIRECT_OUTPUT || (*tmp)->type == DELIM_APPEND
 			|| (*tmp)->type == OUTFILE)
 		{
 			new = ft_lstnew((*tmp)->content);

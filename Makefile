@@ -6,7 +6,7 @@
 #    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/13 18:36:41 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/07/15 17:48:11 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,17 +25,21 @@ FILES = 	main					\
 			split_list				\
 			split_list_utils		\
 			split_quote				\
+			split_in_prev_node		\
 			split_meta				\
 			assign_type				\
 			assign_dollar			\
+			assign_dollar_env		\
 			assign_dollar_exitcode	\
 			assign_redirections		\
 			parsing_cmd				\
 			count_cmd				\
+			init_exec				\
 			fill_redirections		\
 			fill_eof				\
 			open_files				\
 			env						\
+			error_message			\
 			exit					\
 			exec_1					\
 			exec_2					\

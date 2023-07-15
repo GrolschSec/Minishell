@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 19:01:07 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:48:21 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void		split_in_list(t_data *data);
 void		add_in_previous_node(t_data *data, int *i, int *j, char quote);
 void		split_quote(t_data *data, int *i, int *j, char quotetype);
 void		split_meta(t_data *data, int *i, int *j);
+void		msg_error_quote(t_data *data, char *str);
 
 /* PARSE COMMANDES */
 int			is_not_redirection(t_list *tmp);
@@ -134,6 +135,9 @@ void		put_cmd_in_tab(t_data *data, int nb);
 void		parse_cmd(t_data *data);
 
 /* ASSIGN TYPES */
+char		*fill_next(t_list *tmp, int *i);
+char		*parse_var(char *str, int *i);
+void		is_env_variable(t_data *data, t_list *tmp, int *i, char *prev);
 void		dollar_exitcode(t_data *data, t_list *tmp, int *i, char *prev);
 void		type_dollar(t_data *data, t_list *tmp, int i);
 void		is_unexpected(t_data *data, t_list *tmp);
@@ -142,6 +146,8 @@ void		assign_type(t_data *data);
 void		fill_all(t_list *tmp, char *variable, char *prev, char *next);
 
 /* COUNT */
+void		init_exec(t_exec *current, int x);
+void		malloc_init_exec(t_data *data);
 int			count_cmd(t_list *tmp);
 void		count_pipes_cmd_redir(t_data *data);
 void		count_cmd_and_redir(t_data *data);
@@ -160,6 +166,7 @@ void		print_env_tab(t_data *data);
 void		put_env_in_tab(t_data *data);
 
 /* EXIT */
+void		error(t_data *data, char *str);
 void		free_tab(char **tab);
 void		close_fds(t_data *data);
 void		clear_cmd(t_data *data);
@@ -250,7 +257,7 @@ void		print_env_list(t_data *data);
 void		get_heredoc_in(t_data *data, int fd, char *end, int type);
 int			heredoc(t_data *data, char *end, int type);
 void		heredoc_check(t_data *data);
-int			handle_env_var(int	i, char *input, char **c_input, t_data *data);
+int			handle_env_var(int i, char *input, char **c_input, t_data *data);
 char		*convert_input(char *input, t_data *data, int type);
 void		print_heredoc_error(char *end);
 void		add_char_to_str(char **input, char c);
