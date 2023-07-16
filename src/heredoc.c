@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 16:38:49 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:18:44 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,40 @@ void	get_heredoc_in(t_data *data, int fd, char *end, int type)
 	ft_putchar_fd('\n', fd);
 }
 
-int	heredoc(t_data *data, char *end, int type)
+char	*get_hd_path(int i)
+{
+	char	*path;
+	char	*index;
+
+	index = ft_itoa(i);
+	if (!index)
+		return (NULL);
+	path = ft_strjoin2("/tmp/.h", index);
+	if (!path)
+		return (free(index), NULL);
+	return (free(index), path);
+}
+
+int	heredoc(t_data *data, char *end, int type, int index)
 {
 	int		fd;
 	int		pid;
 	int		status;
+	char	*path;
 
-	fd = open("/tmp/.h", O_CREAT | O_RDWR | O_TRUNC, 0664);
-	if (fd < 0)
+	path = get_hd_path(index);
+	if (!path)
 		return (-1);
+	fd = open(path, O_CREAT | O_RDWR | O_TRUNC, 0664);
+	if (fd < 0)
+		return (free(path), -1);
 	pid = fork();
 	if (pid < 0)
-		return (close(fd), -1);
+		return (close(fd), free(path), -1);
 	signal(SIGINT, ft_signal_newline2);
 	if (pid == 0)
 	{
+		free(path);
 		signal(SIGINT, SIG_DFL);
 		while (1)
 			get_heredoc_in(data, fd, end, type);
@@ -64,11 +83,12 @@ int	heredoc(t_data *data, char *end, int type)
 	if (WIFEXITED(status))
 	{
 		close(fd);
-		return (open("/tmp/.h", O_RDWR));
+		fd = open(path, O_RDWR);
+		return (free(path), fd);
 	}
 	else if (status == 2)
 		data->error = 3;
-	return (close(fd), -1);
+	return (close(fd), free(path), -1);
 }
 
 void	add_char_to_str(char **input, char c)
@@ -111,10 +131,10 @@ void	heredoc_check(t_data *data)
 			while (tmp)
 			{
 				if (!tmp->next && data->exec[i].is_eof)
-					data->exec[i].fdin = heredoc(data, tmp->content, tmp->type);
+					data->exec[i].fdin = heredoc(data, tmp->content, tmp->type, i);
 				else
 				{
-					fd = heredoc(data, tmp->content, tmp->type);
+					fd = heredoc(data, tmp->content, tmp->type, i);
 					close(fd);
 				}
 				tmp = tmp->next;
