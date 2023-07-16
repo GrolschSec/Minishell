@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 11:25:24 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:44:23 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	heredoc(t_data *data, char *end, int type)
 	signal(SIGINT, ft_signal_newline2);
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		while (1)
 			get_heredoc_in(data, fd, end, type);
 	}
