@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:24:57 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 19:43:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:41:45 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ void	fill_all(t_list *tmp, char *variable, char *prev, char *next)
 	{
 		tmp->content = ft_strjoin(tmp->content, next);
 		free (next);
+	}
+	if ((variable && prev) || (variable && next))
+	{
+		free_tab(tmp->var_env->value);
+		free(tmp->var_env->name);
+		tmp->var_env->nb_value = 0;
+		tmp->var_env = NULL;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 19:48:20 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:33:20 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 			y++;
 		}
 		else if ((*tmp)->var_env && (*tmp)->var_env->nb_value != 0)
-		{
 			fill_var_env(tmp, current[x], &y);
-		}
 		*tmp = (*tmp)->next;
 	}
 	while ((*tmp) && ((*tmp)->type == PIPE || is_redirection(*tmp)))
@@ -128,9 +126,7 @@ void	parse_cmd(t_data *data)
 	}
 	if (data->error == 0)
 		assign_type(data);
-	// print_all(data);
-	// if (data->token_list->next->var_env)
-	// 	printf("data->token_list->next->var_env->value[0]: %s\n", data->token_list->next->var_env->value[0]);
+	print_all(data);
 	count_pipes_cmd_redir(data);
 	if (data->error == 0)
 		fill_eof(data, data->pipes);
@@ -139,11 +135,11 @@ void	parse_cmd(t_data *data)
 		heredoc_check(data);
 	if (data->error == 0)
 		put_cmd_in_tab(data, data->pipes);
-	// print_tab(data);
 	if (data->error == 0)
 		fill_files(data);
 	if (data->error == 0)
 		open_files(data);
 	if (data->error == 2)
 		printf("minishell: syntax error near unexpected token `|'\n");
+	print_tab(data);
 }

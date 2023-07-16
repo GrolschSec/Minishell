@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 19:59:17 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:49:02 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,12 @@ void		print_env_tab(t_data *data);
 void		put_env_in_tab(t_data *data);
 
 /* EXIT */
+void		free_token_list(t_data *data);
+void		free_env(t_data *data);
 void		error(t_data *data, char *str);
 void		free_tab(char **tab);
 void		close_fds(t_data *data);
 void		clear_cmd(t_data *data);
-void		free_env(t_data *data);
 void		exit_all(t_data *data, int err, char *str);
 
 /* EXEC_1 */
