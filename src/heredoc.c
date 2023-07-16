@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 11:44:23 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 16:38:49 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	heredoc(t_data *data, char *end, int type)
 		close(fd);
 		return (open("/tmp/.h", O_RDWR));
 	}
+	else if (status == 2)
+		data->error = 3;
 	return (close(fd), -1);
 }
 
