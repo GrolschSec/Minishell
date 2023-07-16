@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 17:50:23 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:17:38 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 		exit_all(data, 1, "malloc probleme pour structure");
 	while (*tmp != NULL && y < current[x].nb_cmd)
 	{
+		if ((*tmp)->next == NULL && (*tmp)->content[0] == '\0')
+		{
+			printf("minishell: : command not found\n");
+			g_exit = 127;
+			data->error = 1;
+		}
 		if ((*tmp) != NULL && is_redirection(*tmp) == 0)
 			current[x].cmd[y++] = ft_strdup((*tmp)->content);
 		*tmp = (*tmp)->next;
@@ -56,9 +62,13 @@ void	input_is_only_space(t_data *data, char *input)
 	{
 		i++;
 	}
-	if ((int)ft_strlen(input) == i || (input[i] == '!'
-			&& (int)ft_strlen(input) == 1) || (input[i] == ':'
-			&& (int)ft_strlen(input) == 1))
+	if ((int)ft_strlen(input) == i
+		|| (input[i] == ':' && (int)ft_strlen(input) == 1))
+	{
+		g_exit = 0;
+		data->error = 1;
+	}
+	if (input[i] == '!' && (int)ft_strlen(input) == 1)
 	{
 		g_exit = 1;
 		data->error = 1;
