@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:59:43 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 16:54:23 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:13:06 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ t_list	*ft_lstnew(char *content)
 	new = malloc(sizeof(t_list));
 	if (!new)
 		return (0);
-	new->next = NULL;
 	new->content = ft_strdup(content);
+	// ft_bzero(new->var_env, sizeof(t_var_env));
+	new->var_env = NULL;
+	new->next = NULL;
 	new->type = 0;
 	return (new);
 }

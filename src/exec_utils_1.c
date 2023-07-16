@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:25:03 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 17:57:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:59:31 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ void	exit_ps(t_data *data, int error)
 		free_env(data);
 	if (data->tilde)
 		free(data->tilde);
-	if (data->path.tab)
-		free_tab(data->path.tab);
-	if (data->path.line)
-		free(data->path.line);
 	exit(error);
 }
 
@@ -66,10 +62,6 @@ char	*ft_strjoin2(char *s1, char const *s2)
 void	exit_minishell(t_data *data)
 {
 	free_env(data);
-	if (data->path.tab && data->path.tab != NULL)
-		free_tab(data->path.tab);
-	if (data->path.line && data->path.line != NULL)
-		free(data->path.line);
 	if (data->tilde && data->tilde != NULL)
 		free(data->tilde);
 	clear_cmd(data);
