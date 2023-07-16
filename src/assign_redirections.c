@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 17:47:24 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:05:09 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	redirection_file(t_data *data, t_list *tmp)
 	if ((tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT
 			|| tmp->type == HEREDOC || tmp->type == DELIM_APPEND)
 		&& tmp->next == NULL )
+	{
 		error(data, "`newline'");
+	}
 	else if ((tmp->type == REDIRECT_OUTPUT || tmp->type == DELIM_APPEND)
 		&& tmp->next->type != PIPE)
 	{
@@ -55,7 +57,6 @@ void	is_redir_input(t_data *data, t_list *tmp, int i)
 {
 	if (ft_strlen(tmp->content) == 1)
 	{
-		printf("i: %d\n", i);
 		tmp->type = REDIRECT_INPUT;
 		redirection_file(data, tmp);
 	}

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 16:04:06 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:48:24 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	exit_all(t_data *data, int err, char *str)
 		free(data->path.line);
 	if (data->tilde)
 		free(data->tilde);
-	if (err == 1)
+	if (err != 0)
 	{
 		clear_cmd(data);
 		exit(EXIT_FAILURE);
