@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 19:55:56 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:20:41 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,31 @@ void	close_fds(t_data *data)
 	}
 }
 
-/**
- * Clears the command data structure.
- *
- * This function cleans up memory allocated for tokens, command, input, 
- * and output files in the given data structure. It also resets certain 
- * data fields to their default values, such as file descriptors and 
- * redirection flags. The data structure fields must be correctly 
- * initialized before calling this function, else the behavior is undefined.
- *
- * Args:
- *   data: Pointer to the data structure to be cleared. Expected to contain 
- *         a token list, array of command structures (with fields for command, 
- *         input file, and output file), and an integer for the number of pipes.
- */
+void	free_token_list(t_data *data)
+{
+	t_list *tmp;
+
+	tmp = data->token_list;
+	while (tmp != NULL)
+	{
+		if (tmp->var_env && tmp->var_env->nb_value != 0)
+		{
+			free_tab(tmp->var_env->value);
+			free(tmp->var_env->name);
+			free(tmp->var_env);
+			tmp->var_env = NULL;
+		}
+		tmp = tmp->next;
+	}
+	ft_lstclear(&data->token_list, del);
+}
+
 void	clear_cmd(t_data *data)
 {
 	int		i;
 
 	i = 0;
-	if (data->token_list->var_env && data->token_list->var_env->nb_value != 0)
-	{
-		free_tab(data->token_list->var_env->value);
-		free (data->token_list->var_env->name);
-		free(data->token_list->var_env);
-	}
-	if (data->token_list && data->token_list != NULL)
-		ft_lstclear(&data->token_list, del);
+	free_token_list(data);
 	if (data->pipes > 0)
 	{
 		while (i < data->pipes)
@@ -96,19 +94,6 @@ void	clear_cmd(t_data *data)
 	}
 }
 
-/**
- * Frees the environment data in the provided data structure.
- *
- * This function clears the environment list and the environment table 
- * in the provided data structure, freeing any associated memory. It 
- * assumes the environment data is correctly initialized and safe to free. 
- * If not, the behavior is undefined.
- *
- * Args:
- *   data: Pointer to the data structure containing the environment 
- *         data to be freed. It is expected to contain a list of 
- *         environment variables and a table of environment strings.
- */
 void	free_env(t_data *data)
 {
 	if (data->env && data->env != NULL)
@@ -143,6 +128,8 @@ void	exit_all(t_data *data, int err, char *str)
 	if (str != NULL)
 		printf("%s\n", str);
 	free_env(data);
+	if (str != NULL)
+		printf("%s\n", str);
 	if (data->tilde)
 		free(data->tilde);
 	if (err != 0)

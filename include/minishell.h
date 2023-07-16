@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 17:23:14 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:45:31 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,12 @@ void		print_env_tab(t_data *data);
 void		put_env_in_tab(t_data *data);
 
 /* EXIT */
+void		free_token_list(t_data *data);
+void		free_env(t_data *data);
 void		error(t_data *data, char *str);
 void		free_tab(char **tab);
 void		close_fds(t_data *data);
 void		clear_cmd(t_data *data);
-void		free_env(t_data *data);
 void		exit_all(t_data *data, int err, char *str);
 
 /* EXEC_1 */
@@ -259,5 +260,5 @@ void		add_var_to_input(char **c_input, char *value);
 /* SIGNAL */
 void		ft_signal_quit(int unused);
 void		ft_signal_newline(int sig);
-void	ft_signal_newline2(int unused);
+void		ft_signal_newline2(int unused);
 #endif
