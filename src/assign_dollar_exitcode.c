@@ -6,15 +6,27 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:24:57 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 21:41:45 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:33:48 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	free_before_fill(t_list *tmp, char *variable, char *prev, char *next)
+{
+	if (variable && (prev || next))
+	{
+		free_tab(tmp->var_env->value);
+		free(tmp->var_env->name);
+		free(tmp->var_env);
+		tmp->var_env = NULL;
+	}
+	free(tmp->content);
+}
+
 void	fill_all(t_list *tmp, char *variable, char *prev, char *next)
 {
-	free(tmp->content);
+	free_before_fill(tmp, variable, prev, next);
 	if (prev && variable)
 	{
 		tmp->content = ft_strjoin(prev, variable);
@@ -36,13 +48,6 @@ void	fill_all(t_list *tmp, char *variable, char *prev, char *next)
 	{
 		tmp->content = ft_strjoin(tmp->content, next);
 		free (next);
-	}
-	if ((variable && prev) || (variable && next))
-	{
-		free_tab(tmp->var_env->value);
-		free(tmp->var_env->name);
-		tmp->var_env->nb_value = 0;
-		tmp->var_env = NULL;
 	}
 }
 
