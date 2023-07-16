@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 17:48:21 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:13:05 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void		print_all(t_data *data);
 
 /* MAIN */
 void		print_all(t_data *data);
-void		ft_handler(int sig);
 
 /* SPLIT LIST */
 int			is_meta(char c);
@@ -264,4 +263,8 @@ void		add_char_to_str(char **input, char c);
 void		exit_heredoc(t_data *data, int exit_code);
 void		add_var_to_input(char **c_input, char *value);
 
+/* SIGNAL */
+void		ft_signal_quit(int unused);
+void		ft_signal_newline(int sig);
+void	ft_signal_newline2(int unused);
 #endif

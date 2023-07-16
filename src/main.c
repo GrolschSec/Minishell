@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/14 16:06:18 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:21:12 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,6 @@ void	builtin_pwd(void)
 	free(pwd);
 }
 
-/*
-** Function: ft_handler
-** --------------------
-** Signal handler for interrupt signals (Ctrl+C).
-**
-** Args:
-** - sig: Signal number.
-**
-** Side effects:
-** - When an interrupt signal is received, a new line is printed 
-**		and the input line is reset.
-*/
-void	ft_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_exit = 130;
-	}
-}
-
 /* 
 	path est une variable d'env donc parse path n'est pas 
 	a jour si on modifie la variable.
@@ -74,8 +50,9 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		data.error = 0;
-		signal(SIGINT, ft_handler);
+		signal(SIGINT, ft_signal_newline);
 		signal(SIGQUIT, SIG_IGN);
+		signal(SIGTSTP, SIG_IGN);
 		data.input = readline(COLOR_RED "Minishell> " COLOR_RESET);
 		if (!data.input)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/14 19:02:10 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:25:24 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	heredoc(t_data *data, char *end, int type)
 	pid = fork();
 	if (pid < 0)
 		return (close(fd), -1);
+	signal(SIGINT, ft_signal_newline2);
 	if (pid == 0)
 	{
 		while (1)

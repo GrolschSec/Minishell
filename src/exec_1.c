@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/14 16:25:40 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:16:57 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	process_creation(t_data *data, t_exec *exec)
 	}
 	else if (pid == 0)
 	{
-		signal(SIGQUIT, ft_handler);
+		signal(SIGQUIT, ft_signal_quit);
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		command_exec(data, exec);
@@ -154,6 +154,8 @@ int	last_child(t_data *data, t_exec *exec)
 	int	status;
 
 	pid = fork();
+	signal(SIGQUIT, ft_signal_quit);
+	signal(SIGINT, ft_signal_newline2);
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -171,5 +173,5 @@ int	last_child(t_data *data, t_exec *exec)
 		if (WIFEXITED(status))
 			g_exit = WEXITSTATUS(status);
 	}
-	return (0);
+	return (signal(SIGINT, ft_signal_newline), signal(SIGQUIT, SIG_IGN), 0);
 }

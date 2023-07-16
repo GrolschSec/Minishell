@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
+#    By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/15 17:48:11 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/07/16 11:06:27 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ FILES = 	main					\
 			builtin_unset			\
 			builtin_env				\
 			heredoc					\
+			signal					\
 			TEST_print							
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
