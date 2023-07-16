@@ -6,22 +6,12 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 21:20:41 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:32:22 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/**
- * Frees a null-terminated array of strings.
- *
- * This function iterates through each string in the array, freeing each 
- * one, then frees the array itself. Assumes that the array and its elements
- * were dynamically allocated and are safe to free. If the array is NULL or 
- * contains non-dynamically-allocated elements, the behavior is undefined.
- *
- * param tab: Null-terminated array of strings to be freed.
- */
 void	free_tab(char **tab)
 {
 	int	i;
@@ -35,29 +25,14 @@ void	free_tab(char **tab)
 	free (tab);
 }
 
-void	close_fds(t_data *data)
-{
-	int		x;
-
-	x = 0;
-	while (x < data->pipes)
-	{
-		if (data->exec[x].fdin != 0)
-			close(data->exec[x].fdin);
-		if (data->exec[x].fdout != 1)
-			close(data->exec[x].fdout);
-		x++;
-	}
-}
-
 void	free_token_list(t_data *data)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = data->token_list;
 	while (tmp != NULL)
 	{
-		if (tmp->var_env && tmp->var_env->nb_value != 0)
+		if (tmp->var_env)
 		{
 			free_tab(tmp->var_env->value);
 			free(tmp->var_env->name);

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 21:33:20 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:58:14 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,5 @@ void	parse_cmd(t_data *data)
 		open_files(data);
 	if (data->error == 2)
 		printf("minishell: syntax error near unexpected token `|'\n");
-	print_tab(data);
+	// print_tab(data);
 }

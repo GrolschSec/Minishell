@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 16:55:22 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 21:38:10 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:30:43 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ char	*parse_var(char *str, int *i)
 	return (var);
 }
 
-void	parse_var_env(t_data *data, t_list *tmp, char *var)
+void	parse_var_env(t_data *data, t_list *tmp, char *variable)
 {
 	int	i;
 
 	i = 0;
-	if (!var)
+	if (!variable)
 	{
-		var = NULL;
+		variable = NULL;
 		return ;
 	}
 	tmp->var_env = malloc(sizeof(t_var_env));
 	if (!tmp->var_env)
 		exit_all(data, 1, "Malloc problem in var env");
 	tmp->var_env->name = ft_strdup(tmp->content);
-	tmp->var_env->value = ft_split(var, ' ');
+	tmp->var_env->value = ft_split(variable, ' ');
 	while (tmp->var_env->value[i] != NULL)
 		i++;
 	tmp->var_env->nb_value = i;
