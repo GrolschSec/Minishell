@@ -1,41 +1,17 @@
-Heredoc:
-	- << EOF: (Pas de commandes) fd leak, memory leak
-	- << EOF cat: Pas de leak
-	- << EOF cat (CTRL+D):
-		- Exit avec heredoc warning
-		- No leak for now
-		- Affiche ce qui a ete entrer dans le heredoc
-	- << EOF cat (CTRL+C):
-		- Exit sans message.
-		- N'affiche pas ce qui a ete entrer dans le heredoc
-		- Mine actually doesn't quit properly it waits for the EOF
-	- << EOF cat (possible segfault)
-			> 
-			minishell: cat: command not found
-			using CTRL+C
-
 No command:
 	- /: 
 		- Many leaks invalid read of size
 		- Double free
 		- Error message Is a directory
-	- *:
-		- No leak actually weird
-		- Error message command not found
-	- doesntexist:
-		- No leak
-		- command not found
 
-SIGNAUX:
-	- Possible segfault: 
+yes coucou > file.txt CTRL+D: fd pas close
+ 
 
 export:
 	- export -o:
 		- invalide option error !
 		- Conditional jump
-
-check leak ft_getenv (est ce que marie free bien le retour de getenv)
-
+		- Weird characters
 
 BONUS:
 	- Incrementer la variable SHLVL au debut du minishell
@@ -44,3 +20,5 @@ BONUS:
 	-[romain@stuxnet Minishell]$ export HOLA="bonjour hello"
 		[romain@stuxnet Minishell]$ $HOLA
 		bash: bonjour: command not found
+
+Erreur: cat | ls

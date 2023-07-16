@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 11:21:12 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 16:53:55 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ int	main(int argc, char **argv, char **env)
 			if (data.error == 0)
 				execution(&data);
 			else
-			{
 				clear_cmd(&data);
-				signal(SIGQUIT, SIG_IGN);
-			}
 		}
 	}
 	return (0);

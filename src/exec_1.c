@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 11:16:57 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:18:38 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,15 @@ int	command_exec(t_data *data, t_exec *exec)
 		|| (!path && !is_builtin(exec->cmd[0])))
 		return (free(path), -1);
 	if (exec->fdin > STDIN_FILENO)
+	{
 		dup2(exec->fdin, STDIN_FILENO);
+		close(exec->fdin);
+	}
 	if (exec->fdout > STDOUT_FILENO)
+	{
 		dup2(exec->fdout, STDOUT_FILENO);
+		close(exec->fdout);
+	}
 	if (is_builtin(exec->cmd[0]))
 		select_builtin(data, exec);
 	else
