@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 11:13:05 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:23:14 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ enum e_buitin
 	ENV,
 	EXIT,
 };
-
-typedef struct s_path
-{
-	char	*line;
-	char	**tab;
-}				t_path;
 
 /*
 ** Structure for command execution
@@ -102,7 +96,6 @@ typedef struct s_data
 	t_list		*env;
 	char		**env_tab;
 	int			nb_env;
-	t_path		path;
 	char		*tilde;
 }				t_data;
 

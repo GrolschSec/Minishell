@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 16:48:31 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:55:35 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,19 @@ typedef enum e_type
 	ARITHMETIC_APPEND,	/* pas sure que ce soit utile */
 }				t_type;
 
+typedef struct s_var_env
+{
+	char	*name;
+	char	**value;
+	int		nb_value;
+}				t_var_env;
+
 typedef struct s_list
 {
 	char			*content;
+	t_var_env		*var_env;
+	t_type			type;
 	struct s_list	*next;
-	t_type			type;	/* dans minishell.h */
 }	t_list;
 
 void	del(void *content);

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 14:48:24 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:55:56 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ void	clear_cmd(t_data *data)
 	int		i;
 
 	i = 0;
+	if (data->token_list->var_env && data->token_list->var_env->nb_value != 0)
+	{
+		free_tab(data->token_list->var_env->value);
+		free (data->token_list->var_env->name);
+		free(data->token_list->var_env);
+	}
 	if (data->token_list && data->token_list != NULL)
 		ft_lstclear(&data->token_list, del);
 	if (data->pipes > 0)
@@ -137,10 +143,6 @@ void	exit_all(t_data *data, int err, char *str)
 	if (str != NULL)
 		printf("%s\n", str);
 	free_env(data);
-	if (data->path.tab && data->path.tab != NULL)
-		free_tab(data->path.tab);
-	if (data->path.line && data->path.line != NULL)
-		free(data->path.line);
 	if (data->tilde)
 		free(data->tilde);
 	if (err != 0)
