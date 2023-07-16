@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 11:13:05 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:41:16 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,5 +266,5 @@ void		add_var_to_input(char **c_input, char *value);
 /* SIGNAL */
 void		ft_signal_quit(int unused);
 void		ft_signal_newline(int sig);
-void	ft_signal_newline2(int unused);
+void		ft_signal_newline2(int unused);
 #endif

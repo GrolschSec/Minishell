@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:25:03 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/05 15:44:55 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:57:30 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	exit_ps(t_data *data, int error)
 {
 	clear_cmd(data);
 	rl_clear_history();
-	free_env(data);
+	if (data->env)
+		free_env(data);
 	if (data->tilde)
 		free(data->tilde);
 	if (data->path.tab)

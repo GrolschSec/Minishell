@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 14:48:24 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:57:51 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ void	free_env(t_data *data)
 {
 	if (data->env && data->env != NULL)
 		ft_lstclear(&data->env, del);
-	if (data->env_tab && data->env_tab != NULL)
-		free_tab(data->env_tab);
 }
 
 /**

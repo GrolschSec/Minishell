@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 20:57:54 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 17:21:43 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:55:38 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	do_execve(t_data *data, t_exec *exec, char *path)
 	close(data->cpy_out);
 	execve(path, exec->cmd, data->env_tab);
 	dot_slash_cmd_exec_handling(exec->cmd[0], data);
-	free_tab(data->env_tab);
-	free(path);
+	if (data->env_tab)
+		free_tab(data->env_tab);
+	if (path)
+		free(path);
 }

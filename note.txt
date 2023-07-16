@@ -1,12 +1,3 @@
-No command:
-	- /: 
-		- Many leaks invalid read of size
-		- Double free
-		- Error message Is a directory
-
-yes coucou > file.txt CTRL+D: fd pas close
- 
-
 export:
 	- export -o:
 		- invalide option error !
