@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:43:34 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/12 15:42:00 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:14:27 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,10 @@
 
 void	invalid_option(char c)
 {
-	char	*tmp;
-	char	*msg;
-
-	tmp = NULL;
+	write(2, "minishell: export: `-", 21);
 	if (c)
-		tmp = ft_strjoin2("minishell: export: `-", &c);
-	if (!tmp)
-		return ;
-	msg = ft_strjoin2(tmp, "': invalid option\n");
-	free(tmp);
-	if (!msg)
-		return ;
-	write(2, msg, ft_strlen(msg));
-	free(msg);
+		write(2, &c, 1);
+	write(2, "': invalid option\n", 18);
 	print_usage();
 }
 
