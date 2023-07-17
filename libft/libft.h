@@ -6,11 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/17 15:45:50 by rlouvrie         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/16 17:55:35 by mrabourd         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2023/07/17 15:54:08 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +61,6 @@ typedef struct s_list
 	t_var_env		*var_env;
 	t_type			type;
 	struct s_list	*next;
-<<<<<<< HEAD
-	t_type			type;
-=======
->>>>>>> main
 }	t_list;
 
 void	del(void *content);
