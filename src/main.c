@@ -3,16 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/17 19:19:16 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:43:30 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	g_exit = 0;
+
+void	update_shlvl(t_data *data)
+{
+	char	*value;
+	int		num;
+	char	*new_val;
+
+	value = ft_getenv(data, "SHLVL");
+	if (!value)
+		return ;
+	num = ft_atoi(value);
+	free(value);
+	num += 1;
+	new_val = ft_itoa(num);
+	if (!new_val)
+		return ;
+	ft_setenv(data, "SHLVL=", new_val);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -24,6 +42,7 @@ int	main(int argc, char **argv, char **env)
 	// 	return (0);
 	ft_bzero(&data, sizeof(data));
 	fill_env_list(env, &data);
+	update_shlvl(&data);
 	while (1)
 	{
 		data.error = 0;
