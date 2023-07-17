@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/17 15:48:44 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:50:15 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	heredoc(t_data *data, char *end, int type, int index)
 		signal(SIGINT, SIG_DFL);
 		while (1)
 			get_heredoc_in(data, fd, end, type);
-		close(fd);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
