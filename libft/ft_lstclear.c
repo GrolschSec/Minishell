@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:23 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/06/30 16:49:04 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:17:31 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	del(void *list)
 
 	tmp = (t_list *)list;
 	free (tmp->content);
+	tmp->var_env = NULL;
 	tmp->content = NULL;
 	tmp->type = 0;
 }

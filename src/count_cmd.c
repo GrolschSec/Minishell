@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 17:13:07 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:25:14 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ void	count_cmd_and_redir(t_data *data)
 			else if (tmp->type == HEREDOC)
 				data->exec[x].heredoc++;
 			else if (is_not_redirection(tmp) && tmp->type != PIPE)
-				data->exec[x].nb_cmd++;
+			{
+				if (tmp->var_env && tmp->var_env->nb_value)
+					data->exec[x].nb_cmd += tmp->var_env->nb_value;
+				else
+					data->exec[x].nb_cmd++;
+			}
 			tmp = tmp->next;
 		}
 		x++;

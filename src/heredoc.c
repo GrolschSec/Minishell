@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/17 15:50:15 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:53:10 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,9 +246,5 @@ void	exit_heredoc(t_data *data, int error)
 	free_env(data);
 	if (data->tilde)
 		free(data->tilde);
-	if (data->path.tab)
-		free_tab(data->path.tab);
-	if (data->path.line)
-		free(data->path.line);
 	exit(error);
 }

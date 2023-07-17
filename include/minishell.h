@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 22:40:52 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:53:05 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ enum e_buitin
 	ENV,
 	EXIT,
 };
-
-typedef struct s_path
-{
-	char	*line;
-	char	**tab;
-}				t_path;
 
 /*
 ** Structure for command execution
@@ -102,7 +96,6 @@ typedef struct s_data
 	t_list		*env;
 	char		**env_tab;
 	int			nb_env;
-	t_path		path;
 	char		*tilde;
 }				t_data;
 
@@ -165,11 +158,11 @@ void		print_env_tab(t_data *data);
 void		put_env_in_tab(t_data *data);
 
 /* EXIT */
+void		free_token_list(t_data *data);
+void		free_env(t_data *data);
 void		error(t_data *data, char *str);
 void		free_tab(char **tab);
-void		close_fds(t_data *data);
 void		clear_cmd(t_data *data);
-void		free_env(t_data *data);
 void		exit_all(t_data *data, int err, char *str);
 
 /* EXEC_1 */

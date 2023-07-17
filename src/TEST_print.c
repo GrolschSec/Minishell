@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   TEST_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:00:28 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 11:33:32 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:26:48 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	print_tab(t_data *data)
 	infile = 0;
 	nb_jobs = 0;
 	i = 0;
+	printf("----START ALL-----\n");
 	while (nb_jobs < data->pipes)
 	{
 		i = 0;
@@ -89,4 +90,5 @@ void	print_tab(t_data *data)
 		}
 		nb_jobs++;
 	}
+	printf("----END ALL-----\n");
 }
