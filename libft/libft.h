@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:20:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 16:48:31 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:45:50 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ typedef enum e_type
 	DOUBLE_QUOTE,
 	PIPE,
 	OPTION,
-	INFILE,				/* ce qui suit '<' */
-	OUTFILE,			/* ce qui suit '>' ou '>> */
-	ENDOFFILE,			/* ce qui suit '<<' */
+	INFILE,
+	OUTFILE,
+	ENDOFFILE,
 	ENDOFFILE_QUOTED,
-	REDIRECT_INPUT,		/* < */
-	REDIRECT_OUTPUT,	/* > */
-	HEREDOC,			/* << */
-	DELIM_APPEND,	/* >> */
+	REDIRECT_INPUT,
+	REDIRECT_OUTPUT,
+	HEREDOC,
+	DELIM_APPEND,
 	INFILE_IS_LAST,
 	HEREDOC_IS_LAST,
 	DOLLAR,
@@ -45,14 +45,14 @@ typedef enum e_type
 	EXIT_STATUS,
 	ENVIRONMENT_VARIABLE,
 	NUMBER,
-	ARITHMETIC_APPEND,	/* pas sure que ce soit utile */
+	ARITHMETIC_APPEND,
 }				t_type;
 
 typedef struct s_list
 {
 	char			*content;
 	struct s_list	*next;
-	t_type			type;	/* dans minishell.h */
+	t_type			type;
 }	t_list;
 
 void	del(void *content);

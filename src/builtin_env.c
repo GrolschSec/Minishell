@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:49:24 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/12 17:09:51 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:46:25 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	env_builtin(t_data *data, t_exec *exec)
 	}
 	if (!error)
 		print_env_list(data);
-		
 }
 
 void	print_env_list(t_data *data)

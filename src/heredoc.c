@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 21:18:44 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:48:44 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_heredoc_in(t_data *data, int fd, char *end, int type)
 		free(end);
 		exit_heredoc(data, 0);
 	}
-	if (ft_strncmp(input, end, ft_strlen(end)) == 0 
+	if (ft_strncmp(input, end, ft_strlen(end)) == 0
 		&& ft_strlen(end) == ft_strlen(input))
 	{
 		close(fd);
@@ -78,6 +78,7 @@ int	heredoc(t_data *data, char *end, int type, int index)
 		signal(SIGINT, SIG_DFL);
 		while (1)
 			get_heredoc_in(data, fd, end, type);
+		close(fd);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
@@ -162,7 +163,7 @@ char	*convert_input(char *input, t_data *data, int type)
 	return (c_input);
 }
 
-int	handle_env_var(int	i, char *input, char **c_input, t_data *data)
+int	handle_env_var(int i, char *input, char **c_input, t_data *data)
 {
 	int		j;
 	int		len;
@@ -177,7 +178,7 @@ int	handle_env_var(int	i, char *input, char **c_input, t_data *data)
 		return (i + j);
 	else if (ft_isalpha(input[j]) || input[j] == '_')
 	{
-		while(input[j] && (ft_isalnum(input[j]) || input[j] == '_'))
+		while (input[j] && (ft_isalnum(input[j]) || input[j] == '_'))
 			j++;
 		len = j - 1;
 		var = malloc(sizeof(char) * (len + 1));
