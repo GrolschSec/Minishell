@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:04:07 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 17:18:44 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:35:54 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	msg_error_quote(t_data *data, char *str)
 
 void	split_quote(t_data *data, int *i, int *j, char quotetype)
 {
-	if (ft_strlen(&data->input[*i]) > 1)
+	if (ft_strlen(&data->str[*i]) > 1)
 		(*i)++;
 	else
 		msg_error_quote(data, "There is a quote missing");

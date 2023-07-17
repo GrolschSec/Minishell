@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 22:35:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:55:49 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	clear_cmd(t_data *data)
 				free_tab(data->exec[i].infile);
 			if (data->exec[i].outfile && data->exec[i].outfile != NULL)
 				ft_lstclear(&data->exec[i].outfile, del);
-			if (data->exec[i].eof && data->exec[i].eof != NULL)
-				ft_lstclear(&data->exec[i].eof, del);
+			// if (data->exec[i].eof && data->exec[i].eof != NULL)
+			// 	ft_lstclear(&data->exec[i].eof, del);
 			i++;
 		}
 		if (data->exec && data->exec != NULL)

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:24:57 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 22:33:48 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:40:44 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	free_before_fill(t_list *tmp, char *variable, char *prev, char *next)
 {
 	if (variable && (prev || next))
 	{
-		free_tab(tmp->var_env->value);
-		free(tmp->var_env->name);
-		free(tmp->var_env);
-		tmp->var_env = NULL;
+		if (tmp->var_env && tmp->var_env->nb_value > 0)
+		{
+			free_tab(tmp->var_env->value);
+			free(tmp->var_env->name);
+			free(tmp->var_env);
+			tmp->var_env = NULL;
+		}
 	}
 	free(tmp->content);
 }

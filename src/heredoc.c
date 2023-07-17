@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/17 15:53:10 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:16:25 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	get_heredoc_in(t_data *data, int fd, char *end, int type)
 	tmp = convert_input(input, data, type);
 	free(input);
 	if (tmp)
+	{
 		ft_putstr_fd(tmp, fd);
+		free(tmp);
+	}
 	ft_putchar_fd('\n', fd);
 }
 
@@ -139,6 +142,8 @@ void	heredoc_check(t_data *data)
 				}
 				tmp = tmp->next;
 			}
+			if (data->exec[i].eof && data->exec[i].eof != NULL)
+				ft_lstclear(&data->exec[i].eof, del);
 		}
 		i++;
 	}
