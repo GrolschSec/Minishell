@@ -6,32 +6,13 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/17 19:04:54 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:06:22 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	g_exit = 0;
-
-/*
-** Function: builtin_pwd
-** ---------------------
-** Built-in function to print the current working directory.
-**
-** Side effects:
-** - Prints the current working directory to the standard output.
-** - Frees memory allocated for the directory path string.
-*/
-void	builtin_pwd(void)
-{
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	ft_putstr_fd(pwd, 1);
-	ft_putchar_fd('\n', 1);
-	free(pwd);
-}
 
 int	main(int argc, char **argv, char **env)
 {
