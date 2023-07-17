@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/17 16:01:53 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:19:11 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void	heredoc_check(t_data *data)
 				}
 				tmp = tmp->next;
 			}
+			if (data->exec[i].eof && data->exec[i].eof != NULL)
+				ft_lstclear(&data->exec[i].eof, del);
 		}
 		i++;
 	}

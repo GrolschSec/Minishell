@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 21:58:14 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:58:40 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 		exit_all(data, 1, "malloc probleme pour structure");
 	while (*tmp != NULL && y < current[x].nb_cmd)
 	{
-		if ((*tmp)->content[0] == '\0')
-		{
-			printf("minishell: : command not found\n");
-			g_exit = 127;
-			data->error = 1;
-		}
+		// if ((*tmp)->content[0] == '\0')
+		// {
+		// 	printf("minishell: : command not found\n");
+		// 	g_exit = 127;
+		// 	data->error = 1;
+		// }
 		if ((*tmp) != NULL && is_redirection(*tmp) == 0 && (*tmp)->var_env == NULL)
 		{
 			current[x].cmd[y] = ft_strdup((*tmp)->content);
@@ -126,7 +126,7 @@ void	parse_cmd(t_data *data)
 	}
 	if (data->error == 0)
 		assign_type(data);
-	print_all(data);
+	// print_all(data);
 	count_pipes_cmd_redir(data);
 	if (data->error == 0)
 		fill_eof(data, data->pipes);

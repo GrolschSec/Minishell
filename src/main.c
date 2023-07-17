@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/17 19:06:22 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:19:16 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	(void)argc;
-	if (!isatty(STDIN_FILENO))
-		return (0);
+	// if (!isatty(STDIN_FILENO))
+	// 	return (0);
 	ft_bzero(&data, sizeof(data));
 	fill_env_list(env, &data);
 	while (1)
