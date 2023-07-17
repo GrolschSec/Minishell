@@ -1,10 +1,6 @@
 BONUS:
 	- Incrementer la variable SHLVL au debut du minishell
 	- Decrementer avant de quitter
-	
-	-[romain@stuxnet Minishell]$ export HOLA="bonjour hello"
-		[romain@stuxnet Minishell]$ $HOLA
-		bash: bonjour: command not found
 
 Erreur Exec: 
 	- cat | ls
