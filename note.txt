@@ -6,4 +6,10 @@ BONUS:
 		[romain@stuxnet Minishell]$ $HOLA
 		bash: bonjour: command not found
 
-Erreur: cat | ls
+Erreur Exec: 
+	- cat | ls
+	- cat | cat | cat | ls
+
+HEREDOC:
+	- LEAK DE FD
+	- LEAK
