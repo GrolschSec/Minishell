@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:45:43 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/06 15:17:51 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:14:27 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	pwd_builtin(t_exec *exec)
 	if (exec->cmd[1] && !parse_pwd(exec->cmd[1]))
 	{
 		invalid_option_pwd(exec->cmd[1]);
+		g_exit = 2;
 		return ;
 	}
 	path = getcwd(NULL, 0);
