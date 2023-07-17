@@ -13,3 +13,8 @@ Erreur Exec:
 HEREDOC:
 	- LEAK DE FD
 	- LEAK
+
+Erreur CD:
+	- Update OLD_PWD
+
+Problem  builtin comparaison.

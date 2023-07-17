@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 16:53:55 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:04:54 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ void	builtin_pwd(void)
 	free(pwd);
 }
 
-/* 
-	path est une variable d'env donc parse path n'est pas 
-	a jour si on modifie la variable.
-*/
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
