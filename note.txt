@@ -17,4 +17,7 @@ HEREDOC:
 Erreur CD:
 	- Update OLD_PWD
 
-Problem  builtin comparaison.
+FD Erreur si pipe n'execute pas la commande suivantes.
+
+Exit code:
+	- 125 ?? 
