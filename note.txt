@@ -5,7 +5,5 @@ HEREDOC:
 Erreur CD:
 	- Update OLD_PWD
 
-FD Erreur si pipe n'execute pas la commande suivantes.
-
 Exit code:
 	- 125 ?? 

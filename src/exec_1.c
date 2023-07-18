@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 15:39:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:30:05 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,7 @@ void	execution(t_data *data)
 	data->cpy_out = dup(1);
 	while (i < data->pipes - 1)
 	{
-		if (data->exec[i].fail_fd)
-		{
-			i++;
-			continue ;
-		}
-		else if (process_creation(data, &data->exec[i]) < 0)
+		if (process_creation(data, &data->exec[i]) < 0)
 		{
 			execution_handling(data, i);
 			return ;
@@ -41,8 +36,7 @@ void	execution(t_data *data)
 		i++;
 	}
 	data->exec[i].is_last = 1;
-	if (!data->exec[i].fail_fd)
-		exec_last_child(data, &data->exec[i]);
+	exec_last_child(data, &data->exec[i]);
 	end_exec(data);
 	return ;
 }
