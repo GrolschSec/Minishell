@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 18:03:27 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:08:44 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	fill_files(t_data *data)
 	while (x < data->pipes)
 	{
 		put_infiles_in_tab(data, &tmp, &data->exec[x]);
-		if (tmp->type == PIPE && tmp != NULL)
+		if (tmp && (tmp->type == PIPE && tmp != NULL))
 			tmp = tmp->next;
 		x++;
 	}
