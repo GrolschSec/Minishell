@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:38:32 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 19:38:59 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:19:46 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	check_if_nothing(t_data *data)
 			g_exit = 2;
 			return ;
 		}
+		if (data->exec[x].nb_cmd == 0)
+			data->exec[x].no_cmd = 1;
 		x++;
 	}
 }
