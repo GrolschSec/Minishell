@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/14 15:00:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:30:39 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,15 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 		g_exit = 1;
 	}
 	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+	{
 		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+		ft_setenv(data, "OLDPWD=", actual_path);
+	}
 	else if (exec->is_last && data->pipes > 1)
+	{
 		chdir(actual_path);
-	free(actual_path);
+		free(actual_path);
+	}
 	free(home);
 	g_exit = 0;
 }
@@ -108,10 +113,15 @@ void	cd_arg_case(t_data *data, t_exec *exec)
 		g_exit = 1;
 	}
 	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+	{
 		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+		ft_setenv(data, "OLDPWD=", actual_path);
+	}
 	else if (exec->is_last && data->pipes > 1)
+	{
 		chdir(actual_path);
-	free(actual_path);
+		free(actual_path);
+	}
 }
 
 void	cd_builtin(t_data *data, t_exec *exec)
