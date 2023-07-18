@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 19:33:52 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:52:25 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	open_infile(t_data *data, int x, int in)
 		exec_error(data->exec[x].infile[in - 1], strerror(errno));
 		data->exec[x].fdin = open("/dev/null", O_RDONLY);
 		data->exec[x].fail_fd = 1;
+		data->exec[x].no_cmd = 1;
 		g_exit = 1;
 	}
 	else if (data->exec[x].cmd[0] != NULL && !data->exec[x].is_eof)
