@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/14 15:00:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:38:57 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,25 @@ void	cd_error(char *path)
 	free(msg);
 }
 
+void	no_arg_exec(int ex_code, t_exec *exec, char *actual_path, t_data *data)
+{
+	if (ex_code != 0)
+	{
+		cd_error(exec->cmd[1]);
+		g_exit = 1;
+	}
+	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+	{
+		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+		ft_setenv(data, "OLDPWD=", actual_path);
+	}
+	else if (exec->is_last && data->pipes > 1)
+	{
+		chdir(actual_path);
+		free(actual_path);
+	}
+}
+
 void	cd_no_arg_case(t_data *data, t_exec *exec)
 {
 	char	*home;
@@ -81,16 +100,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 	}
 	actual_path = getcwd(NULL, 0);
 	ex_code = chdir(home);
-	if (ex_code != 0)
-	{
-		cd_error(exec->cmd[1]);
-		g_exit = 1;
-	}
-	if (exec->is_last && data->pipes == 1 && ex_code == 0)
-		ft_setenv(data, "PWD=", getcwd(NULL, 0));
-	else if (exec->is_last && data->pipes > 1)
-		chdir(actual_path);
-	free(actual_path);
+	no_arg_exec(ex_code, exec, actual_path, data);
 	free(home);
 	g_exit = 0;
 }
@@ -108,10 +118,15 @@ void	cd_arg_case(t_data *data, t_exec *exec)
 		g_exit = 1;
 	}
 	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+	{
 		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+		ft_setenv(data, "OLDPWD=", actual_path);
+	}
 	else if (exec->is_last && data->pipes > 1)
+	{
 		chdir(actual_path);
-	free(actual_path);
+		free(actual_path);
+	}
 }
 
 void	cd_builtin(t_data *data, t_exec *exec)
