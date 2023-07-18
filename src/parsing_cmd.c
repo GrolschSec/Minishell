@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 18:36:26 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:38:53 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 		exit_all(data, 1, "malloc probleme pour structure");
 	while (*tmp != NULL && y < current[x].nb_cmd)
 	{
-		if ((*tmp) != NULL && is_redirection(*tmp) == 0 && (*tmp)->var_env == NULL)
+		if ((*tmp) != NULL && is_redir(*tmp) == 0 && (*tmp)->var_env == NULL)
 		{
 			current[x].cmd[y] = ft_strdup((*tmp)->content);
 			y++;
@@ -44,7 +44,7 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 			fill_var_env(tmp, current[x], &y);
 		*tmp = (*tmp)->next;
 	}
-	while ((*tmp) && ((*tmp)->type == PIPE || is_redirection(*tmp)))
+	while ((*tmp) && ((*tmp)->type == PIPE || is_redir(*tmp)))
 	{
 		*tmp = (*tmp)->next;
 	}
@@ -61,53 +61,12 @@ void	put_cmd_in_tab(t_data *data, int nb)
 	while (x < nb && data->error == 0)
 	{
 		fill_exec(data, &tmp, data->exec, x);
-		if (ft_strncmp(data->exec[x].cmd[0], "\0", 1) == 0)
+		if (data->exec[x].nb_cmd != 0
+			&& data->exec[x].cmd != NULL
+			&& ft_strncmp(data->exec[x].cmd[0], "\0", 1) == 0)
 		{
 			data->exec[x].no_cmd = 1;
 			g_exit = 0;
-		}
-		x++;
-	}
-}
-
-void	input_is_only_space(t_data *data, char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] && is_space(input[i]) == 1)
-	{
-		i++;
-	}
-	if ((int)ft_strlen(input) == i
-		|| (input[i] == ':' && (int)ft_strlen(input) == 1))
-	{
-		g_exit = 0;
-		data->error = 1;
-	}
-	if (input[i] == '!' && (int)ft_strlen(input) == 1)
-	{
-		g_exit = 1;
-		data->error = 1;
-	}
-}
-
-void	check_if_nothing(t_data *data)
-{
-	int	x;
-
-	x = 0;
-	while (x < data->pipes)
-	{
-		if (data->pipes > 1
-			&& data->exec[x].nb_cmd == 0
-			&& data->exec[x].redirect_input == 0
-			&& data->exec[x].redirect_output == 0
-			&& data->exec[x].heredoc == 0)
-		{
-			data->error = 2;
-			g_exit = 2;
-			return ;
 		}
 		x++;
 	}

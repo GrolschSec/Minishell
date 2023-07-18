@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 18:53:04 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:40:03 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void		msg_error_quote(t_data *data, char *str);
 
 /* PARSE COMMANDES */
 int			is_not_redirection(t_list *tmp);
-int			is_redirection(t_list *tmp);
+int			is_redir(t_list *tmp);
 void		fill_exec(t_data *data, t_list **tmp, t_exec *current, int x);
 void		put_cmd_in_tab(t_data *data, int nb);
 void		parse_cmd(t_data *data);
@@ -149,6 +149,10 @@ int			count_cmd(t_list *tmp);
 void		count_pipes_cmd_redir(t_data *data);
 void		count_cmd_and_redir(t_data *data);
 void		init_exec(t_exec *current, int x);
+
+/* CHECK INPUT */
+void		input_is_only_space(t_data *data, char *input);
+void		check_if_nothing(t_data *data);
 
 /* REDIRECTIONS */
 void		fill_files(t_data *data);

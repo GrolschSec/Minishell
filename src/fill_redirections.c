@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 18:08:44 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:37:19 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_not_redirection(t_list *tmp)
 	return (0);
 }
 
-int	is_redirection(t_list *tmp)
+int	is_redir(t_list *tmp)
 {
 	if (tmp->type == INFILE || tmp->type == OUTFILE
 		|| tmp->type == REDIRECT_INPUT || tmp->type == REDIRECT_OUTPUT
