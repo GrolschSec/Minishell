@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 14:50:50 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:59:08 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ void	update_shlvl(t_data *data)
 
 	value = ft_getenv(data, "SHLVL");
 	if (!value)
-		return ;
-	num = ft_atoi(value);
-	free(value);
-	num += 1;
+		num = 1;
+	else
+	{
+		num = ft_atoi(value);
+		free(value);
+		num += 1;
+	}
 	new_val = ft_itoa(num);
 	if (!new_val)
 		return ;
