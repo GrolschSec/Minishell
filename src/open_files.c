@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 15:17:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:35:15 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	open_outfile(t_data *data, int x, t_list *out)
 	}
 	if (data->exec[x].redirect_output && data->exec[x].nb_cmd == 0)
 	{
-		data->error = 1;
+		data->exec[x].fail_fd = 1;
 		// g_exit = 1;
 	}
 }
@@ -65,7 +65,7 @@ void	open_infile(t_data *data, int x, int in)
 		return ;
 	else
 	{
-		data->error = 1;
+		data->exec[x].fail_fd = 1;
 		g_exit = 1;
 	}
 }
