@@ -6,11 +6,28 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 01:50:06 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 19:25:14 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:35:48 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	increment_int(t_data *data, t_list *tmp, int x)
+{
+	if (tmp->type == REDIRECT_INPUT)
+		data->exec[x].redirect_input++;
+	else if (tmp->type == REDIRECT_OUTPUT || tmp->type == DELIM_APPEND)
+		data->exec[x].redirect_output++;
+	else if (tmp->type == HEREDOC)
+		data->exec[x].heredoc++;
+	else if (is_not_redirection(tmp) && tmp->type != PIPE)
+	{
+		if (tmp->var_env && tmp->var_env->nb_value)
+			data->exec[x].nb_cmd += tmp->var_env->nb_value;
+		else
+			data->exec[x].nb_cmd++;
+	}
+}
 
 void	count_cmd_and_redir(t_data *data)
 {
@@ -23,19 +40,7 @@ void	count_cmd_and_redir(t_data *data)
 	{
 		while (tmp != NULL && tmp->type != PIPE)
 		{
-			if (tmp->type == REDIRECT_INPUT)
-				data->exec[x].redirect_input++;
-			else if (tmp->type == REDIRECT_OUTPUT || tmp->type == DELIM_APPEND)
-				data->exec[x].redirect_output++;
-			else if (tmp->type == HEREDOC)
-				data->exec[x].heredoc++;
-			else if (is_not_redirection(tmp) && tmp->type != PIPE)
-			{
-				if (tmp->var_env && tmp->var_env->nb_value)
-					data->exec[x].nb_cmd += tmp->var_env->nb_value;
-				else
-					data->exec[x].nb_cmd++;
-			}
+			increment_int(data, tmp, x);
 			tmp = tmp->next;
 		}
 		x++;
