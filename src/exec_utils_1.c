@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:25:03 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 19:59:31 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:56:19 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	end_exec(t_data *data)
 	dup2(data->cpy_in, STDIN_FILENO);
 	close(data->cpy_in);
 	close(data->cpy_out);
+	while (wait(NULL) > 0)
+		;
 	clear_cmd(data);
 }
 
