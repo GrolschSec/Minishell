@@ -2,12 +2,8 @@ HEREDOC:
 	- LEAK DE FD
 	- LEAK
 
-Erreur CD:
-	- Update OLD_PWD
-
 Exit code:
 	- 125 ?? 
-
 
 < eeij cat | echo hello | < djdjd cat
 minishell: eeij: No such file or directory
