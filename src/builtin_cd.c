@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 18:30:39 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:38:57 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,8 @@ void	cd_error(char *path)
 	free(msg);
 }
 
-void	cd_no_arg_case(t_data *data, t_exec *exec)
+void	no_arg_exec(int ex_code, t_exec *exec, char *actual_path, t_data *data)
 {
-	char	*home;
-	char	*actual_path;
-	int		ex_code;
-
-	home = ft_getenv(data, "HOME");
-	if (!home)
-	{
-		write(2, "minishell: cd: HOME not set\n", 28);
-		g_exit = 1;
-		return ;
-	}
-	actual_path = getcwd(NULL, 0);
-	ex_code = chdir(home);
 	if (ex_code != 0)
 	{
 		cd_error(exec->cmd[1]);
@@ -96,6 +83,24 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 		chdir(actual_path);
 		free(actual_path);
 	}
+}
+
+void	cd_no_arg_case(t_data *data, t_exec *exec)
+{
+	char	*home;
+	char	*actual_path;
+	int		ex_code;
+
+	home = ft_getenv(data, "HOME");
+	if (!home)
+	{
+		write(2, "minishell: cd: HOME not set\n", 28);
+		g_exit = 1;
+		return ;
+	}
+	actual_path = getcwd(NULL, 0);
+	ex_code = chdir(home);
+	no_arg_exec(ex_code, exec, actual_path, data);
 	free(home);
 	g_exit = 0;
 }

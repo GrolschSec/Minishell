@@ -2,9 +2,6 @@ HEREDOC:
 	- LEAK DE FD
 	- LEAK
 
-Exit code:
-	- 125 ?? 
-
 < eeij cat | echo hello | < djdjd cat
 minishell: eeij: No such file or directory
 minishell: eeij: No such file or directory

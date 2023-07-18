@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 17:30:12 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:25:33 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,9 @@ void		check_next_env(t_list *current, t_list *prev, char *str);
 /*BUILTIN ENV*/
 void		env_builtin(t_data *data, t_exec *exec);
 void		print_env_list(t_data *data);
+void		env_error(t_exec *exec, int	*error);
+int			invalid_option_env(t_exec *exec);
+int			valid_option_env(t_exec *exec);
 
 /* HEREDOC */
 void		get_heredoc_in(t_data *data, int fd, char *end, int type);
