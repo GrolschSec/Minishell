@@ -179,6 +179,7 @@ exec_test 'echo $rfrgrg'
 # exec_test "|||"
 
 exec_test "ls <non | wc"
+exec_test "<non | wc"
 exec_test "echo A"
 
 rm -rf minishell out1 test2 testpwd truc2
