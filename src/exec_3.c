@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 20:57:54 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 11:44:51 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:51:20 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,15 @@ void	do_execve(t_data *data, t_exec *exec, char *path)
 		free_tab(data->env_tab);
 	if (path)
 		free(path);
+}
+
+void	last_child_main(int pid, t_exec *exec)
+{
+	int	status;
+
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status) && !exec->fail_fd)
+		g_exit = WEXITSTATUS(status);
+	else
+		g_exit = 1;
 }

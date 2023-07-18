@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 18:03:58 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:52:23 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ int	exec_last_child(t_data *data, t_exec *exec)
 int	last_child(t_data *data, t_exec *exec)
 {
 	int	pid;
-	int	status;
 
 	pid = fork();
 	signal(SIGQUIT, ft_signal_quit);
@@ -174,10 +173,6 @@ int	last_child(t_data *data, t_exec *exec)
 		}
 	}
 	else if (pid)
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			g_exit = WEXITSTATUS(status);
-	}
+		last_child_main(pid, exec);
 	return (signal(SIGINT, ft_signal_newline), signal(SIGQUIT, SIG_IGN), 0);
 }
