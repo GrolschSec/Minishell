@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 17:30:12 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:53:04 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_exec
 	int			nb_cmd;
 	int			is_eof;
 	int			no_cmd;
+	int			fail_fd;
 }				t_exec;
 
 /*

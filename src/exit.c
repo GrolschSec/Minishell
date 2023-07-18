@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/17 16:55:49 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:41:36 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	clear_cmd(t_data *data)
 				free_tab(data->exec[i].infile);
 			if (data->exec[i].outfile && data->exec[i].outfile != NULL)
 				ft_lstclear(&data->exec[i].outfile, del);
-			// if (data->exec[i].eof && data->exec[i].eof != NULL)
-			// 	ft_lstclear(&data->exec[i].eof, del);
 			i++;
 		}
 		if (data->exec && data->exec != NULL)
@@ -75,26 +73,6 @@ void	free_env(t_data *data)
 		ft_lstclear(&data->env, del);
 }
 
-/**
- * Exits the program and performs necessary cleanup.
- *
- * This function outputs an error message (if provided), frees all 
- * environment data and path information in the given data structure, 
- * then exits the program. Depending on the error code, it may also 
- * clear command data and exit with a failure status. It's assumed 
- * that the data structure and error message string (if not NULL) 
- * are properly initialized and safe to free or print. If not, 
- * the behavior is undefined.
- *
- * Args:
- *   data: Pointer to the data structure containing the environment 
- *         and path data to be freed, and potentially command data to 
- *         be cleared.
- *   err: Error code. If 1, command data is also cleared and the program 
- *        exits with a failure status.
- *   str: Error message string to be printed to stderr. If NULL, no 
- *        message is printed.
- */
 void	exit_all(t_data *data, int err, char *str)
 {
 	data->error = 1;

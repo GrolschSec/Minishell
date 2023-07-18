@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 17:12:56 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 17:30:46 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:53:24 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_exec(t_exec *current, int x)
 	current[x].nb_cmd = 0;
 	current[x].is_eof = 0;
 	current[x].no_cmd = 0;
+	current[x].fail_fd = 0;
 }
 
 void	malloc_init_exec(t_data *data)
