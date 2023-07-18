@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/17 17:58:40 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:39:01 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ void	fill_exec(t_data *data, t_list **tmp, t_exec *current, int x)
 		exit_all(data, 1, "malloc probleme pour structure");
 	while (*tmp != NULL && y < current[x].nb_cmd)
 	{
-		// if ((*tmp)->content[0] == '\0')
-		// {
-		// 	printf("minishell: : command not found\n");
-		// 	g_exit = 127;
-		// 	data->error = 1;
-		// }
 		if ((*tmp) != NULL && is_redirection(*tmp) == 0 && (*tmp)->var_env == NULL)
 		{
 			current[x].cmd[y] = ft_strdup((*tmp)->content);
