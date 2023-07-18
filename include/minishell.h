@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 19:51:50 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:35:38 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ void		dot_slash_cmd_exec_handling(char *cmd, t_data *data);
 char		**get_path(t_data *data);
 void		do_execve(t_data *data, t_exec *exec, char *path);
 void		last_child_main(int pid, t_exec *exec);
+void		clear_fd(t_data *data);
 
 /* EXEC_UTILS_1 */
 char		*ft_strjoin2(char *s1, char const *s2);

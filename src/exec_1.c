@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 19:52:23 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:57:30 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	process_creation(t_data *data, t_exec *exec)
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		command_exec(data, exec);
+		clear_fd(data);
 		close(fd[1]);
 		return (-1);
 	}
@@ -169,6 +170,7 @@ int	last_child(t_data *data, t_exec *exec)
 			if (exec->cmd[0] && !is_builtin(exec->cmd[0])
 				&& exec->cmd[0][0] != '.' && exec->cmd[0][0] != '/')
 				dot_slash_cmd_exec_handling(exec->cmd[0], data);
+			clear_fd(data);
 			return (-1);
 		}
 	}

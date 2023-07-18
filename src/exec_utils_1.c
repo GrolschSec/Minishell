@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:25:03 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 11:56:19 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:40:49 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	end_exec(t_data *data)
 	close(data->cpy_out);
 	while (wait(NULL) > 0)
 		;
+	clear_fd(data);
 	clear_cmd(data);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 20:57:54 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 19:51:20 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:02:19 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	**get_path(t_data *data)
 
 void	do_execve(t_data *data, t_exec *exec, char *path)
 {
+	clear_fd(data);
 	put_env_in_tab(data);
 	execve(path, exec->cmd, data->env_tab);
 	dot_slash_cmd_exec_handling(exec->cmd[0], data);
@@ -76,4 +77,25 @@ void	last_child_main(int pid, t_exec *exec)
 		g_exit = WEXITSTATUS(status);
 	else
 		g_exit = 1;
+}
+
+void	clear_fd(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->pipes)
+	{
+		if (data->exec[i].fdin != STDIN_FILENO && data->exec[i].fdin != -1)
+		{
+			close(data->exec[i].fdin);
+			data->exec[i].fdin = -1;
+		}
+		if (data->exec[i].fdout != STDOUT_FILENO && data->exec[i].fdout != -1)
+		{
+			close(data->exec[i].fdout);
+			data->exec[i].fdout = -1;
+		}
+		i++;
+	}
 }
