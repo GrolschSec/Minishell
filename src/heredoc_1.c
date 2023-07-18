@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   heredoc_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 21:37:07 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:25:14 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,7 @@ void	get_heredoc_in(t_data *data, int fd, char *end, int type)
 	ft_putchar_fd('\n', fd);
 }
 
-char	*get_hd_path(int i)
-{
-	char	*path;
-	char	*index;
-
-	index = ft_itoa(i);
-	if (!index)
-		return (NULL);
-	path = ft_strjoin2("/tmp/.h", index);
-	if (!path)
-		return (free(index), NULL);
-	return (free(index), path);
-}
-
-int	heredoc(t_data *data, char *end, int type, int index)
+/*int	heredoc(t_data *data, char *end, int type, int index)
 {
 	int		fd;
 	int		pid;
@@ -86,7 +72,7 @@ int	heredoc(t_data *data, char *end, int type, int index)
 	else if (status == 2)
 		data->error = 3;
 	return (close(fd), free(path), -1);
-}
+}*/
 
 void	add_char_to_str(char **input, char c)
 {
@@ -117,7 +103,6 @@ void	heredoc_check(t_data *data)
 {
 	int		i;
 	t_list	*tmp;
-	int		fd;
 
 	i = 0;
 	while (i < data->pipes)
@@ -127,13 +112,7 @@ void	heredoc_check(t_data *data)
 		{
 			while (tmp)
 			{
-				if (!tmp->next && data->exec[i].is_eof)
-					data->exec[i].fdin = heredoc(data, tmp->content, tmp->type, i);
-				else
-				{
-					fd = heredoc(data, tmp->content, tmp->type, i);
-					close(fd);
-				}
+				c_open_close_hd(tmp, data, i);
 				tmp = tmp->next;
 			}
 		}
@@ -157,74 +136,4 @@ char	*convert_input(char *input, t_data *data, int type)
 		i++;
 	}
 	return (c_input);
-}
-
-int	handle_env_var(int i, char *input, char **c_input, t_data *data)
-{
-	int		j;
-	int		len;
-	char	*var;
-	char	*value;
-
-	j = 1;
-	len = 0;
-	if (!ft_isprint(input[j]))
-		return (add_char_to_str(c_input, input[i]), i);
-	else if (ft_isdigit(input[j]))
-		return (i + j);
-	else if (ft_isalpha(input[j]) || input[j] == '_')
-	{
-		while (input[j] && (ft_isalnum(input[j]) || input[j] == '_'))
-			j++;
-		len = j - 1;
-		var = malloc(sizeof(char) * (len + 1));
-		if (!var)
-			return (i);
-		ft_strlcpy(var, input + 1, len + 1);
-		value = ft_getenv(data, var);
-		if (value)
-			add_var_to_input(c_input, value);
-	}
-	return (i + len);
-}
-
-void	add_var_to_input(char **c_input, char *value)
-{
-	char	*tmp;
-
-	if (!*c_input)
-	{
-		*c_input = value;
-		return ;
-	}
-	else
-	{
-		tmp = ft_strjoin2(*c_input, value);
-		free(value);
-		if (tmp)
-		{
-			free(*c_input);
-			*c_input = tmp;
-		}	
-	}
-}
-
-void	print_heredoc_error(char *end)
-{
-	write(2, "minishell: warning: ", 20);
-	write(2, "here-document delimited by end-of-file (wanted `", 48);
-	if (end)
-		write(2, end, ft_strlen(end));
-	write(2, "')\n", 3);
-}
-
-void	exit_heredoc(t_data *data, int fd, char *input)
-{
-	close(fd);
-	if (input)
-		free(input);
-	clear_cmd(data);
-	free_env(data);
-	free(data->tilde);
-	exit(0);
 }

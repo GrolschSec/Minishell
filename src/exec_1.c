@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 20:57:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:07:39 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,7 @@ int	process_creation(t_data *data, t_exec *exec)
 	}
 	else if (pid == 0)
 	{
-		signal(SIGQUIT, ft_signal_quit);
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		command_exec(data, exec);
-		clear_fd(data);
-		close(fd[1]);
+		ps_crea_child_exec(data, exec, fd);
 		return (-1);
 	}
 	return (0);

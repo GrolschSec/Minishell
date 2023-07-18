@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
+#    By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/18 19:39:14 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/07/18 22:21:14 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ FILES = 	main					\
 			exec_1					\
 			exec_2					\
 			exec_3					\
+			exec_4					\
 			exec_utils_1			\
 			exec_utils_2			\
 			builtin_exit			\
@@ -56,7 +57,9 @@ FILES = 	main					\
 			builtin_error			\
 			builtin_unset			\
 			builtin_env				\
-			heredoc					\
+			heredoc_1				\
+			heredoc_2				\
+			heredoc_3				\
 			signal					\
 			TEST_print							
 
