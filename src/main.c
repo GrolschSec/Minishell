@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 16:07:59 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:09:26 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_data	init_main(char **env)
 	ft_bzero(&data, sizeof(data));
 	fill_env_list(env, &data);
 	update_shlvl(&data);
-	signal(SIGINT, ft_signal_newline);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	return (data);
@@ -65,11 +64,12 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	// if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
+	//if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
 	// 	return (0);
 	data = init_main(env);
 	while (1)
 	{
+		signal(SIGINT, ft_signal_newline);
 		data.input = readline(COLOR_RED "Minishell> " COLOR_RESET);
 		if (!data.input)
 		{
