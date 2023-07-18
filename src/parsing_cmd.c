@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:32:12 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/17 19:39:01 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:32:43 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	put_cmd_in_tab(t_data *data, int nb)
 	while (x < nb && data->error == 0)
 	{
 		fill_exec(data, &tmp, data->exec, x);
+		if (data->exec[x].cmd[0] == NULL)
+			data->exec[x].no_cmd = 1;
 		x++;
 	}
 }
