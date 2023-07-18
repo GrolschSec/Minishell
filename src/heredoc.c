@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 20:14:23 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:04:45 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	heredoc_check(t_data *data)
 		{
 			while (tmp)
 			{
-				if (!tmp->next && data->exec[i].is_eof && data->exec[i].nb_cmd > 0)
+				if (!tmp->next && data->exec[i].is_eof)
 					data->exec[i].fdin = heredoc(data, tmp->content, tmp->type, i);
 				else
 				{

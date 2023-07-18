@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:36:27 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 17:41:59 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:52:45 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	type_dollar(t_data *data, t_list *tmp, int i)
 			tmp->type = COMMANDE;
 		return ;
 	}
-	if (i > 1)
+	if (i > 1 && tmp->content[i] != '$')
 		fill_prev(data, tmp, &prev, i);
 	if (tmp->content[i] == '?')
 		dollar_exitcode(data, tmp, &i, prev);
