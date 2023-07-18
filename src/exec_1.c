@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 16:30:05 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:03:58 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,12 @@ void	execution(t_data *data)
 	data->cpy_out = dup(1);
 	while (i < data->pipes - 1)
 	{
-		if (process_creation(data, &data->exec[i]) < 0)
+		if (data->exec[i].no_cmd)
+		{
+			i++;
+			continue ;
+		}
+		else if (process_creation(data, &data->exec[i]) < 0)
 		{
 			execution_handling(data, i);
 			return ;
@@ -36,7 +41,8 @@ void	execution(t_data *data)
 		i++;
 	}
 	data->exec[i].is_last = 1;
-	exec_last_child(data, &data->exec[i]);
+	if (!data->exec[i].no_cmd)
+		exec_last_child(data, &data->exec[i]);
 	end_exec(data);
 	return ;
 }
