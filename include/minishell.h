@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 22:20:25 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:40:30 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_data
 	char		**env_tab;
 	int			nb_env;
 	char		*tilde;
+	char		*tmp_path_hd;
 }				t_data;
 
 /* PRINT ----  TO REMOVE */

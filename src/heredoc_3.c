@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:53:41 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 22:34:31 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:42:20 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	handle_child_process(t_data *data, int fd, char *end, int type)
 	return (0);
 }
 
-int	process_fork(t_data *data, int fd, char *end, int type, char *path)
+int	process_fork(t_data *data, int fd, char *end, int type)
 {
 	int	status;
 	int	pid;
@@ -60,7 +60,7 @@ int	process_fork(t_data *data, int fd, char *end, int type, char *path)
 	signal(SIGINT, ft_signal_newline2);
 	if (pid == 0)
 	{
-		free(path);
+		free(data->tmp_path_hd);
 		return (handle_child_process(data, fd, end, type));
 	}
 	waitpid(pid, &status, 0);
@@ -71,19 +71,18 @@ int	heredoc(t_data *data, char *end, int type, int index)
 {
 	int		fd;
 	int		status;
-	char	*path;
 
-	path = create_file(&fd, index);
-	if (!path)
+	data->tmp_path_hd = create_file(&fd, index);
+	if (!data->tmp_path_hd)
 		return (-1);
-	status = process_fork(data, fd, end, type, path);
+	status = process_fork(data, fd, end, type);
 	if (WIFEXITED(status))
 	{
 		close(fd);
-		fd = open(path, O_RDWR);
-		return (free(path), fd);
+		fd = open(data->tmp_path_hd, O_RDWR);
+		return (free(data->tmp_path_hd), fd);
 	}
 	else if (status == 2)
 		data->error = 3;
-	return (close(fd), free(path), -1);
+	return (close(fd), free(data->tmp_path_hd), -1);
 }
