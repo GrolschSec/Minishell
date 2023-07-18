@@ -6,7 +6,7 @@
 #    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/18 15:37:51 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/07/18 19:39:14 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES = 	main					\
 			assign_dollar_env		\
 			assign_dollar_exitcode	\
 			assign_redirections		\
+			check_input				\
 			parsing_cmd				\
 			count_cmd				\
 			init_exec				\

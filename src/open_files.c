@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 18:56:59 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:33:52 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ void	open_outfile(t_data *data, int x, t_list *out)
 					O_CREAT | O_RDWR | O_APPEND, 0644);
 		}
 		if (data->exec[x].fdout == -1)
-		{
 			ft_putstr_fd("Fail to open fdout\n", STDERR_FILENO);
-		}
 		out = out->next;
 	}
 	if (data->exec[x].redirect_output && data->exec[x].nb_cmd == 0)
+	{
 		data->exec[x].fdout = open("/dev/null", O_WRONLY);
+		data->exec[x].no_cmd = 1;
+	}
 }
 
 void	open_infile(t_data *data, int x, int in)
