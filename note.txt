@@ -1,11 +1,3 @@
-BONUS:
-	- Incrementer la variable SHLVL au debut du minishell
-	- Decrementer avant de quitter
-
-Erreur Exec: 
-	- cat | ls
-	- cat | cat | cat | ls
-
 HEREDOC:
 	- LEAK DE FD
 	- LEAK
