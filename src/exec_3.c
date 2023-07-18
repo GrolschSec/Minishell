@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 20:57:54 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/16 17:55:38 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:44:51 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ char	**get_path(t_data *data)
 void	do_execve(t_data *data, t_exec *exec, char *path)
 {
 	put_env_in_tab(data);
-	close(data->cpy_in);
-	close(data->cpy_out);
 	execve(path, exec->cmd, data->env_tab);
 	dot_slash_cmd_exec_handling(exec->cmd[0], data);
 	if (data->env_tab)
