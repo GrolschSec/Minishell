@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:31:52 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 21:04:45 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:37:07 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,12 @@ void	get_heredoc_in(t_data *data, int fd, char *end, int type)
 	if (!input)
 	{
 		print_heredoc_error(end);
-		close(fd);
-		free(input);
-		free(end);
-		exit_heredoc(data, 0);
+		exit_heredoc(data, fd, input);
 	}
 	if (ft_strncmp(input, end, ft_strlen(end)) == 0
 		&& ft_strlen(end) == ft_strlen(input))
 	{
-		close(fd);
-		free(input);
-		free(end);
-		exit_heredoc(data, 0);
+		exit_heredoc(data, fd, input);
 	}
 	tmp = convert_input(input, data, type);
 	free(input);
@@ -142,8 +136,6 @@ void	heredoc_check(t_data *data)
 				}
 				tmp = tmp->next;
 			}
-			if (data->exec[i].eof && data->exec[i].eof != NULL)
-				ft_lstclear(&data->exec[i].eof, del);
 		}
 		i++;
 	}
@@ -226,30 +218,13 @@ void	print_heredoc_error(char *end)
 	write(2, "')\n", 3);
 }
 
-void	exit_heredoc(t_data *data, int error)
+void	exit_heredoc(t_data *data, int fd, char *input)
 {
-	int	i;
-
-	i = 0;
-	if (data->token_list && data->token_list != NULL)
-		ft_lstclear(&data->token_list, del);
-	if (data->pipes > 0)
-	{
-		while (i < data->pipes)
-		{
-			if (data->exec[i].cmd && data->exec[i].cmd != NULL)
-				free_tab(data->exec[i].cmd);
-			if (data->exec[i].infile && data->exec[i].infile != NULL)
-				free_tab(data->exec[i].infile);
-			if (data->exec[i].outfile && data->exec[i].outfile != NULL)
-				ft_lstclear(&data->exec[i].outfile, del);
-			i++;
-		}
-		if (data->exec && data->exec != NULL)
-			free(data->exec);
-	}
+	close(fd);
+	if (input)
+		free(input);
+	clear_cmd(data);
 	free_env(data);
-	if (data->tilde)
-		free(data->tilde);
-	exit(error);
+	free(data->tilde);
+	exit(0);
 }
