@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/17 19:43:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:08:15 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,38 @@ void	update_shlvl(t_data *data)
 	ft_setenv(data, "SHLVL=", new_val);
 }
 
+void	init_main(t_data *data, char **env)
+{
+	ft_bzero(data, sizeof(data));
+	fill_env_list(env, data);
+	update_shlvl(data);
+	signal(SIGINT, ft_signal_newline);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+}
+
+void	parse_and_exec(t_data *data)
+{
+	data->error = 0;
+	add_history(data->input);
+	parse_cmd(data);
+	if (data->error == 0)
+		execution(data);
+	else
+		clear_cmd(data);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
-	(void)argv;
 	(void)argc;
-	// if (!isatty(STDIN_FILENO))
-	// 	return (0);
-	ft_bzero(&data, sizeof(data));
-	fill_env_list(env, &data);
-	update_shlvl(&data);
+	(void)argv;
+	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
+		return (0);
+	init_main(&data, env);
 	while (1)
 	{
-		data.error = 0;
-		signal(SIGINT, ft_signal_newline);
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGTSTP, SIG_IGN);
 		data.input = readline(COLOR_RED "Minishell> " COLOR_RESET);
 		if (!data.input)
 		{
@@ -56,14 +71,7 @@ int	main(int argc, char **argv, char **env)
 			exit_all(&data, 0, NULL);
 		}
 		else if (data.input && data.input[0])
-		{
-			add_history(data.input);
-			parse_cmd(&data);
-			if (data.error == 0)
-				execution(&data);
-			else
-				clear_cmd(&data);
-		}
+			parse_and_exec(&data);
 	}
 	return (0);
 }
