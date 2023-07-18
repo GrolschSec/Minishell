@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 11:08:15 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:50:50 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,17 @@ void	update_shlvl(t_data *data)
 	ft_setenv(data, "SHLVL=", new_val);
 }
 
-void	init_main(t_data *data, char **env)
+t_data	init_main(char **env)
 {
-	ft_bzero(data, sizeof(data));
-	fill_env_list(env, data);
-	update_shlvl(data);
+	t_data	data;
+
+	ft_bzero(&data, sizeof(data));
+	fill_env_list(env, &data);
+	update_shlvl(&data);
 	signal(SIGINT, ft_signal_newline);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
+	return (data);
 }
 
 void	parse_and_exec(t_data *data)
@@ -61,7 +64,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
 		return (0);
-	init_main(&data, env);
+	data = init_main(env);
 	while (1)
 	{
 		data.input = readline(COLOR_RED "Minishell> " COLOR_RESET);

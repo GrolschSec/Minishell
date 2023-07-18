@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 11:09:04 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:51:30 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		print_all(t_data *data);
 
 /* MAIN */
 void		print_all(t_data *data);
-void		init_main(t_data *data, char **env);
+t_data		init_main(char **env);
 void		update_shlvl(t_data *data);
 void		parse_and_exec(t_data *data);
 
