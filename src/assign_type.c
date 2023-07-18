@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 16:18:32 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:46:38 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	is_unexpected(t_data *data, t_list *tmp)
 	{
 		data->error = 1;
 		g_exit = 2;
-		printf("minishell: unexpected input\n");
+		ft_putstr_fd("minishell: unexpected input\n", STDERR_FILENO);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:09:31 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/15 16:49:36 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:03:27 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_redirection(t_list *tmp)
 	return (0);
 }
 
-void	put_infiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
+void	put_infiles_in_tab(t_data *data, t_list **tmp, t_exec *current)
 {
 	int	nb_infile;
 
@@ -57,14 +57,14 @@ void	put_infiles_in_tab(t_data *data, t_list *tmp, t_exec *current)
 				* (current->redirect_input + 1));
 	if (current->infile == NULL)
 		exit_all(data, 1, "problem in redirect input");
-	while (tmp != NULL && nb_infile < current->redirect_input)
+	while ((*tmp) != NULL && nb_infile < current->redirect_input)
 	{
-		if (tmp->type == INFILE)
+		if ((*tmp)->type == INFILE)
 		{
-			current->infile[nb_infile] = ft_strdup(tmp->content);
+			current->infile[nb_infile] = ft_strdup((*tmp)->content);
 			nb_infile++;
 		}
-		tmp = tmp->next;
+		(*tmp) = (*tmp)->next;
 	}
 	current->infile[current->redirect_input] = NULL;
 }
@@ -136,7 +136,7 @@ void	fill_files(t_data *data)
 	tmp = data->token_list;
 	while (x < data->pipes)
 	{
-		put_infiles_in_tab(data, tmp, &data->exec[x]);
+		put_infiles_in_tab(data, &tmp, &data->exec[x]);
 		if (tmp->type == PIPE && tmp != NULL)
 			tmp = tmp->next;
 		x++;

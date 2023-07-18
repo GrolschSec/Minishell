@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 16:19:16 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:55:54 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,13 @@ void	open_outfile(t_data *data, int x, t_list *out)
 		}
 		if (data->exec[x].fdout == -1)
 		{
-			printf("Fail to open fdout\n");
+			ft_putstr_fd("Fail to open fdout\n", STDERR_FILENO);
 		}
 		out = out->next;
 	}
 	if (data->exec[x].redirect_output && data->exec[x].nb_cmd == 0)
 	{
-		// data->exec[x].fail_fd = 1;
 		data->exec[x].fdout = open("/dev/null", O_WRONLY);
-		// g_exit = 1;
 	}
 }
 
@@ -52,7 +50,6 @@ void	open_infile(t_data *data, int x, int in)
 	if (access(data->exec[x].infile[in - 1], R_OK) != 0)
 	{
 		exec_error(data->exec[x].infile[in - 1], "No such file or directory");
-		// data->exec[x].fail_fd = 1;
 		data->exec[x].fdin = open("/dev/null", O_RDONLY);
 		g_exit = 1;
 	}
@@ -61,13 +58,12 @@ void	open_infile(t_data *data, int x, int in)
 		data->exec[x].fdin = open(data->exec[x].infile[in - 1],
 				O_RDONLY);
 		if (data->exec[x].fdin < 0)
-			printf("Fail to open fdin\n");
+			ft_putstr_fd("Fail to open fdin\n", STDERR_FILENO);
 	}
 	else if (data->exec[x].is_eof)
 		return ;
 	else
 	{
-		// data->exec[x].fail_fd = 1;
 		data->exec[x].fdin = open("/dev/null", O_RDONLY);
 		g_exit = 1;
 	}

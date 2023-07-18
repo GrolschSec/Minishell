@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:12:25 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/16 15:05:09 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:42:31 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	parse_meta(t_data *data, t_list *tmp)
 		if (i == 0)
 			tmp->type = PIPE;
 		else
-			error (data, tmp->content);
+			error(data, tmp->content);
 	}
 	else
 		is_unexpected(data, tmp);
