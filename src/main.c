@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 14:59:08 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:07:59 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
-		return (0);
+	// if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
+	// 	return (0);
 	data = init_main(env);
 	while (1)
 	{
