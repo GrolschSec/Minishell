@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/19 19:14:21 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:06:17 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 	actual_path = getcwd(NULL, 0);
 	if (!actual_path)
 	{
-		parent_no_exist(data, exec);
+		no_actual_path_case(home, exec, data);
 		return ;
 	}
 	ex_code = chdir(home);
@@ -154,4 +154,24 @@ void	cd_builtin(t_data *data, t_exec *exec)
 		cd_no_arg_case(data, exec);
 	else if (exec->nb_cmd == 2)
 		cd_arg_case(data, exec);
+}
+
+void	no_actual_path_case(char *home, t_exec *exec, t_data *data)
+{
+	DIR	*dir;
+	
+	dir = opendir(home);
+	if (dir == NULL)
+	{
+		cd_error(exec->cmd[1]);
+		g_exit = 1;
+	}
+	if (exec->is_last && data->pipes == 1 && dir != NULL)
+	{
+		chdir(home);
+		ft_setenv(data, "OLDPWD=", ft_getenv(data, "PWD"));
+		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+		closedir(dir);
+	}
+	free(home);
 }

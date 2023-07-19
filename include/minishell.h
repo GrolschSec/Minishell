@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/19 19:14:07 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:56:55 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 # include <errno.h>
+# include <dirent.h>
 # define COLOR_RESET "\e[0;37m"
 # define COLOR_RED "\e[1;31m"
 
@@ -221,6 +222,7 @@ void		cd_error(char *path);
 void		cd_builtin(t_data *data, t_exec *exec);
 void		cd_no_arg_case(t_data *data, t_exec *exec);
 void		cd_arg_case(t_data *data, t_exec *exec);
+void		no_actual_path_case(char *home, t_exec *exec, t_data *data);
 
 /* BUILTIN_EXPORT */
 void		ft_setenv(t_data *data, char *name, char *value);
