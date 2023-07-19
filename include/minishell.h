@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/19 20:59:16 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:05:19 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int			is_meta(char c);
 int			is_space(char c);
 void		if_is_quote(t_data *data, int *i, int *j);
 char		*fill_tmp(char *str, int len);
-void		add_node(t_data *data, int i, int j, char quotetype);
+void		add_node(t_data *dataft_setenv(data, "OLDPWD=", ft_getenv(data, "PWD"));
+		ft_setenv(data, "PWD=", getcwd(NULL, 0));, int i, int j, char quotetype);
 void		add_empty_node(t_data *data);
 void		split_in_list(t_data *data);
 void		add_in_previous_node(t_data *data, int *i, int *j, char quote);
@@ -143,6 +144,10 @@ void		is_unexpected(t_data *data, t_list *tmp);
 void		parse_meta(t_data *data, t_list *tmp);
 void		assign_type(t_data *data);
 void		fill_all(t_list *tmp, char *variable, char *prev, char *next);
+
+/* MALLOC UTILS */
+char		**malloc_one_tab(t_data *data, char **str);
+void		malloc_one(t_data *data, t_list *tmp);
 
 /* COUNT */
 void		init_exec(t_exec *current, int x);

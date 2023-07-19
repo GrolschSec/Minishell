@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/18 22:21:14 by rlouvrie         ###   ########.fr        #
+#    Updated: 2023/07/19 19:46:57 by mrabourd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES = 	main					\
 			assign_dollar_env		\
 			assign_dollar_exitcode	\
 			assign_redirections		\
+			malloc_utils			\
 			check_input				\
 			parsing_cmd				\
 			count_cmd				\
