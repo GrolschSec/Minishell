@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:01:01 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/13 18:39:47 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:17:38 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ void	fill_env_list(char **env, t_data *data)
 	{
 		data->env = NULL;
 		data->nb_env = 0;
+		data->tilde = malloc(sizeof(char));
+		if (!data->tilde)
+			exit_all(data, 1, "Malloc problem");
+		data->tilde[0] = '\0';
 		return ;
 	}
 	data->nb_env = ft_lstsize(data->env);
