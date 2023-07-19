@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/19 20:06:17 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:18:51 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	cd_error(char *path)
 	msg = ft_strjoin2("minishell: cd: ", path);
 	if (!msg)
 		return ;
+	if (errno == ESTALE)
+		errno = ENOENT;
 	perror(msg);
 	free(msg);
 }
@@ -112,30 +114,19 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 
 void	cd_arg_case(t_data *data, t_exec *exec)
 {
-	char	*actual_path;
-	int		ex_code;
-
-	actual_path = getcwd(NULL, 0);
-	if (!actual_path)
-	{
-		parent_no_exist(data, exec);
-		return ;
-	}
-	ex_code = chdir(exec->cmd[1]);
-	if (ex_code != 0)
+	DIR *dir;
+	
+	dir = opendir(exec->cmd[1]);
+	if (!dir)
 	{
 		cd_error(exec->cmd[1]);
 		g_exit = 1;
 	}
-	if (exec->is_last && data->pipes == 1 && ex_code == 0)
+	if (exec->is_last && data->pipes == 1 && dir)
 	{
+		chdir(exec->cmd[1]);
+		ft_setenv(data, "OLDPWD=", ft_getenv(data, "PWD"));
 		ft_setenv(data, "PWD=", getcwd(NULL, 0));
-		ft_setenv(data, "OLDPWD=", actual_path);
-	}
-	else if (exec->is_last && data->pipes > 1)
-	{
-		chdir(actual_path);
-		free(actual_path);
 	}
 }
 
