@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 19:38:57 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:40:07 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,10 @@ void	cd_builtin(t_data *data, t_exec *exec)
 		g_exit = 1;
 		return ;
 	}
+	else if (exec->nb_cmd == 2
+		&& exec->cmd[1] 
+		&& exec->cmd[1][0] == '\0')
+		return ;
 	else if (exec->nb_cmd == 1)
 		cd_no_arg_case(data, exec);
 	else if (exec->nb_cmd == 2)

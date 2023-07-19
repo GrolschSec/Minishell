@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:48:42 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/15 17:15:51 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:14:39 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ char	*ft_getenv(t_data *data, char *name)
 		return (str_tmp);
 	}
 	return (NULL);
+}
+
+void	else_cond_ft_setenv(t_list *env, char *new_env)
+{
+	char	*tmp_str;
+
+	tmp_str = env->content;
+	env->content = new_env;
+	free(tmp_str);
 }

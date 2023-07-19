@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 21:21:52 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:40:30 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_data
 	char		**env_tab;
 	int			nb_env;
 	char		*tilde;
+	char		*tmp_path_hd;
 }				t_data;
 
 /* PRINT ----  TO REMOVE */
@@ -194,6 +195,9 @@ void		do_execve(t_data *data, t_exec *exec, char *path);
 void		last_child_main(int pid, t_exec *exec);
 void		clear_fd(t_data *data);
 
+/* EXEC_4 */
+void		ps_crea_child_exec(t_data *data, t_exec *exec, int *fd);
+
 /* EXEC_UTILS_1 */
 char		*ft_strjoin2(char *s1, char const *s2);
 void		end_exec(t_data *data);
@@ -238,6 +242,7 @@ void		invalid_option_pwd(char *cmd);
 /* BUILTIN UTILS */
 char		*ft_getenv(t_data *data, char *name);
 char		*get_value(t_list *env);
+void		else_cond_ft_setenv(t_list *env, char *new_env);
 
 /* BUILTIN ERROR */
 void		invalid_option(char c);
@@ -269,6 +274,7 @@ void		add_char_to_str(char **input, char c);
 void		exit_heredoc(t_data *data, int fd, char *input);
 void		add_var_to_input(char **c_input, char *value);
 int			heredoc(t_data *data, char *end, int type, int index);
+void		c_open_close_hd(t_list *tmp, t_data *data, int i);
 char		*get_hd_path(int i);
 
 /* SIGNAL */

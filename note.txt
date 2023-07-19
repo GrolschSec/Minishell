@@ -1,3 +1,98 @@
-HEREDOC:
-	- LEAK DE FD
-	- LEAK
+\n
+minishell: \n: command not found
+
+
+Minishell> "": command_not_found exepected
+Minishell> '': Same
+
+Minishell> *
+minishell: *: command not found
+
+Minishell> .  Ouput: minishell: .: command not found Expected: minishell: .: filename argument required
+
+Minishell> ABC=hola Expected: None
+
+Minishell> echo \n Hola
+
+Minishell> echo $UID
+
+Minishell> echo $9HOME
+
+Minishell> env env
+
+Minishell> env ls
+
+Minishell> export
+
+Minishell> export ""
+
+Minishell> export =
+
+Minishell> export _HOLA=bonjour
+
+Minishell> export ___HOLA=
+
+Minishell> export HOLA =bonjour
+
+Minishell> export HOLA = bonjour
+
+export bon@jour
+
+$> export HOLA=bon!jour
+
+"$> export HOLA=bonjour=casse-toi
+$> echo $HOLA"
+Note problem de ft_getenv dans ce cas qui renvois seulement bonjour a cause du split
+
+
+"$> pwd
+$> unset PWD
+$> env | grep PWD
+$> cd $PWD
+$> pwd"
+
+$> unset -HOLA
+$> unset $HOLA
+$> unset $PWD
+$> unset HOL@
+$> unset HOL^A
+$> unset HOL$?A
+$> unset =
+$> unset ======
+$> unset ++++++
+$> unset _______
+
+
+$> history
+
+$> cd -
+
+$> cd --
+
+$> cd ---
+
+"$> unset HOME
+$> export HOME=
+$> cd"
+
+SEGFAULT:
+"$> mkdir a
+$> mkdir a/b
+$> cd a/b
+$> rm -r ../../a
+$> cd .."
+
+NO ERROR HANDLING
+"$> mkdir a
+$> mkdir a/b
+$> cd a/b
+$> rm -r ../../a
+$> pwd"
+
+
+SEGFAULT:
+"$> env -i ./minishell
+$> cd ~"
+
+
+STOP LIGNE 559
