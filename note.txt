@@ -51,23 +51,7 @@ $> env | grep PWD
 $> cd $PWD
 $> pwd"
 
-$> unset 9HOLA
-$> unset HOL?A
-$> unset HOLA HOL?A
-$> unset HOL?A HOLA
-$> unset HOL?A HOL.A
-$> unset HOL.A
-$> unset HOL+A
-$> unset HOL=A
-$> unset HOL{A
-$> unset HOL}A
-$> unset HOL-A
 $> unset -HOLA
-$> unset _HOLA
-$> unset HOL_A
-$> unset HOLA_
-$> unset HOL*A
-$> unset HOL#A
 $> unset $HOLA
 $> unset $PWD
 $> unset HOL@
