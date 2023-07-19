@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:45:43 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/17 19:14:27 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:14:00 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	pwd_builtin(t_exec *exec)
 	}
 	path = getcwd(NULL, 0);
 	if (!path)
+	{
+		error_cannot_getcwd();
 		return ;
+	}
 	printf("%s\n", path);
 	free(path);
 	g_exit = 0;
@@ -57,4 +60,12 @@ void	invalid_option_pwd(char *cmd)
 	write(2, &cmd[1], 1);
 	write(2, ": invalid option\n", 17);
 	write(2, "pwd: usage: pwd\n", 16);
+}
+
+void	error_cannot_getcwd(void)
+{
+	ft_putstr_fd("pwd: error retrieving current directory: ", 2);
+	ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putchar_fd('\n', 2);
 }

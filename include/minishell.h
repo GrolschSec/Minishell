@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/19 18:08:35 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:14:07 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ int			is_n_options(char *cmd);
 void		pwd_builtin(t_exec *exec);
 int			parse_pwd(char *cmd);
 void		invalid_option_pwd(char *cmd);
+void		error_cannot_getcwd(void);
 
 /* BUILTIN UTILS */
 char		*ft_getenv(t_data *data, char *name);
