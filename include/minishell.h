@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 22:40:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:08:35 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,7 @@ void		invalid_option_pwd(char *cmd);
 char		*ft_getenv(t_data *data, char *name);
 char		*get_value(t_list *env);
 void		else_cond_ft_setenv(t_list *env, char *new_env);
+void		parent_no_exist(t_data *data, t_exec *exec);
 
 /* BUILTIN ERROR */
 void		invalid_option(char c);

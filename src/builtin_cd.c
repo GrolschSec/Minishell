@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/19 17:40:07 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:08:13 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 		return ;
 	}
 	actual_path = getcwd(NULL, 0);
+	if (!actual_path)
+	{
+		parent_no_exist(data, exec);
+		return ;
+	}
 	ex_code = chdir(home);
 	no_arg_exec(ex_code, exec, actual_path, data);
 	free(home);
@@ -111,6 +116,11 @@ void	cd_arg_case(t_data *data, t_exec *exec)
 	int		ex_code;
 
 	actual_path = getcwd(NULL, 0);
+	if (!actual_path)
+	{
+		parent_no_exist(data, exec);
+		return ;
+	}
 	ex_code = chdir(exec->cmd[1]);
 	if (ex_code != 0)
 	{
@@ -137,8 +147,7 @@ void	cd_builtin(t_data *data, t_exec *exec)
 		g_exit = 1;
 		return ;
 	}
-	else if (exec->nb_cmd == 2
-		&& exec->cmd[1] 
+	else if (exec->nb_cmd == 2 && exec->cmd[1]
 		&& exec->cmd[1][0] == '\0')
 		return ;
 	else if (exec->nb_cmd == 1)
@@ -146,3 +155,4 @@ void	cd_builtin(t_data *data, t_exec *exec)
 	else if (exec->nb_cmd == 2)
 		cd_arg_case(data, exec);
 }
+

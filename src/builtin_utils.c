@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:48:42 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 22:14:39 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:08:22 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,12 @@ void	else_cond_ft_setenv(t_list *env, char *new_env)
 	tmp_str = env->content;
 	env->content = new_env;
 	free(tmp_str);
+}
+
+void	parent_no_exist(t_data *data, t_exec *exec)
+{
+	(void)data;
+	(void)exec;
+	ft_putstr_fd("chdir: error retrieving current directory: ", 2);
+	perror("get_cwd: cannot access parent directories");
 }
