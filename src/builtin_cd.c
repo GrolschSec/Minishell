@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/19 20:54:58 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:01:08 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 	if (exec->is_last && data->pipes == 1 && dir)
 	{
 		chdir(home);
-		ft_setenv(data, "OLDPWD=", ft_getenv(data, "PWD"));
-		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+		set_env_var_cd(data);
 	}
-	closedir(dir);
+	if (dir)
+		closedir(dir);
 	if (home)
 		free(home);
 	g_exit = 0;
@@ -107,8 +107,7 @@ void	cd_arg_case(t_data *data, t_exec *exec)
 	if (exec->is_last && data->pipes == 1 && dir)
 	{
 		chdir(exec->cmd[1]);
-		ft_setenv(data, "OLDPWD=", ft_getenv(data, "PWD"));
-		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+		set_env_var_cd(data);
 		closedir(dir);
 	}
 	else if (dir)
@@ -127,4 +126,14 @@ void	cd_builtin(t_data *data, t_exec *exec)
 		cd_no_arg_case(data, exec);
 	else if (exec->nb_cmd == 2)
 		cd_arg_case(data, exec);
+}
+
+void	set_env_var_cd(t_data *data)
+{
+	char	*path;
+
+	path = ft_getenv(data, "PWD");
+	if (path)
+		ft_setenv(data, "OLDPWD=", path);
+	ft_setenv(data, "PWD=", getcwd(NULL, 0));
 }
