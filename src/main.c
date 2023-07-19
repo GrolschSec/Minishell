@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:07:16 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 22:10:33 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:48:10 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_data	init_main(char **env)
 	update_shlvl(&data);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
+	ft_setenv(&data, "PWD=", getcwd(NULL, 0));
 	return (data);
 }
 

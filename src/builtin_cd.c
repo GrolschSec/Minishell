@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:23:20 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/19 20:18:51 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:54:58 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,36 +62,15 @@ void	cd_error(char *path)
 	msg = ft_strjoin2("minishell: cd: ", path);
 	if (!msg)
 		return ;
-	if (errno == ESTALE)
-		errno = ENOENT;
 	perror(msg);
 	free(msg);
-}
-
-void	no_arg_exec(int ex_code, t_exec *exec, char *actual_path, t_data *data)
-{
-	if (ex_code != 0)
-	{
-		cd_error(exec->cmd[1]);
-		g_exit = 1;
-	}
-	if (exec->is_last && data->pipes == 1 && ex_code == 0)
-	{
-		ft_setenv(data, "PWD=", getcwd(NULL, 0));
-		ft_setenv(data, "OLDPWD=", actual_path);
-	}
-	else if (exec->is_last && data->pipes > 1)
-	{
-		chdir(actual_path);
-		free(actual_path);
-	}
+	g_exit = 1;
 }
 
 void	cd_no_arg_case(t_data *data, t_exec *exec)
 {
 	char	*home;
-	char	*actual_path;
-	int		ex_code;
+	DIR		*dir;
 
 	home = ft_getenv(data, "HOME");
 	if (!home)
@@ -100,34 +79,40 @@ void	cd_no_arg_case(t_data *data, t_exec *exec)
 		g_exit = 1;
 		return ;
 	}
-	actual_path = getcwd(NULL, 0);
-	if (!actual_path)
+	dir = opendir(home);
+	if (dir == NULL)
+		cd_error(home);
+	if (exec->is_last && data->pipes == 1 && dir)
 	{
-		no_actual_path_case(home, exec, data);
-		return ;
+		chdir(home);
+		ft_setenv(data, "OLDPWD=", ft_getenv(data, "PWD"));
+		ft_setenv(data, "PWD=", getcwd(NULL, 0));
 	}
-	ex_code = chdir(home);
-	no_arg_exec(ex_code, exec, actual_path, data);
-	free(home);
+	closedir(dir);
+	if (home)
+		free(home);
 	g_exit = 0;
 }
 
 void	cd_arg_case(t_data *data, t_exec *exec)
 {
-	DIR *dir;
-	
+	DIR	*dir;
+
+	if (exec->nb_cmd == 2 && exec->cmd[1]
+		&& exec->cmd[1][0] == '\0')
+		return ;
 	dir = opendir(exec->cmd[1]);
 	if (!dir)
-	{
 		cd_error(exec->cmd[1]);
-		g_exit = 1;
-	}
 	if (exec->is_last && data->pipes == 1 && dir)
 	{
 		chdir(exec->cmd[1]);
 		ft_setenv(data, "OLDPWD=", ft_getenv(data, "PWD"));
 		ft_setenv(data, "PWD=", getcwd(NULL, 0));
+		closedir(dir);
 	}
+	else if (dir)
+		closedir(dir);
 }
 
 void	cd_builtin(t_data *data, t_exec *exec)
@@ -138,31 +123,8 @@ void	cd_builtin(t_data *data, t_exec *exec)
 		g_exit = 1;
 		return ;
 	}
-	else if (exec->nb_cmd == 2 && exec->cmd[1]
-		&& exec->cmd[1][0] == '\0')
-		return ;
 	else if (exec->nb_cmd == 1)
 		cd_no_arg_case(data, exec);
 	else if (exec->nb_cmd == 2)
 		cd_arg_case(data, exec);
-}
-
-void	no_actual_path_case(char *home, t_exec *exec, t_data *data)
-{
-	DIR	*dir;
-	
-	dir = opendir(home);
-	if (dir == NULL)
-	{
-		cd_error(exec->cmd[1]);
-		g_exit = 1;
-	}
-	if (exec->is_last && data->pipes == 1 && dir != NULL)
-	{
-		chdir(home);
-		ft_setenv(data, "OLDPWD=", ft_getenv(data, "PWD"));
-		ft_setenv(data, "PWD=", getcwd(NULL, 0));
-		closedir(dir);
-	}
-	free(home);
 }
