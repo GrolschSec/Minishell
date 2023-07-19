@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 20:57:54 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 21:02:19 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:14:48 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	last_child_main(int pid, t_exec *exec)
 	int	status;
 
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status) && !exec->fail_fd)
-		g_exit = WEXITSTATUS(status);
-	else
+	if (exec->fail_fd)
 		g_exit = 1;
+	else if (WIFEXITED(status))
+		g_exit = WEXITSTATUS(status);
 }
 
 void	clear_fd(t_data *data)
