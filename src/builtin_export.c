@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:12:49 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 22:16:50 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:24:38 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,14 @@ int	parse_export(char *var)
 		if (i == 0 && var[i] == '-' && var[i + 1])
 			return (invalid_option(var[i + 1]), 0);
 		else if (i == 0 && !ft_isalpha(var[i]))
+		{
+			if (var[i] == '_')
+			{
+				i++;
+				continue ;
+			}
 			return (not_valid_identifier(var), 0);
+		}
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 			return (not_valid_identifier(var), 0);
 		i++;

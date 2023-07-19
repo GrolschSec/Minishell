@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 12:53:17 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/05 15:45:31 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:30:18 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	is_n_options(char *cmd)
 	int	i;
 
 	i = 0;
+	if (cmd[i] == '-' && ft_strlen(cmd) == 1)
+		return (0);
 	if (cmd[i] == '-')
 		i++;
 	else
