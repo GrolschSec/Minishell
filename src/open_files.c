@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:24:51 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 22:03:12 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:11:55 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,45 @@ void	open_outfile(t_data *data, int x, t_list *out)
 	}
 }
 
-void	open_fdin(t_data *data, int x, int in)
+void	error_open_fdin(t_data *data, int x, int i)
 {
-	exec_error(data->exec[x].infile[in - 1], strerror(errno));
-	data->exec[x].fdin = open("/dev/null", O_RDONLY);
+	exec_error(data->exec[x].infile[i], strerror(errno));
+	if (i == data->exec[x].redirect_input - 1)
+	{
+		data->exec[x].fdin = open("/dev/null", O_RDONLY);
+	}
 	data->exec[x].fail_fd = 1;
+	data->exec[x].no_cmd = 1;
 	g_exit = 1;
 }
 
 void	open_infile(t_data *data, int x, int in)
 {
+	int	i;
+
+	i = 0;
 	in = data->exec[x].redirect_input;
 	if (data->exec[x].nb_cmd == 0)
 		data->exec[x].no_cmd = 1;
 	if (data->exec[x].fdin != 0 && !data->exec[x].is_eof)
 		close(data->exec[x].fdin);
-	if (access(data->exec[x].infile[in - 1], R_OK) != 0)
-		open_fdin(data, x, in);
-	else if (data->exec[x].cmd[0] != NULL && !data->exec[x].is_eof)
+	while (i < data->exec[x].redirect_input)
 	{
-		data->exec[x].fdin = open(data->exec[x].infile[in - 1],
-				O_RDONLY);
+		if (access(data->exec[x].infile[i], R_OK) != 0)
+		{
+			error_open_fdin(data, x, i);
+			return ;
+		}
+		i++;
+	}
+	if (data->exec[x].cmd[0] != NULL && !data->exec[x].is_eof)
+	{
+		data->exec[x].fdin = open(data->exec[x].infile[in - 1], O_RDONLY);
 		if (data->exec[x].fdin < 0)
 			ft_putstr_fd("Fail to open fdin\n", STDERR_FILENO);
 	}
 	else if (data->exec[x].is_eof)
 		return ;
-	else
-	{
-		data->exec[x].fdin = open("/dev/null", O_RDONLY);
-		data->exec[x].fail_fd = 1;
-		g_exit = 1;
-	}
 }
 
 void	open_files(t_data *data)

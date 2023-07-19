@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/18 22:40:30 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:46:46 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void		put_cmd_in_tab(t_data *data, int nb);
 void		parse_cmd(t_data *data);
 
 /* ASSIGN TYPES */
+void		malloc_one(t_data *data, t_list *tmp);
 char		*fill_next(t_list *tmp, int *i);
 char		*parse_var(char *str, int *i);
 void		is_env_variable(t_data *data, t_list *tmp, int *i, char *prev);
@@ -142,6 +143,10 @@ void		is_unexpected(t_data *data, t_list *tmp);
 void		parse_meta(t_data *data, t_list *tmp);
 void		assign_type(t_data *data);
 void		fill_all(t_list *tmp, char *variable, char *prev, char *next);
+
+/* MALLOC UTILS */
+char		**malloc_one_tab(t_data *data, char **str);
+void		malloc_one(t_data *data, t_list *tmp);
 
 /* COUNT */
 void		init_exec(t_exec *current, int x);

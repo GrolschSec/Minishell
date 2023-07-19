@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 22:07:39 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:30:58 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,6 @@ int	command_exec(t_data *data, t_exec *exec)
  */
 int	exec_last_child(t_data *data, t_exec *exec)
 {
-	if (!exec->cmd[0] && exec->heredoc > 0)
-		return (0);
 	if (is_builtin(exec->cmd[0]))
 		command_exec(data, exec);
 	else if (last_child(data, exec) < 0)
