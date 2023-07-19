@@ -3,27 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:48:42 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/18 22:14:39 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:47:34 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+char	*split_get_value(char *str)
+{
+	int		i;
+	int		j;
+	char	*ret;
+
+	ret = NULL;
+	j = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			break ;
+		i++;
+	}
+	if ((int)ft_strlen(str) == i)
+		return (NULL);
+	i++;
+	j = i;
+	while (str[i])
+		i++;
+	ret = ft_substr(str, j, i - j);
+	return (ret);
+}
+
 char	*get_value(t_list *env)
 {
-	char	**split;
-	char	*tmp;
+	char	*split;
 
-	split = ft_split(env->content, '=');
+	split = split_get_value(env->content);
 	if (!split)
 		return (NULL);
-	if (!split[1])
-		return (free_tab(split), NULL);
-	tmp = split[1];
-	return (free(split[0]), free(split), tmp);
+	return (split);
 }
 
 char	*ft_getenv(t_data *data, char *name)

@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 19:45:47 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/19 19:46:22 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:59:32 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**malloc_one_tab(t_data *data, char **str)
 
 void	malloc_one(t_data *data, t_list *tmp)
 {
+	free(tmp->content);
 	tmp->content = malloc(sizeof(char));
 	if (!tmp->content)
 		exit_all(data, 1, "Malloc problem in malloc_one");

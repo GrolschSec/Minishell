@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 16:55:22 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/19 19:46:16 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:00:39 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,5 @@ void	is_env_variable(t_data *data, t_list *tmp, int *i, char *prev)
 	if (!variable && !next && !prev)
 		malloc_one(data, tmp);
 	else
-	{
 		fill_all(tmp, variable, prev, next);
-	}
 }
