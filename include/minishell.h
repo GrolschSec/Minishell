@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/20 13:12:03 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:15:19 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ extern int	g_exit;
 enum e_buitin
 {
 	NOT_BUILTIN,
-	ECHO,void		add_node(int i, int j, char quotetype);
+	ECHO,
 	CD,
 	PWD,
 	EXPORT,
