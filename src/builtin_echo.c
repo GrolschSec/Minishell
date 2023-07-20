@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 12:53:17 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/19 21:30:18 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:02:00 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	echo_builtin(t_exec *exec)
 	check_options(exec, &i, &r);
 	while (exec->cmd[i])
 	{
-		printf("%s", exec->cmd[i]);
+		ft_putstr_fd(exec->cmd[i], STDOUT_FILENO);
 		if (exec->cmd[i + 1])
-			printf(" ");
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
 	if (r)
-		printf("\n");
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	g_exit = 0;
 }
 
