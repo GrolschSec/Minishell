@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 01:56:04 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/19 18:30:58 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:33:23 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,5 @@ int	last_child(t_data *data, t_exec *exec)
 	}
 	else if (pid)
 		last_child_main(pid, exec);
-	return (signal(SIGINT, ft_signal_newline), signal(SIGQUIT, SIG_IGN), 0);
+	return (signal(SIGINT, ft_signal_newline2), signal(SIGQUIT, SIG_IGN), 0);
 }
