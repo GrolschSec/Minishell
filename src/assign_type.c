@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:28:44 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/19 17:45:23 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:25:10 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,13 @@ void	assign_type(t_data *data)
 	{
 		if (tmp->content[0] == '~' && data->error == 0)
 		{
-			free(tmp->content);
 			if (data->tilde == NULL)
 				malloc_one(data, tmp);
 			else
+			{
+				free(tmp->content);
 				tmp->content = ft_strdup(data->tilde);
+			}
 		}
 		if (is_meta(tmp->content[0]) == 1 && data->error == 0)
 			parse_meta(data, tmp);
