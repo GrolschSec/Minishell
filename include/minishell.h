@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:29:02 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/20 13:15:19 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:20:55 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,6 @@ typedef struct s_data
 	char		*tilde;
 	char		*tmp_path_hd;
 }				t_data;
-
-/* PRINT ----  TO REMOVE */
-void		print_tab(t_data *data);
-void		print_all(t_data *data);
 
 /* MAIN */
 void		print_all(t_data *data);

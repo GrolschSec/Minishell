@@ -6,7 +6,7 @@
 /*   By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:33:03 by mrabourd          #+#    #+#             */
-/*   Updated: 2023/07/19 18:41:01 by mrabourd         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:12:08 by mrabourd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ void	exit_all(t_data *data, int err, char *str)
 {
 	data->error = 1;
 	if (str != NULL)
-		printf("%s\n", str);
+		ft_putstr_fd("str", STDERR_FILENO);
 	free_env(data);
-	if (str != NULL)
-		printf("%s\n", str);
 	if (data->tilde)
 		free(data->tilde);
 	if (err != 0)
