@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrabourd <mrabourd@student.42.fr>          +#+  +:+       +#+         #
+#    By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 19:11:07 by mrabourd          #+#    #+#              #
-#    Updated: 2023/07/19 19:46:57 by mrabourd         ###   ########.fr        #
+#    Updated: 2023/07/20 13:21:39 by rlouvrie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,10 +96,7 @@ fclean    :    clean
 
 re        :    fclean all
 
-valgrind  :	   
-	valgrind --track-fds=yes --log-file=leaks.txt --trace-children=yes --suppressions=rl_leaks.txt --leak-check=full --show-leak-kinds=all -s ./minishell
-
 debug: CFLAGS += -g -O0
 debug: all
 
-.PHONY    :    all clean fclean re valgrind
+.PHONY    :    all clean fclean re debug
