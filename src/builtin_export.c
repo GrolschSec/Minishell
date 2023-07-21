@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr >         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:12:49 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/07/19 21:24:38 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:55:56 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	parse_export(char *var)
 	int	i;
 
 	i = 0;
+	if (var[i] && var[i] == '=')
+		return (not_valid_identifier(var), 0);
 	while (var[i] && var[i] != '=')
 	{
 		if (i == 0 && var[i] == '-' && var[i + 1])
